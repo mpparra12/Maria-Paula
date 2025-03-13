@@ -1,0 +1,207 @@
+<div id="page-container" style="padding-top: 250px; margin-top: -1px;" class="et-animated-content">
+ 
+    <div id="top-header" class="">
+      <div class="container clearfix">
+ 
+ 
+        <div id="et-secondary-menu">
+          <ul id="et-secondary-nav" class="menu">
+            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147"><a
+                href="https://resident.avalonsevenmeadows.org/">LOGIN |</a></li>
+           <!--<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-540"><a
+                href="https://avalonsevenmeadows.org/registration/">NEW RESIDENT</a></li>-->
+                <li *ngIf="isLoggedIn"><button (click)="logout()">Logout</button></li>
+          </ul>
+        </div>
+ 
+      </div>
+    </div>
+ 
+ 
+    <header id="main-header" data-height-onload="213" data-height-loaded="true" data-fixed-height-onload="213"
+      style="top: 37.5px;" class="">
+      <div class="container clearfix et_menu_container">
+        <div class="logo_container">
+          <span class="logo_helper"></span>
+          <a href="">
+            <img
+            src="../../../../assets/logoDecon.png"
+              width="250" height="66" alt="Decon LLC" id="logo" data-height-percentage="87"
+              data-actual-width="600" data-actual-height="400">
+          </a>
+        </div>
+        <div id="et-top-navigation" data-height="165" data-fixed-height="67">
+          <nav id="top-menu-nav">
+            <ul id="top-menu" class="nav">
+             <!-- <li id="menu-item-401"
+                class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-401"><a
+                  href="https://avalonsevenmeadows.org/">Home</a></li>-->
+                  
+                  <li id="menu-item-586"
+                  class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-549 current_page_item menu-item-586">
+                  <a routerLink="/tabs" aria-current="page">Clients</a></li>
+              <li id="menu-item-587"
+                class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-587">
+               
+                <a
+                routerLink="">Proposals</a>
+                 
+                <ul class="sub-menu">
+                  <li id="menu-item-588" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-588"><a
+                    routerLink="/news">List</a></li>
+                  <li id="menu-item-588" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-588"><a
+                    routerLink="/keeping">Dashboard
+                </a></li>
+                  <li id="menu-item-589" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-589"><a
+                    routerLink="/board">Reports</a></li>
+                 <!-- <li id="menu-item-646" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-646"><a
+                      href="https://avalonsevenmeadows.org/financials/">Financials</a></li>-->
+                
+                </ul>
+              </li>
+  
+                  <li id="menu-item-647" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-647">
+                    <a>Projects</a>
+                    <ul class="sub-menu">
+                      <li id="menu-item-743" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-743">
+                        <a routerLink="/tabs">List</a>
+                      </li>
+                      <li id="menu-item-743" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-743">
+                        <a routerLink="/AdminAddress">Dashboard</a>
+                      </li>
+                      <li id="menu-item-647" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-647">
+                        <a routerLink="/AdminResident">Reports</a>
+                        
+                      </li>
+                      
+                      
+                    </ul>
+                  </li>
+                  <li id="menu-item-586"
+                  class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-549 current_page_item menu-item-586">
+                  <a routerLink="/tabs" aria-current="page">Rates</a></li>
+            </ul>
+          </nav>
+ 
+ 
+ 
+ 
+          <div id="et_mobile_nav_menu">
+            <div class="mobile_nav closed">
+              <span class="select_page">Select Page</span>
+              <span class="mobile_menu_bar mobile_menu_bar_toggle"></span>
+              <ul id="mobile_menu" class="et_mobile_menu">
+             <!--   <li id="menu-item-401"
+                  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-401 et_first_mobile_item">
+                  <a href="https://avalonsevenmeadows.org/">Home</a></li>
+                <li id="menu-item-586"
+                  class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-549 current_page_item menu-item-586">
+                  <a href="https://avalonsevenmeadows.org/news/" aria-current="page">What’s New</a></li>-->
+               
+              <!--   <li id="menu-item-704"
+                  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-704"><a
+                    href="https://avalonsevenmeadows.org/documents/">Documents</a>
+                 <ul class="sub-menu">
+                    <li id="menu-item-705" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-705">
+                      <a href="https://avalonsevenmeadows.org/documents/">Documents</a></li>
+                    <li id="menu-item-706" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-706">
+                      <a href="https://avalonsevenmeadows.org/?da_image=564">Avalon Maps</a></li>
+                  </ul>
+                </li>
+                <li id="menu-item-541"
+                  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-541"><a
+                    href="https://avalonsevenmeadows.org/contactsw/">About</a>
+                  <ul class="sub-menu">
+                    <li id="menu-item-542" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-542">
+                      <a href="https://avalonsevenmeadows.org/contactsw/">Contacts</a></li>
+                    <li id="menu-item-403" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-403">
+                      <a href="https://avalonsevenmeadows.org/gallery/">Photo Gallery</a></li>
+                    <li id="menu-item-622" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-622">
+                      <a href="https://avalonsevenmeadows.org/member-directory/">Member Directory</a></li>
+                  </ul>
+                </li>
+                <li id="menu-item-543" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-543"><a
+                    href="https://avalonsevenmeadows.org/contact-us/">Contact Us</a></li>
+                <li id="menu-item-620" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-620"><a
+                    href="https://avalonsevenmeadows.org/medicare-3/">FAQ</a></li>-->
+                <li id="menu-item-647"
+                  class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-647"><a
+                    href="#">Administration</a>
+                    <ul class="sub-menu">
+                        <li id="menu-item-743" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-743">
+                          <a routerLink="/AdminResident">Residents</a>
+                          <a routerLink="/AdminVehicles">Vehicles</a>
+                          <a routerLink="/AdminAddress">Address</a>
+                          <li id="menu-item-647"
+                          class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-647"><a
+                            href="#">EMR</a>
+                          <ul class="sub-menu">
+                            <li id="menu-item-743" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-743">
+                              <a routerLink="/AdminConfiguration">Configuration</a>
+                              <a routerLink="/AdminEMR">EMR's</a>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                </li>
+                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147"><a
+                    href="https://resident.avalonsevenmeadows.org/">LOGIN |</a></li>
+                    <li *ngIf="isLoggedIn"><button (click)="logout()">Logout</button></li>
+                <!--<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-540"><a
+                    href="https://avalonsevenmeadows.org/registration/">REGISTER</a></li>-->
+              </ul>
+            </div>
+          </div>
+        </div> <!-- #et-top-navigation -->
+      </div> <!-- .container -->
+    </header> <!-- #main-header -->
+   
+    <div id="et-main-area">
+ 
+      <div id="main-content">
+ 
+        <article id="post-549" class="post-549 page type-page status-publish hentry">
+          <div class="entry-content">
+            <div class="et-l et-l--post">
+              <div class="et_builder_inner_content et_pb_gutters3">
+                <div class="et_pb_with_border et_pb_section et_pb_section_0 et_pb_with_background et_section_regular">
+                </div>
+                <div class="et_pb_section et_pb_section_1 et_pb_with_background et_section_regular">
+                  <div class="et_pb_row et_pb_row_0">
+                    <div
+                      class="et_pb_column et_pb_column_4_4 et_pb_column_0  et_pb_css_mix_blend_mode_passthrough et-last-child">
+ 
+                      <div class="et_pb_text_inner">
+                        <h1 class="customText1 mb-0"><span style="color: #ffffff;">{{headerName}}</span></h1>
+                      </div>
+ 
+                    </div>
+                  </div>
+                </div>
+                <div class="et_pb_section et_pb_section_2 et_section_regular">
+                  <div class="et_pb_row et_pb_row_1">
+                    <div
+                      class="et_pb_column et_pb_column_4_4 et_pb_column_1  et_pb_css_mix_blend_mode_passthrough et-last-child">
+                      <div class="et_pb_module et_pb_text et_pb_text_1  et_pb_text_align_left et_pb_bg_layout_light">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+ 
+        </article>
+ 
+ 
+ 
+      </div>
+ 
+ 
+    </div>
+ 
+ 
+    <div id="et-boc" class="container dm-base-context">
+      <div class="et-l dm-base-context"></div>
+    </div>
+  </div>

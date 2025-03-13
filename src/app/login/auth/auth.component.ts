@@ -1,6 +1,6 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ApiService } from 'src/app/services/api.service';
+import { ApiService } from '../../services/api.service'; 
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
 
@@ -64,7 +64,7 @@ export class AuthComponent implements OnInit {
     }
 
    submit() {
-      this.spinner.show();
+    /*  this.spinner.show();
     this.api.login(this.loginForm.value)
       .subscribe((resp:any) => {
         if (resp.success) {
@@ -75,13 +75,13 @@ export class AuthComponent implements OnInit {
           this.spinner.hide();
           alert(resp.error)
         } 
-      })
+      })*/
     }
     
     
 
     login(perfil:number) {
-      this.spinner.show();
+   /*   this.spinner.show();
     this.api.login(this.loginForm.value)
       .subscribe((resp:any) => {
         if (resp.success) {
@@ -92,7 +92,7 @@ export class AuthComponent implements OnInit {
           this.spinner.hide();
           alert(resp.error)
         } 
-      })
+      })*/
     }
         
     ForgotPassword()
