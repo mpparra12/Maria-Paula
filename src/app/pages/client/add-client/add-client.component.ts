@@ -106,7 +106,8 @@ export class AddClientComponent implements OnInit {
   }*/
  
   onSubmit() {
-    debugger;
+    //debugger;
+    console.log('Estoy en Submit:');
       this.Form = this.fb.group({
         Name:[this.form.get('Name')!.value],
         Address:[ this.form.get('Address')!.value],
@@ -121,6 +122,7 @@ export class AddClientComponent implements OnInit {
         Procedure:[this.form.get('Procedure')!.value]
      })
  
+     console.log('Pase el formulario',this.Form);
    
       this.apiServices.addClient(this.Form.value).subscribe((resp:any)=>{
         console.log('Formulario enviado a nuevo cliente:', resp);
