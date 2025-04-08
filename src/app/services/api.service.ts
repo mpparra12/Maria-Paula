@@ -10,7 +10,7 @@ export class ApiService {
   private apiUrlWP = 'https://avalonsevenmeadows.org/wp-json/wp/v2/pages';
    apiUrl="http://gonzalad2016-001-site8.ntempurl.com/index.php/api/decon";
    //apiUrl="http://decon_api.test";
-  //apiUrl="http://apiavalon.test";
+
   constructor(private http: HttpClient) { }
  
   getPageContent(pageId: number) {
