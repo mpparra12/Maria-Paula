@@ -28,6 +28,10 @@ export class ApiService {
   addClient(form: any){
     return this.http.post(this.apiUrl+"/AddClient",form)
   }
+  updateClient(form: any){
+    return this.http.post(this.apiUrl+"/AddClient",form)
+  }
+  
  
 
  /* login(form: LoginI){

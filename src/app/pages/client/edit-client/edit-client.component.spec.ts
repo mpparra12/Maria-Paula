@@ -1,8 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ApiService } from '../../../services/api.service';
-import { Router } from '@angular/router';
+
 import { EditClientComponent } from './edit-client.component';
 
 describe('EditClientComponent', () => {
