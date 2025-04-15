@@ -13,9 +13,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ReactiveFormsModule } from '@angular/forms';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes),provideHttpClient(), importProvidersFrom(CommonModule, MatCardModule, 
+  providers: [provideRouter(routes),provideHttpClient(),provideAnimations(), importProvidersFrom(CommonModule, MatCardModule, 
     MatTooltipModule, MatButtonModule, MatIconModule, MatFormFieldModule,  MatInputModule,  MatCheckboxModule,  ReactiveFormsModule)]
 };
 
