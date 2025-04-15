@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import {MatCardModule} from '@angular/material/card';
 import { ListClientsComponent } from './list-clients.component';
 
 describe('ListClientsComponent', () => {
@@ -8,7 +8,7 @@ describe('ListClientsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ListClientsComponent]
+      imports: [ListClientsComponent,MatCardModule,]
     })
     .compileComponents();
     
