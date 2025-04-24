@@ -234,7 +234,7 @@ constructor(
 
   edit(data:any):void{
    
-    this._route.navigate(['/Editaddress'],{state:{ resident:{data}}});
+    this._route.navigate(['/EditClient'],{state:{ client:{data}}});
  
   }
  

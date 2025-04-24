@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../../services/api.service';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-edit-client',
   standalone: true,
@@ -14,7 +15,7 @@ export class EditClientComponent implements OnInit {
   myForm: FormGroup | any;
   form: FormGroup | any;
   address!:any[];
-  resident!:any;
+  client!:any;
   selected!:any; 
   hidden_ind!:any;
   directory_code!:any;
@@ -35,38 +36,42 @@ export class EditClientComponent implements OnInit {
       let data = this._route.getCurrentNavigation()?.extras.state!['client'];
           console.log("Data Resident",data);
           
-          this.resident = data.resident;
+          this.client = data;
          // console.log("Resident Data",this.resident);
-         this.hidden_ind =  String(this.resident.hidden_ind);
-         this.directory_code =  String(this.resident.directory_code);
-         console.log("hidden_ind",this.hidden_ind);
-          this.selected=String(this.resident.residenttypeID);
-          this.residenceId=this.resident.residence_id;
+        // this.hidden_ind =  String(this.resident.hidden_ind);
+        // this.directory_code =  String(this.resident.directory_code);
+         //console.log("hidden_ind",this.hidden_ind);
+         // this.selected=String(this.resident.residenttypeID);
+          this.residenceId=this.client.ID;
           //var frg = this.resident.name.split(",");
           //var resultLast = frg[0];
           //var resultFirst = frg[1];
           //var resultMiddle = resultFirst.split(" ");
           //console.log(result)
           this.myForm = this.fb.group({
-            address: [this.resident.address, Validators.required],            
-            resident_id: [this.resident.resident_id, Validators.required],
-            alternatephone: [this.resident.alternatephone],
-            email: [this.resident.email, Validators.required],
-            middle:[this.resident.middlename],
-            leaseenddate: [this.resident.leaseenddate, Validators.required],
-            name:[this.resident.firstname,Validators.required],
-            last:[this.resident.lastname,Validators.required],
-            primaryphone:[this.resident.primaryphone,Validators.required],
-            residenttype:[this.resident.residenttype,Validators.required],
-            selectedOption1: ['', Validators.required],
-            additionalEmail: [this.resident.additionalEmail],
-            directoryName: [this.resident.directory_name],   
-            directoryPhone: [this.resident.directory_phone],
-            directory_code: [this.resident.directory_code],
-            hidden_ind: [this.resident.hidden_ind],
-            dir: [this.resident.dir],
+            Name: [this.client.name, Validators.required],            
+            Address: [this.client.Address, Validators.required],
+            Active: [this.client.Active],
+            City: [this.client.City, Validators.required],
+            Country:[this.client.Country],
+            Documents_and_other_requirements: [this.client.Documents_and_other_requirements, Validators.required],
+            Invoice_Date:[this.client.Invoice_Date,Validators.required],
+            Logo:[this.client.Logo,Validators.required],
+            Period_of_Invoice:[this.client.Period_of_Invoice,Validators.required],
+            Procedure:[this.client.Procedure,Validators.required],
+            State:[this.client.State,Validators.required],
+            ZipCode:[this.client.ZipCode,Validators.required],
+           // selectedOption1: ['', Validators.required],
+           // additionalEmail: [this.resident.additionalEmail],
+           // directoryName: [this.resident.directory_name],   
+           // directoryPhone: [this.resident.directory_phone],
+//directory_code: [this.resident.directory_code],
+           /// hidden_ind: [this.resident.hidden_ind],
+           // dir: [this.resident.dir],
             selectedOption2: ['', Validators.required]
           });
+
+         
           
       // this.vehicle= data.data;
       // console.log("vehicle",this.vehicle);
@@ -109,7 +114,7 @@ export class EditClientComponent implements OnInit {
      formData.append('alternate_phone', this.myForm.get('alternatephone')!.value);
      formData.append('resident_type_id', this.myForm.get('selectedOption1')!.value);
      //formData.append('wp_user_id',  this.myForm.get('leaseenddate')!.value);   
-     formData.append('resident_id',  this.resident.residence_id);   
+     formData.append('resident_id',  this.client.ID);   
       
       
      

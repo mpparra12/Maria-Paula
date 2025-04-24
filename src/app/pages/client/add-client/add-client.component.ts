@@ -119,6 +119,8 @@ export class AddClientComponent implements OnInit {
         Country:[this.form.get('Country')!.value],
         Period_of_Invoice:[this.form.get('Period_of_Invoice')!.value],
         Invoice_Date:[this.form.get('Invoice_Date')!.value],
+        IdClient: null,
+        Documents_and_other_requirements:null,
         Procedure:[this.form.get('Procedure')!.value]
      })
  
