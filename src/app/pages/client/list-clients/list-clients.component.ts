@@ -232,6 +232,15 @@ constructor(
  
   }
 
+  ListProposal():void{
+   
+    this._route.navigate(['/ListProposal']);
+ 
+  }
+
+  
+  
+
   edit(data:any):void{
    
     this._route.navigate(['/EditClient'],{state:{ client:{data}}});
