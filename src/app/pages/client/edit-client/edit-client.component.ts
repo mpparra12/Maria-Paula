@@ -142,18 +142,18 @@ onSubmit() {
   
     
    this.form = this.fb.group({
-    Name: [this.myForm.get('name')!.value],            
-    Address: [this.myForm.get('name')!.value],
-    Active: [this.myForm.get('name')!.value],
-    City: [this.myForm.get('name')!.value],
-    Country:[this.myForm.get('name')!.value],
-    Documents_and_other_requirements: [this.myForm.get('name')!.value],
-    Invoice_Date:[this.myForm.get('name')!.value],
-    Logo:[this.myForm.get('name')!.value],
-    Period_of_Invoice:[this.myForm.get('name')!.value],
-    Procedure:[this.myForm.get('name')!.value],
-    State:[this.myForm.get('name')!.value],
-    ZipCode:[this.myForm.get('name')!.value],
+    Name: [this.myForm.get('Name')!.value],            
+    Address: [this.myForm.get('Address')!.value],
+    Active: [this.myForm.get('Active')!.value],
+    City: [this.myForm.get('City')!.value],
+    Country:[this.myForm.get('Country')!.value],
+    Documents_and_other_requirements: [this.myForm.get('Documents_and_other_requirements')!.value],
+    Invoice_Date:[this.myForm.get('Invoice_Date')!.value],
+    Logo:[this.myForm.get('Logo')!.value],
+    Period_of_Invoice:[this.myForm.get('Period_of_Invoice')!.value],
+    Procedure:[this.myForm.get('Procedure')!.value],
+    State:[this.myForm.get('State')!.value],
+    ZipCode:[this.myForm.get('ZipCode')!.value],
     ID:[this.ClientId]
 
 
@@ -164,7 +164,7 @@ onSubmit() {
    console.log('Formulario aupte:', this.form.value);
    this.apiServices.updateClient(this.form.value).subscribe((resp:any)=>{
      console.log('Formulario enviado:', resp);
-     alert("Resident updated");
+     alert("Client updated");
      this.back();
    }
   )
