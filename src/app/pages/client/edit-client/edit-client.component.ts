@@ -2,11 +2,24 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../../services/api.service';
 import { Router } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MenuComponent } from '../../../components/menu/menu/menu.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-edit-client',
   standalone: true,
-  imports: [],
+  imports: [ MatCardModule,CommonModule,
+        MatIconModule, MatFormFieldModule,ReactiveFormsModule,
+       MatTooltipModule, MatButtonModule,  MatInputModule,  MatCheckboxModule
+  ],  
   templateUrl: './edit-client.component.html',
   styleUrl: './edit-client.component.css'
 })
@@ -17,9 +30,10 @@ export class EditClientComponent implements OnInit {
   address!:any[];
   client!:any;
   selected!:any; 
-  hidden_ind!:any;
+  name!:any; 
+  active!:any;
   directory_code!:any;
-  residenceId!:any; 
+  ClientId!:any; 
   residentType!:any[];
   residentCode!:any[];
   selectedFile: File | null = null;
@@ -37,30 +51,23 @@ export class EditClientComponent implements OnInit {
           console.log("Data Resident",data);
           
           this.client = data;
-         // console.log("Resident Data",this.resident);
-        // this.hidden_ind =  String(this.resident.hidden_ind);
-        // this.directory_code =  String(this.resident.directory_code);
-         //console.log("hidden_ind",this.hidden_ind);
-         // this.selected=String(this.resident.residenttypeID);
-          this.residenceId=this.client.ID;
-          //var frg = this.resident.name.split(",");
-          //var resultLast = frg[0];
-          //var resultFirst = frg[1];
-          //var resultMiddle = resultFirst.split(" ");
-          //console.log(result)
+          this.ClientId=this.client.data.ID;
+          this.active=this.client.data.Active;
+          this.name=this.client.data.Name;
+          console.log("Active", this.active);
           this.myForm = this.fb.group({
-            Name: [this.client.name, Validators.required],            
-            Address: [this.client.Address, Validators.required],
-            Active: [this.client.Active],
-            City: [this.client.City, Validators.required],
-            Country:[this.client.Country],
-            Documents_and_other_requirements: [this.client.Documents_and_other_requirements, Validators.required],
-            Invoice_Date:[this.client.Invoice_Date,Validators.required],
-            Logo:[this.client.Logo,Validators.required],
+            Name: [this.client.data.Name],            
+            Address: [this.client.data.Address, Validators.required],
+            Active: [this.client.data.Active],
+            City: [this.client.data.City, Validators.required],
+            Country:[this.client.data.Country],
+            Documents_and_other_requirements: [this.client.data.Documents_and_other_requirements, Validators.required],
+            Invoice_Date:[this.client.data.Invoice_Date,Validators.required],
+            Logo:[this.client.data.Logo,Validators.required],
             Period_of_Invoice:[this.client.Period_of_Invoice,Validators.required],
-            Procedure:[this.client.Procedure,Validators.required],
-            State:[this.client.State,Validators.required],
-            ZipCode:[this.client.ZipCode,Validators.required],
+            Procedure:[this.client.data.Procedure,Validators.required],
+            State:[this.client.data.State,Validators.required],
+            ZipCode:[this.client.data.ZipCode,Validators.required],
            // selectedOption1: ['', Validators.required],
            // additionalEmail: [this.resident.additionalEmail],
            // directoryName: [this.resident.directory_name],   
@@ -68,10 +75,11 @@ export class EditClientComponent implements OnInit {
 //directory_code: [this.resident.directory_code],
            /// hidden_ind: [this.resident.hidden_ind],
            // dir: [this.resident.dir],
-            selectedOption2: ['', Validators.required]
+          //  selectedOption2: ['', Validators.required]
+
           });
 
-         
+         console.log("Datos a editar",this.myForm);
           
       // this.vehicle= data.data;
       // console.log("vehicle",this.vehicle);
@@ -134,21 +142,21 @@ onSubmit() {
   
     
    this.form = this.fb.group({
-    first_name:[this.myForm.get('name')!.value],
-    middle_name:[ this.myForm.get('middle')!.value],
-    last_name:[this.myForm.get('last')!.value],
-    email_address:[this.myForm.get('email')!.value],
-    primary_phone:[this.myForm.get('primaryphone')!.value],
-    alternate_phone:[this.myForm.get('alternatephone')!.value],
-    resident_type_id:[this.myForm.get('selectedOption1')!.value,Validators.required],
-    directoryName: [this.myForm.get('directoryName')!.value],   
-    directoryPhone: [this.myForm.get('directoryPhone')!.value],
-    directory_code: [this.myForm.get('directory_code')!.value],
-    hidden_ind: [this.myForm.get('hidden_ind')!.value],
-    dir: [this.myForm.get('dir')!.value],
-    address: [this.myForm.get('address')!.value], 
-    residenceId: [this.residenceId],
-    resident_id:[this.myForm.get('resident_id')!.value]
+    Name: [this.myForm.get('name')!.value],            
+    Address: [this.myForm.get('name')!.value],
+    Active: [this.myForm.get('name')!.value],
+    City: [this.myForm.get('name')!.value],
+    Country:[this.myForm.get('name')!.value],
+    Documents_and_other_requirements: [this.myForm.get('name')!.value],
+    Invoice_Date:[this.myForm.get('name')!.value],
+    Logo:[this.myForm.get('name')!.value],
+    Period_of_Invoice:[this.myForm.get('name')!.value],
+    Procedure:[this.myForm.get('name')!.value],
+    State:[this.myForm.get('name')!.value],
+    ZipCode:[this.myForm.get('name')!.value],
+    ID:[this.ClientId]
+
+
    // family_id:[this.owneradd]
    })
 
@@ -194,8 +202,8 @@ onSubmit() {
     });
 
   }*/
-  buildForm(){
-    this.myForm = this.fb.group({
+  //buildForm(){
+  /*  this.myForm = this.fb.group({
       selectedOption: ['', Validators.required],
       name: ['', Validators.required],
       middle: [''],
@@ -207,8 +215,8 @@ onSubmit() {
       directoryName:[''],
       directoryPhone:[''],
       fileInput: [null]
-    });
-  }
+    });*/
+ // }
 /*
   getResidentType()
   {
