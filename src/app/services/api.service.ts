@@ -24,6 +24,13 @@ export class ApiService {
     return this.http.get<any>(`${this.apiUrl}/getAll`)
    // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
   }
+  getProjectQAQC()
+  {
+    return this.http.get<any>(`${this.apiUrl}/getProjectQAQC`)
+   // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
+  }
+
+  
 
   addClient(form: any){
     return this.http.post(this.apiUrl+"/AddClient",form)
@@ -33,7 +40,9 @@ export class ApiService {
    // return this.http.put(this.apiUrl+"/updateClient",form)
   }
   
- 
+  deleteClient(client_id: any) {
+    return this.http.post<any>(`${this.apiUrl}/deleteClient`,client_id)
+  }
 
  /* login(form: LoginI){
     return this.http.post(this.apiUrl+"/login",form)

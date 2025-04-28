@@ -3,14 +3,14 @@ import { FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { ApiService } from '../../../services/api.service';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
 import { Router, Route } from '@angular/router';
-import { CustomLink } from './model/custom-link';
+import { CustomLink } from '../../client/list-clients/model/custom-link';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatSort,Sort} from '@angular/material/sort';
-import { client } from './model/clients';
+import { projectQAQC } from '../../client/list-clients/model/projectQAQC'
 import {TooltipPosition} from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -26,27 +26,20 @@ import { isPlatformBrowser } from '@angular/common'
 import { CommonModule } from '@angular/common';
 import { MenuComponent } from '../../../components/menu/menu/menu.component';
 
-
-
-
 @Component({
-  selector: 'app-list-clients',
+  selector: 'app-list-projects-qaqc',
   standalone: true,
-
-  imports: [
-     MatTableModule, 
+  imports: [ MatTableModule, 
     MatPaginatorModule, 
     MatSortModule, 
     MatCardModule,CommonModule,
     MatIconModule, MatFormFieldModule,ReactiveFormsModule,
-    MatTableExporterModule, MenuComponent,
-    MatTooltipModule, MatButtonModule,  MatInputModule,  MatCheckboxModule
-  ],
-  providers: [ApiService],
-  templateUrl: './list-clients.component.html',
-  styleUrl: './list-clients.component.css'
+    MatTableExporterModule,
+    MatTooltipModule, MatButtonModule,  MatInputModule,  MatCheckboxModule],
+  templateUrl: './list-projects-qaqc.component.html',
+  styleUrl: './list-projects-qaqc.component.css'
 })
-export class ListClientsComponent implements OnInit{
+export class ListProjectsQAQCComponent implements OnInit{
   positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
  
   myForm: FormGroup | any;
@@ -55,35 +48,23 @@ export class ListClientsComponent implements OnInit{
   formData: any = {}; // Objeto para almacenar los datos del formulario , 'residence_id',
  // displayedColumnsS: string[] = [ 'ClientID','Name', 'Address','City','State','ZipCode','Logo','Active','Country' ,'Period_of_Invoice','Invoice_Date','ProcedureDetails','Actions'];
  displayedColumns: string[] = [
-  'ClientID', 
-  'Name', 
-  'Address', 
-  'City', 
-  'State', 
-  'ZipCode', 
-  'Logo', 
-  'Active', 
-  'Country', 
-  'Period_of_Invoice', 
-  'Invoice_Date', 
-  'ProcedureDetails',
-  'Actions'
+  'ID', 
+  'ProjectName', 
+  'ClientName', 
+  'ProjectDescription', 
+  'PM',
+  'ProjectType'
 ];
 
-EmpData : client[]=[ 
+EmpData : projectQAQC[]=[ 
   {
-    ClientID: 24,
-    Name: "TENSAR",
-    Address: "xx",
-    City: "xx",
-    State: "xx",
-    ZipCode: "xx",
-    Logo: "tensar.png",
-    Active: 0,
-    Country: "xx",
-    Period_of_Invoice: "xx",
-    Invoice_Date: "xx",
-    ProcedureDetails: "xx"
+    ID: 24,
+    ProjectName: "1700.00",
+    ClientName: "xx",
+    ProjectDescription: "xx",
+    PM: "xx",
+    ProjectType:'XX'
+
   }
 ];
 
@@ -94,7 +75,7 @@ EmpData : client[]=[
    
 
   owner: any;
-  dataSource = new MatTableDataSource<client>(this.EmpData);
+  dataSource = new MatTableDataSource<projectQAQC>(this.EmpData);
   //dataSource: any;
   dataSourceV: any;
   dataSourceG: any;
@@ -189,11 +170,11 @@ constructor(
         console.log("User Data:", parsedUser);
       }*/
   
-      this.apiServices.getClientsAll().subscribe(
+      this.apiServices.getProjectQAQC().subscribe(
        
         (resp) => {
           debugger;
-          console.log("Clients:", resp);
+          console.log("getProjectQAQC:", resp);
           this.dataSource.data = resp;
         },
         (error) => {

@@ -5,6 +5,7 @@ import { AddClientComponent } from './pages/client/add-client/add-client.compone
 import { EditClientComponent } from './pages/client/edit-client/edit-client.component';
 import { DashboardProposalComponent } from './pages/proposal/dashboard-proposal/dashboard-proposal.component';
 import { ListProposalComponent} from './pages/proposal/list-proposal/list-proposal.component'
+import { ListProjectsQAQCComponent } from './pages/QAQC/list-projects-qaqc/list-projects-qaqc.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/ListClient', pathMatch: 'full' }, 
@@ -12,8 +13,8 @@ export const routes: Routes = [
     { path: 'AddClient', component: AddClientComponent },
     { path: 'EditClient', component: EditClientComponent },
     { path: 'DashboardProposal', component: DashboardProposalComponent },    
-    { path: 'ListProposal', component: ListProposalComponent }   
-
+    { path: 'ListProposal', component: ListProposalComponent },   
+    { path: 'ListProjectsQAQC', component: ListProjectsQAQCComponent } 
  
 ];
 
