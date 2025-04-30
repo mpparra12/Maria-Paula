@@ -29,12 +29,12 @@ import { MenuComponent } from '../../../components/menu/menu/menu.component';
 @Component({
   selector: 'app-list-projects-qaqc',
   standalone: true,
-  imports: [ MatTableModule, 
+  imports: [  MatTableModule, 
     MatPaginatorModule, 
     MatSortModule, 
     MatCardModule,CommonModule,
     MatIconModule, MatFormFieldModule,ReactiveFormsModule,
-    MatTableExporterModule,
+    MatTableExporterModule, MenuComponent,
     MatTooltipModule, MatButtonModule,  MatInputModule,  MatCheckboxModule],
   templateUrl: './list-projects-qaqc.component.html',
   styleUrl: './list-projects-qaqc.component.css'
@@ -53,7 +53,8 @@ export class ListProjectsQAQCComponent implements OnInit{
   'ClientName', 
   'ProjectDescription', 
   'PM',
-  'ProjectType'
+  'ProjectType',
+  'Actions'
 ];
 
 EmpData : projectQAQC[]=[ 
@@ -219,12 +220,16 @@ constructor(
  
   }
 
-  
+  QA(data:any):void{
+   
+    this._route.navigate(['/QADetails'],{state:{ DetailProject:{data}}});
+ 
+  }
   
 
-  edit(data:any):void{
+  QC(data:any):void{
    
-    this._route.navigate(['/EditClient'],{state:{ client:{data}}});
+    this._route.navigate(['/QCDetails'],{state:{ DetailProject:{data}}});
  
   }
  

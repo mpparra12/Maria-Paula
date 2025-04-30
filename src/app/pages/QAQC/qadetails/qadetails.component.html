@@ -1,0 +1,225 @@
+<app-menu headerName="QA Details"></app-menu>
+
+  
+  <div class="container">
+   
+  <div class="content">
+  <mat-card>
+    <mat-card-content>
+      <form class="example-form" [formGroup]="myForm" (ngSubmit)="onSubmit()" >
+         
+ 
+          <table class="example-full-width" cellspacing="0"><tr>
+            <td><mat-form-field class="example-full-width">
+              <mat-label>Status</mat-label>
+              <input matInput formControlName="Status" placeholder="Ex. Houston">
+         
+            </mat-form-field></td>
+            <td><mat-form-field class="example-full-width">
+              <mat-label>Client</mat-label>
+              <input matInput formControlName="ClientName" placeholder="Ex. Texas">
+          
+            </mat-form-field></td>
+            <td><mat-form-field class="example-full-width">
+              <mat-label>Project Name</mat-label>
+              <input matInput #postalCode maxlength="5" formControlName="ProjectName" placeholder="Ex. 94105" value="94043">
+              <mat-hint align="end">{{postalCode.value.length}} / 7</mat-hint>
+            
+            </mat-form-field></td>
+            <td><mat-form-field class="example-full-width">
+              <mat-label>Project Type</mat-label>
+              <input matInput #postalCode maxlength="5" formControlName="Country" placeholder="Ex. 94105" value="94043">
+              <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+             
+            </mat-form-field></td>            
+          </tr>
+          <tr>
+            <td colspan="3" class="example-full-width"><mat-form-field class="example-full-width">
+              <mat-label>Project Description</mat-label>
+              <input matInput formControlName="ProjectDescription" placeholder="Ex. Houston">
+         
+            </mat-form-field></td>
+
+            <td><mat-form-field class="example-full-width">
+              <mat-label>Project Manager</mat-label>
+              <input matInput #postalCode maxlength="5" formControlName="Country" placeholder="Ex. 94105" value="94043">
+              <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+             
+            </mat-form-field></td>            
+          </tr>
+          <tr>
+            <td><mat-form-field class="example-full-width">
+              <mat-label>Market</mat-label>
+              <input matInput formControlName="City" placeholder="Ex. Houston">
+         
+            </mat-form-field></td>
+            <td><mat-form-field class="example-full-width">
+              <mat-label>Discipline</mat-label>
+              <input matInput formControlName="Discipline" placeholder="Ex. Texas">
+          
+            </mat-form-field></td>
+            <td><mat-form-field class="example-full-width">
+              <mat-label>Enginering Services</mat-label>
+              <input matInput #postalCode maxlength="5" formControlName="ServiceEng" placeholder="Ex. 94105" value="94043">
+                        
+            </mat-form-field></td>
+          
+          </tr>          
+          <tr>
+            <td><mat-form-field class="example-full-width">
+              <mat-label>State</mat-label>
+              <input matInput formControlName="City" placeholder="Ex. Houston">
+         
+            </mat-form-field></td>
+            <td><mat-form-field class="example-full-width">
+              <mat-label>Country</mat-label>
+              <input matInput formControlName="State" placeholder="Ex. Texas">
+          
+            </mat-form-field></td>
+            <td><mat-form-field class="example-full-width">
+              <mat-label>City</mat-label>
+              <input matInput #postalCode maxlength="5" formControlName="ZipCode" placeholder="Ex. 94105" value="94043">
+              <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+            
+            </mat-form-field></td>
+            <td><mat-form-field class="example-full-width">
+                <mat-label>Zip Code</mat-label>
+                <input matInput #postalCode maxlength="5" formControlName="ZipCode" placeholder="Ex. 94105" value="94043">
+                <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+              
+              </mat-form-field></td>            
+          
+          </tr>                    
+        </table>
+  
+          
+            <br>                      
+  
+           
+
+            <!-- Botón de enviar -->
+            
+          </form>
+
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="mat-elevation-z0 outline" >
+
+    <mat-card-content>
+      
+        <button matTooltip=
+        "Hover to display information on right." mat-icon-button color="warm" (click)="exporter.exportTable('csv',{fileName:'address'+'_'+'Date'})">
+   
+          <!--  <button mat-icon-button color="primary" (click)="emailSupport(element.map_url)"> -->                    
+             <mat-icon>file_copy</mat-icon>
+           </button>
+       
+
+
+          <table 
+          [style.width.%]="100"
+          mat-table
+          [dataSource]="dataSource"
+          class="mat-elevation-z8"
+          matSort
+          #empTbSort="matSort"
+          matTableExporter #exporter="matTableExporter"
+          [hiddenColumns]="[7,8,9]"
+        >
+         <!-- <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumnsS">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column }}</th>
+            </ng-container>
+         
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsS"></tr>
+
+            <tr mat-row *matRowDef="let emp; columns: displayedColumnsS"></tr>-->
+            <ng-container matColumnDef="ID">
+              <th mat-header-cell *matHeaderCellDef> ID </th>
+              <td mat-cell *matCellDef="let element"> {{ element.ID }} </td>
+            </ng-container>
+          
+            <!-- Nombre -->
+            <ng-container matColumnDef="ProjectName">
+              <th mat-header-cell *matHeaderCellDef> Project Name </th>
+              <td mat-cell *matCellDef="let element"> {{ element.ProjectName }} </td>
+            </ng-container>
+          
+            <!-- Dirección -->
+            <ng-container matColumnDef="ClientName">
+              <th mat-header-cell *matHeaderCellDef> Client Name </th>
+              <td mat-cell *matCellDef="let element"> {{ element.ClientName || 'N/A' }} </td>
+            </ng-container>
+          
+            <!-- Ciudad -->
+            <ng-container matColumnDef="ProjectDescription">
+              <th mat-header-cell *matHeaderCellDef> Project Description </th>
+              <td mat-cell *matCellDef="let element"> {{ element.ProjectDescription || 'N/A' }} </td>
+            </ng-container>
+          
+            <!-- Estado -->
+            <ng-container matColumnDef="PM">
+              <th mat-header-cell *matHeaderCellDef> Project Manager </th>
+              <td mat-cell *matCellDef="let element"> {{ element.PM || 'N/A' }} </td>
+            </ng-container>
+          
+            <!-- Código Postal -->
+            <ng-container matColumnDef="ProjectType">
+              <th mat-header-cell *matHeaderCellDef> Project Type </th>
+              <td mat-cell *matCellDef="let element"> {{ element.ProjectType || 'N/A' }} </td>
+            </ng-container>
+          
+
+
+
+            <ng-container matColumnDef="Actions">
+              <th mat-header-cell *matHeaderCellDef> Actions </th>
+              <td mat-cell *matCellDef="let element"> 
+                
+   
+                <!--
+                <button mat-icon-button color="warn">
+                  <mat-icon>delete</mat-icon>
+                </button>-->
+              </td>
+            </ng-container>
+          
+            <!-- Encabezado de la fila -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          
+            <!-- Filas -->
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          
+          </table>
+
+        <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+          <!-- Campo de selección (input select) -->
+          <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+                      <mat-form-field appearance="fill">
+                          <mat-label>Select option</mat-label>
+                          <mat-select formControlName="address">
+                            <mat-option value="opcion1">Option 1</mat-option>
+                            <mat-option value="opcion2">Option 2</mat-option>
+                            <mat-option value="opcion3">Option 3</mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="myForm.get('address').hasError('required')">This field is required</mat-error>
+                        </mat-form-field>
+                  </div> -->
+          <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+                      <mat-label>Owner Details</mat-label>
+                      <button mat-raised-button color="primary" (click)="addRow()">Add Row</button> -->
+          <!-- Campo de correo electrónico (input email) -->
+          <!-- <mat-form-field appearance="fill">
+                          <input matInput type="email" formControlName="mailingAddress" placeholder="Correo electrónico">
+                          <mat-error *ngIf="myForm.get('mailingAddress').hasError('required')">This field is required</mat-error>
+                          <mat-error *ngIf="myForm.get('mailingAddress').hasError('email')">Invalid email</mat-error>
+                      </mat-form-field> -->
+          <!-- </div> -->
+         
+
+          <!-- Botón de enviar -->
+
+        </form>
+    </mat-card-content>
+  </mat-card>
+
+  </div></div>

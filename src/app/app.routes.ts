@@ -6,6 +6,9 @@ import { EditClientComponent } from './pages/client/edit-client/edit-client.comp
 import { DashboardProposalComponent } from './pages/proposal/dashboard-proposal/dashboard-proposal.component';
 import { ListProposalComponent} from './pages/proposal/list-proposal/list-proposal.component'
 import { ListProjectsQAQCComponent } from './pages/QAQC/list-projects-qaqc/list-projects-qaqc.component';
+import { QADetailsComponent } from './pages/QAQC/qadetails/qadetails.component';
+import { QCDetailsComponent } from './pages/QAQC/qcdetails/qcdetails.component';
+import { QCNewComponent } from './pages/QAQC/qc-new/qc-new.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/ListClient', pathMatch: 'full' }, 
@@ -14,8 +17,10 @@ export const routes: Routes = [
     { path: 'EditClient', component: EditClientComponent },
     { path: 'DashboardProposal', component: DashboardProposalComponent },    
     { path: 'ListProposal', component: ListProposalComponent },   
-    { path: 'ListProjectsQAQC', component: ListProjectsQAQCComponent } 
- 
+    { path: 'ListProjectsQAQC', component: ListProjectsQAQCComponent }, 
+    { path: 'QADetails', component: QADetailsComponent }, 
+    { path: 'QCDetails', component: QCDetailsComponent }, 
+    { path: 'QCNew', component: QCNewComponent } 
 ];
 
 @NgModule({
