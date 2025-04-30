@@ -23,34 +23,37 @@
             <td><mat-form-field class="example-full-width">
               <mat-label>Project Name</mat-label>
               <input matInput #postalCode maxlength="5" formControlName="ProjectName" placeholder="Ex. 94105" value="94043">
-              <mat-hint align="end">{{postalCode.value.length}} / 7</mat-hint>
+              
             
             </mat-form-field></td>
             <td><mat-form-field class="example-full-width">
               <mat-label>Project Type</mat-label>
-              <input matInput #postalCode maxlength="5" formControlName="Country" placeholder="Ex. 94105" value="94043">
-              <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+              <input matInput #postalCode maxlength="5" formControlName="ProjectType" placeholder="Ex. 94105" value="94043">
+              
              
             </mat-form-field></td>            
           </tr>
-          <tr>
-            <td colspan="3" class="example-full-width"><mat-form-field class="example-full-width">
-              <mat-label>Project Description</mat-label>
+        </table>
+    
+         
+            <mat-form-field class="example-full-width" [style.width.%]="80">
+              <mat-label >Project Description</mat-label>
               <input matInput formControlName="ProjectDescription" placeholder="Ex. Houston">
          
-            </mat-form-field></td>
+            </mat-form-field>
 
-            <td><mat-form-field class="example-full-width">
-              <mat-label>Project Manager</mat-label>
-              <input matInput #postalCode maxlength="5" formControlName="Country" placeholder="Ex. 94105" value="94043">
-              <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
-             
-            </mat-form-field></td>            
-          </tr>
+                     
+        
+    <table>
           <tr>
             <td><mat-form-field class="example-full-width">
+                <mat-label>Project Manager</mat-label>
+                <input matInput #postalCode maxlength="5" formControlName="PM" placeholder="Ex. 94105" value="94043">
+                             
+              </mat-form-field></td>   
+            <td><mat-form-field class="example-full-width">
               <mat-label>Market</mat-label>
-              <input matInput formControlName="City" placeholder="Ex. Houston">
+              <input matInput formControlName="Market" placeholder="Ex. Houston">
          
             </mat-form-field></td>
             <td><mat-form-field class="example-full-width">
@@ -65,31 +68,29 @@
             </mat-form-field></td>
           
           </tr>          
-          <tr>
+         <!-- <tr>
             <td><mat-form-field class="example-full-width">
               <mat-label>State</mat-label>
-              <input matInput formControlName="City" placeholder="Ex. Houston">
+              <input matInput formControlName="State" placeholder="Ex. Houston">
          
             </mat-form-field></td>
             <td><mat-form-field class="example-full-width">
               <mat-label>Country</mat-label>
-              <input matInput formControlName="State" placeholder="Ex. Texas">
+              <input matInput formControlName="Country" placeholder="Ex. Texas">
           
             </mat-form-field></td>
             <td><mat-form-field class="example-full-width">
               <mat-label>City</mat-label>
-              <input matInput #postalCode maxlength="5" formControlName="ZipCode" placeholder="Ex. 94105" value="94043">
-              <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
-            
+              <input matInput #postalCode maxlength="5" formControlName="City" placeholder="Ex. 94105" value="94043">
+                          
             </mat-form-field></td>
             <td><mat-form-field class="example-full-width">
                 <mat-label>Zip Code</mat-label>
                 <input matInput #postalCode maxlength="5" formControlName="ZipCode" placeholder="Ex. 94105" value="94043">
-                <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
-              
+                             
               </mat-form-field></td>            
           
-          </tr>                    
+          </tr> -->                   
         </table>
   
           

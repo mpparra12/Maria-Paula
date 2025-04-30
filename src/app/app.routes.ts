@@ -9,6 +9,9 @@ import { ListProjectsQAQCComponent } from './pages/QAQC/list-projects-qaqc/list-
 import { QADetailsComponent } from './pages/QAQC/qadetails/qadetails.component';
 import { QCDetailsComponent } from './pages/QAQC/qcdetails/qcdetails.component';
 import { QCNewComponent } from './pages/QAQC/qc-new/qc-new.component';
+import { ListProjectComponent } from './pages/project/list-project/list-project.component';
+import { AddProjectComponent } from './pages/project/add-project/add-project.component';
+import { EditProjectComponent } from './pages/project/edit-project/edit-project.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/ListClient', pathMatch: 'full' }, 
@@ -20,7 +23,10 @@ export const routes: Routes = [
     { path: 'ListProjectsQAQC', component: ListProjectsQAQCComponent }, 
     { path: 'QADetails', component: QADetailsComponent }, 
     { path: 'QCDetails', component: QCDetailsComponent }, 
-    { path: 'QCNew', component: QCNewComponent } 
+    { path: 'QCNew', component: QCNewComponent }, 
+    { path: 'ListProjects', component: ListProjectComponent },
+    { path: 'EditProjects', component: EditProjectComponent },
+    { path: 'AddProjects', component: AddProjectComponent }
 ];
 
 @NgModule({

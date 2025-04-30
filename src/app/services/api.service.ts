@@ -30,6 +30,11 @@ export class ApiService {
    // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
   }
 
+  getTransaction(client_id: any)
+  {
+    return this.http.post<any>(`${this.apiUrl}/getTransaction`,client_id)
+   // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
+  }
   
 
   addClient(form: any){
