@@ -57,6 +57,18 @@ export class ApiService {
     return this.http.post<any>(`${this.apiUrl}/deleteClient`,client_id)
   }
 
+  getAllProjects()
+  {
+    return this.http.get<any>(`${this.apiUrl}/getProjectQAQC`)
+   // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
+  }
+  
+  getAllProposals()
+  {
+    return this.http.get<any>(`${this.apiUrl}/getProjectQAQC`)
+   // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
+  }
+
  /* login(form: LoginI){
     return this.http.post(this.apiUrl+"/login",form)
   }*/
