@@ -31,8 +31,18 @@ export class ApiService {
   updateClient(form: any){
     return this.http.post(this.apiUrl+"/AddClient",form)
   }
+
+  getAllProjects()
+  {
+    return this.http.get<any>(`${this.apiUrl}/getProjectQAQC`)
+   // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
+  }
   
- 
+  getAllProposals()
+  {
+    return this.http.get<any>(`${this.apiUrl}/getProjectQAQC`)
+   // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
+  }
 
  /* login(form: LoginI){
     return this.http.post(this.apiUrl+"/login",form)
