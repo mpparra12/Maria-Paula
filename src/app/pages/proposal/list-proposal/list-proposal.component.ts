@@ -10,7 +10,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatSort,Sort} from '@angular/material/sort';
-import { client } from './model/clients';
+import { proposals } from '../../client/list-clients/model/proposals';
 import {TooltipPosition} from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -64,20 +64,22 @@ export class ListProposalComponent {
   'StatusProp'
 ];
 
-EmpData : client[]=[ 
+EmpData : [proposals]=[ 
   {
     ClientID: 24,
     Name: "TENSAR",
-    Address: "xx",
-    City: "xx",
-    State: "xx",
-    ZipCode: "xx",
-    Logo: "tensar.png",
-    Active: 0,
+    Category: "xx",
+    ProjectDescription: "xx",
+    ContractValue: "xx",
+    EstimatedHours: "xx",
+    Year: "tensar.png",
+    Proposal: "xx",
+    NoProposal: "xx",
     Country: "xx",
-    Period_of_Invoice: "xx",
-    Invoice_Date: "xx",
-    ProcedureDetails: "xx"
+    ProposalRequestDate: "xx",
+    ProposalSubmitted: "xx",
+    Scope: "xx",
+    StatusProp: "xx"
   }
 ];
 
@@ -88,7 +90,7 @@ EmpData : client[]=[
    
 
   owner: any;
-  dataSource = new MatTableDataSource<client>(this.EmpData);
+  dataSource = new MatTableDataSource<proposals>(this.EmpData);
   //dataSource: any;
   dataSourceV: any;
   dataSourceG: any;
