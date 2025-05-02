@@ -24,9 +24,17 @@ export class ApiService {
     return this.http.get<any>(`${this.apiUrl}/getAll`)
    // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
   }
+
+  getEmployee()
+  {
+    return this.http.get<any>(`${this.apiUrl}/getEmployee`)
+   // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
+  }
   getProjectQAQC()
   {
     return this.http.get<any>(`${this.apiUrl}/getProjectQAQC`)
+   // return this.http.get<any>(`${this.apiUrl}/getAllProposals`)
+    
    // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
   }
 

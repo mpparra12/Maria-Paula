@@ -39,6 +39,7 @@ export class AddProjectComponent implements OnInit {
   form: FormGroup | any;
   ClientName!:any[];
   FP!:any[];
+  Employee!:any[];
   address!:any;
   resident!:any;
   owneradd!:any;
@@ -69,6 +70,7 @@ export class AddProjectComponent implements OnInit {
   ngOnInit(): void {
     this.getClient();
     this.getFP();
+    this.getEmployee();
   }
  
 
@@ -117,17 +119,17 @@ export class AddProjectComponent implements OnInit {
    
   }
  
- /* getResidentCode()
+  getEmployee()
   {
-    console.log("GetGateDirectory",this.residenceId);
-    this.apiServices.GetGateDirectory(this.residenceId).subscribe((resp)=>{
-      console.log("GetGateDirectory",resp);
+   // console.log("getEmployee",this.residenceId);
+    this.apiServices.getEmployee().subscribe((resp)=>{
+      console.log("getEmployee",resp);
      
-      this.residentCode = resp.residentCode;
-      console.log("Address",this.residentCode);
+      this.Employee = resp;
+    //  console.log("emplo",this.);
      
     })
-  }*/
+  }
  
   onSubmit() {
     //debugger;
@@ -176,7 +178,7 @@ export class AddProjectComponent implements OnInit {
  
  
   back(){
-    this._route.navigate(['/ListClient']);
+    this._route.navigate(['/ListProjects']);
   }
  
   SelectFP(data:any):void{
@@ -208,6 +210,7 @@ export class AddProjectComponent implements OnInit {
      
       Client: ['', Validators.required],
       selectedClient: [''], 
+      selectedEmployee: [''],
       AgreementNo: ['', Validators.required],
       ClientProject: ['', Validators.required],
       GeneralDescription: ['', Validators.required],
@@ -220,14 +223,14 @@ export class AddProjectComponent implements OnInit {
       HighwayNo:[''],
       Owner:[''],
       Segment: [''],
-      Bridge :[1],
+      Bridge :[''],
       Contact :['',Validators.required],
       FP:[''],
       ProjectName:[''],
       ProjectScope:[''],
       DepartmentManager:[''],
       ProjectManager: [''],
-      Task :[1],
+      Task :[''],
       DECONProjectType :['',Validators.required],
       Market:[''],
       MainServiceLine:[''],
