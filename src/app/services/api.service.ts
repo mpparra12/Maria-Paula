@@ -65,8 +65,12 @@ export class ApiService {
   
   getAllProposals()
   {
-    return this.http.get<any>(`${this.apiUrl}/getProjectQAQC`)
+    return this.http.get<any>(`${this.apiUrl}/getAllProposals`)
    // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
+  }
+
+  addProposal(form: any){
+    return this.http.post(this.apiUrl+"/addProposal",form)
   }
 
  /* login(form: LoginI){

@@ -228,6 +228,12 @@ constructor(
  
   }
 
+  AddProposal():void{
+   
+    this._route.navigate(['/addProposal']);
+  
+  }
+
   ListProposal():void{
    
     this._route.navigate(['/ListProposal']);
