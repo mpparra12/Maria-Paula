@@ -1,4 +1,4 @@
-<app-menu headerName="Clients"></app-menu>
+<app-menu headerName="Open Projects"></app-menu>
 
 <div class="ht-ctc ht-ctc-chat ctc-analytics ctc_wp_desktop style-2 ht_ctc_animation no-animations" id="ht-ctc-chat"
 style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 99999999;">
@@ -14,19 +14,6 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
 
           <mat-card-content>
             
-            <button matTooltip=
-            "Hover to display information on right." mat-icon-button color="warm" (click)="AddClient()">
-       
-              <!--  <button mat-icon-button color="primary" (click)="emailSupport(element.map_url)"> -->                    
-                 <mat-icon>add</mat-icon>
-               </button>
-
-               <button matTooltip=
-               "Hover to display information on right." mat-icon-button color="warm" (click)="ListProposal()">
-          
-                 <!--  <button mat-icon-button color="primary" (click)="emailSupport(element.map_url)"> -->                    
-                    <mat-icon>List</mat-icon>
-                  </button>
 
             <button matTooltip=
             "Hover to display information on right." mat-icon-button color="warm" (click)="exporter.exportTable('csv',{fileName:'address'+'_'+'Date'})">
@@ -56,95 +43,50 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
                 <tr mat-header-row *matHeaderRowDef="displayedColumnsS"></tr>
 
                 <tr mat-row *matRowDef="let emp; columns: displayedColumnsS"></tr>-->
-                <ng-container matColumnDef="ClientID">
+                <ng-container matColumnDef="ID">
                   <th mat-header-cell *matHeaderCellDef> ID </th>
-                  <td mat-cell *matCellDef="let element"> {{ element.ClientID }} </td>
+                  <td mat-cell *matCellDef="let element"> {{ element.ID }} </td>
                 </ng-container>
               
                 <!-- Nombre -->
-                <ng-container matColumnDef="Name">
-                  <th mat-header-cell *matHeaderCellDef> Name </th>
-                  <td mat-cell *matCellDef="let element"> {{ element.Name }} </td>
+                <ng-container matColumnDef="ProjectName">
+                  <th mat-header-cell *matHeaderCellDef> Project Name </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.ProjectName }} </td>
                 </ng-container>
               
                 <!-- Dirección -->
-                <ng-container matColumnDef="Address">
-                  <th mat-header-cell *matHeaderCellDef> Address </th>
-                  <td mat-cell *matCellDef="let element"> {{ element.Address || 'N/A' }} </td>
+                <ng-container matColumnDef="ClientName">
+                  <th mat-header-cell *matHeaderCellDef> Client Name </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.ClientName || 'N/A' }} </td>
                 </ng-container>
               
                 <!-- Ciudad -->
-                <ng-container matColumnDef="City">
-                  <th mat-header-cell *matHeaderCellDef> City </th>
-                  <td mat-cell *matCellDef="let element"> {{ element.City || 'N/A' }} </td>
+                <ng-container matColumnDef="ProjectDescription">
+                  <th mat-header-cell *matHeaderCellDef> Project Description </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.ProjectDescription || 'N/A' }} </td>
                 </ng-container>
               
                 <!-- Estado -->
-                <ng-container matColumnDef="State">
-                  <th mat-header-cell *matHeaderCellDef> State </th>
-                  <td mat-cell *matCellDef="let element"> {{ element.State || 'N/A' }} </td>
+                <ng-container matColumnDef="PM">
+                  <th mat-header-cell *matHeaderCellDef> Project Manager </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.PM || 'N/A' }} </td>
                 </ng-container>
               
                 <!-- Código Postal -->
-                <ng-container matColumnDef="ZipCode">
-                  <th mat-header-cell *matHeaderCellDef> Zip Code </th>
-                  <td mat-cell *matCellDef="let element"> {{ element.ZipCode || 'N/A' }} </td>
+                <ng-container matColumnDef="ProjectType">
+                  <th mat-header-cell *matHeaderCellDef> Project Type </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.ProjectType || 'N/A' }} </td>
                 </ng-container>
               
-                <!-- Logo -->
-                <ng-container matColumnDef="Logo">
-                  <th mat-header-cell *matHeaderCellDef> Logos </th>
-                  <td mat-cell *matCellDef="let element"> 
-                    <img *ngIf="element.Logo" [src]="'assets/' + element.Logo" alt="Logo" width="50">
-                  </td>
-                </ng-container>
-              
-                <!-- Activo -->
-                <ng-container matColumnDef="Active">
-                  <th mat-header-cell *matHeaderCellDef > Active </th>
-                  <td mat-cell *matCellDef="let element"> {{ element.Active ? 'Sí' : 'No' }} </td>
-                </ng-container>
-              
-                <!-- País -->
-                <ng-container matColumnDef="Country">
-                  <th mat-header-cell *matHeaderCellDef> Country </th>
-                  <td mat-cell *matCellDef="let element"> {{ element.Country || 'N/A' }} </td>
-                </ng-container>
-              
-                <!-- Periodo de Factura -->
-                <ng-container matColumnDef="Period_of_Invoice" >
-                  <th mat-header-cell *matHeaderCellDef> Period Date </th>
-                  <td mat-cell *matCellDef="let element"> {{ element.Period_of_Invoice || 'N/A' }} </td>
-                </ng-container>
-              
-                <!-- Fecha de Factura -->
-                <ng-container matColumnDef="Invoice_Date">
-                  <th mat-header-cell *matHeaderCellDef> Invoice Date </th>
-                  <td mat-cell *matCellDef="let element"> {{ element.Invoice_Date || 'N/A' }} </td>
-                </ng-container>
-              
-                <!-- Detalles del Procedimiento -->
-                <ng-container matColumnDef="ProcedureDetails">
-                  <th mat-header-cell *matHeaderCellDef [ngStyle]="{'width': '100%'}"> Procedure </th>
-                  <td mat-cell *matCellDef="let element" [ngStyle]="{'width': '100%'}"> {{ element.ProcedureDetails || 'N/A' }} </td>
-                </ng-container>
+ 
 
 
                 <ng-container matColumnDef="Actions">
                   <th mat-header-cell *matHeaderCellDef> Actions </th>
                   <td mat-cell *matCellDef="let element"> 
                     
-                    <button mat-icon-button color="primary" (click)="select(element)">
-                      <mat-icon>add</mat-icon>
-                    </button>
-             
-                   <button mat-icon-button color="Accent" (click)="edit(element)">
-                      <mat-icon>edit</mat-icon>
-                    </button>
-                    <button mat-icon-button color="Accent" (click)="delete(element)">
-                      <mat-icon>delete</mat-icon>
-                    </button>                    
-                    
+                    <button mat-raised-button color="primary" (click)="QA(element)">QA</button>                  
+                    <button mat-raised-button color="accent" (click)="QC(element)">QC</button>  
                     <!--
                     <button mat-icon-button color="warn">
                       <mat-icon>delete</mat-icon>

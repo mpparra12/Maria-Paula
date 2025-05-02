@@ -10,7 +10,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatSort,Sort} from '@angular/material/sort';
-import { client } from './model/clients';
+import { project } from '../../client/list-clients/model/project'
 import {TooltipPosition} from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -27,7 +27,7 @@ import { CommonModule } from '@angular/common';
 import { MenuComponent } from '../../../components/menu/menu/menu.component';
 
 @Component({
-  selector: 'app-list-proposal',
+  selector: 'app-list-project',
   standalone: true,
   imports: [MatTableModule, 
     MatPaginatorModule, 
@@ -36,48 +36,39 @@ import { MenuComponent } from '../../../components/menu/menu/menu.component';
     MatIconModule, MatFormFieldModule,ReactiveFormsModule,
     MatTableExporterModule, MenuComponent,
     MatTooltipModule, MatButtonModule,  MatInputModule,  MatCheckboxModule],
-  templateUrl: './list-proposal.component.html',
-  styleUrl: './list-proposal.component.css'
+  templateUrl: './list-project.component.html',
+  styleUrl: './list-project.component.css'
 })
-export class ListProposalComponent { 
+export class ListProjectComponent implements OnInit{
   positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
  
   myForm: FormGroup | any;
   position = new FormControl(this.positionOptions[0]);
  
-  formData: any = {}; 
+  formData: any = {}; // Objeto para almacenar los datos del formulario , 'residence_id',
  // displayedColumnsS: string[] = [ 'ClientID','Name', 'Address','City','State','ZipCode','Logo','Active','Country' ,'Period_of_Invoice','Invoice_Date','ProcedureDetails','Actions'];
  displayedColumns: string[] = [
-  'ClientID', 
-  'Name', 
-  'Category', 
+  'ID', 
+  'ProjectName', 
+  'ClientName', 
   'ProjectDescription', 
-  'ContractValue', 
-  'EstimatedHours', 
-  'Year', 
-  'Proposal', 
-  'NoProposal', 
-  'Country', 
-  'ProposalRequestDate', 
-  'ProposalSubmitted',
-  'Scope',
-  'StatusProp'
+  'PM',
+  'ProjectType',
+  'ContractValue',
+  'NoProposal',
+  'Actions'
 ];
 
-EmpData : client[]=[ 
+EmpData : project[]=[ 
   {
-    ClientID: 24,
-    Name: "TENSAR",
-    Address: "xx",
-    City: "xx",
-    State: "xx",
-    ZipCode: "xx",
-    Logo: "tensar.png",
-    Active: 0,
-    Country: "xx",
-    Period_of_Invoice: "xx",
-    Invoice_Date: "xx",
-    ProcedureDetails: "xx"
+    ID: 24,
+    ProjectName: "1700.00",
+    ClientName: "xx",
+    ProjectDescription: "xx",
+    PM: "xx",
+    ProjectType:'XX',
+    ContractValue:'xx',
+    NoProposal:'xx'
   }
 ];
 
@@ -88,7 +79,7 @@ EmpData : client[]=[
    
 
   owner: any;
-  dataSource = new MatTableDataSource<client>(this.EmpData);
+  dataSource = new MatTableDataSource<project>(this.EmpData);
   //dataSource: any;
   dataSourceV: any;
   dataSourceG: any;
@@ -152,7 +143,7 @@ constructor(
    // this.dataSource1 = new MatTableDataSource();
     this.dataSource = new MatTableDataSource();
  
-    this.getAllProposals();
+    this.getClients();
  
    
   }
@@ -172,7 +163,7 @@ constructor(
     //location.href = "{data}";
  }
  
- getAllProposals()
+ getClients()
   {
     console.log("Estoy aqui");
     //if (isPlatformBrowser(this.platformId)) { 
@@ -183,15 +174,15 @@ constructor(
         console.log("User Data:", parsedUser);
       }*/
   
-      this.apiServices.getAllProposals().subscribe(
+      this.apiServices.getProjectQAQC().subscribe(
        
         (resp) => {
           debugger;
-          console.log("Proposal:", resp);
+          console.log("getProjectQAQC:", resp);
           this.dataSource.data = resp;
         },
         (error) => {
-          console.error("Error fetching proposals:", error);
+          console.error("Error fetching clients:", error);
         }
       );
     //} else {
@@ -220,9 +211,9 @@ constructor(
  
   
 
-  AddClient():void{
+  AddProject():void{
    
-    this._route.navigate(['/AddClient']);
+    this._route.navigate(['/AddProjects']);
  
   }
 
@@ -232,14 +223,7 @@ constructor(
  
   }
 
-  
-  
 
-  edit(data:any):void{
-   
-    this._route.navigate(['/EditClient'],{state:{ client:{data}}});
- 
-  }
  
   select(data:any):void{
    
@@ -248,28 +232,34 @@ constructor(
   }
  
  
-  residen1():void{
+ 
+  edit(data:any):void{
    
-    this._route.navigate(['/Issue']);
- 
-  }
-  Directory():void{
-   
-    this._route.navigate(['/Directory']);
- 
-  }
- 
- 
-  editv(data:any):void{
-   
-    this._route.navigate(['/edit-vehicle'],{state:{ vehicle:{data}}});
+    this._route.navigate(['/EditProjects'],{state:{ vehicle:{data}}});
    
  
   }
  
+  delete(client: any) {
+    console.log("Client para borrar",client);
+    if(confirm("Are you sure to delete the Project?")) {
+      this.apiServices.deleteClient(client).subscribe((resp:any)=>{
+        if (resp.success) {
+          //this.ngOnInit();
+
+         // alert(resp.response);
+          //this.ngOnInit();
+          this.refresh()
+        }
+        
+      });
+      
+    }
+  }
+
   add():void{
    
-     this._route.navigate(['/add-resident']);
+     this._route.navigate(['/AddProjects']);
     //this._route.navigate(['/new-emr']);
    
  
@@ -298,10 +288,12 @@ constructor(
  
   }
  
+  refresh(){
+    this._route.navigate(['/ListClient']);
+  }
+
   openDialog(): void {
     //const dialogRef = this.dialog.cr
   }
  
 }
-
-

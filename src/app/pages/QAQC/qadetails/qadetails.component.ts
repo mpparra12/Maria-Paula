@@ -12,18 +12,38 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { Renderer2, ViewChild } from '@angular/core';
+import { FormControl} from '@angular/forms';
+import {MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
+import { Route } from '@angular/router';
+import { CustomLink } from '../../client/list-clients/model/custom-link';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import {MatSort,Sort} from '@angular/material/sort';
+import { projectQAQC } from '../../client/list-clients/model/projectQAQC'
+import {TooltipPosition} from '@angular/material/tooltip';
+import { MatTableExporterModule } from 'mat-table-exporter';
+import { HttpClientModule } from '@angular/common/http';
+import { PLATFORM_ID, Inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common'
+
 
 @Component({
-  selector: 'app-edit-client',
+  selector: 'app-qadetails',
   standalone: true,
-  imports: [ MatCardModule,CommonModule,
-        MatIconModule, MatFormFieldModule,ReactiveFormsModule,
-       MatTooltipModule, MatButtonModule,  MatInputModule,  MatCheckboxModule
-  ],  
-  templateUrl: './edit-client.component.html',
-  styleUrl: './edit-client.component.css'
+  imports: [MatTableModule, 
+      MatPaginatorModule, 
+      MatSortModule, 
+      MatCardModule,CommonModule,
+      MatIconModule, MatFormFieldModule,ReactiveFormsModule,
+      MatTableExporterModule, MenuComponent,
+      MatTooltipModule, MatButtonModule,  MatInputModule,  MatCheckboxModule],
+  templateUrl: './qadetails.component.html',
+  styleUrl: './qadetails.component.css'
 })
-export class EditClientComponent implements OnInit {
+export class QADetailsComponent implements OnInit {
 
   myForm: FormGroup | any;
   form: FormGroup | any;
@@ -37,6 +57,41 @@ export class EditClientComponent implements OnInit {
   residentType!:any[];
   residentCode!:any[];
   selectedFile: File | null = null;
+  formData: any = {}; // Objeto para almacenar los datos del formulario , 'residence_id',
+  // displayedColumnsS: string[] = [ 'ClientID','Name', 'Address','City','State','ZipCode','Logo','Active','Country' ,'Period_of_Invoice','Invoice_Date','ProcedureDetails','Actions'];
+  displayedColumns: string[] = [
+   'ID', 
+   'ProjectName', 
+   'ClientName', 
+   'ProjectDescription', 
+   'PM',
+   'ProjectType',
+   'Actions'
+ ];
+ 
+ EmpData : projectQAQC[]=[ 
+   {
+     ID: 24,
+     ProjectName: "1700.00",
+     ClientName: "xx",
+     ProjectDescription: "xx",
+     PM: "xx",
+     ProjectType:'XX'
+ 
+   }
+ ];
+ 
+ 
+  
+  // EmpData : client[]=[ {
+  //   ClientID:1,Name:"XXX", Address:"XXX", City:"XXX", State: "XXX", ZipCode: "XXX", Logo: "XXX", Active: 1, Country: "XXX" , Period_of_Invoice: "XXX", Invoice_Date: "XXX", ProcedureDetails: "XXX"}];
+    
+ 
+   owner: any;
+   dataSource = new MatTableDataSource<projectQAQC>(this.EmpData);
+   //dataSource: any;
+
+   columnas: any[] = [];
   /**
    *
    */
@@ -47,8 +102,8 @@ export class EditClientComponent implements OnInit {
     ) {
       if( _route.getCurrentNavigation()!.extras.state)
      {
-      let data = this._route.getCurrentNavigation()?.extras.state!['client'];
-          console.log("Data Resident",data);
+      let data = this._route.getCurrentNavigation()?.extras.state!['DetailProject'];
+          console.log("DetailProject",data);
           
           this.client = data;
           this.ClientId=this.client.data.ID;
@@ -56,18 +111,21 @@ export class EditClientComponent implements OnInit {
           this.name=this.client.data.Name;
           console.log("Active", this.active);
           this.myForm = this.fb.group({
-            Name: [this.client.data.Name],            
-            Address: [this.client.data.Address, Validators.required],
+            ClientName: [this.client.data.ClientName],            
+            ProjectName: [this.client.data.ProjectName, Validators.required],
             Active: [this.client.data.Active],
             City: [this.client.data.City, Validators.required],
-            Country:[this.client.data.Country],
-            Documents_and_other_requirements: [this.client.data.Documents_and_other_requirements, Validators.required],
-            Invoice_Date:[this.client.data.Invoice_Date,Validators.required],
-            Logo:[this.client.data.Logo,Validators.required],
-            Period_of_Invoice:[this.client.Period_of_Invoice,Validators.required],
+            Status:[this.client.data.Status],
+            ProjectDescription: [this.client.data.ProjectDescription, Validators.required],
+            ProjectType:[this.client.data.ProjectType,Validators.required],
+            ServiceEng:[this.client.data.ServiceEng,Validators.required],
+            Discipline:[this.client.Discipline,Validators.required],
             Procedure:[this.client.data.Procedure,Validators.required],
             State:[this.client.data.State,Validators.required],
             ZipCode:[this.client.data.ZipCode,Validators.required],
+            PM:[this.client.data.PM,Validators.required],
+            Market:[this.client.data.Market,Validators.required],
+
            // selectedOption1: ['', Validators.required],
            // additionalEmail: [this.resident.additionalEmail],
            // directoryName: [this.resident.directory_name],   
@@ -91,6 +149,9 @@ export class EditClientComponent implements OnInit {
   }
   
   ngOnInit(): void {
+    this.dataSource = new MatTableDataSource();
+ 
+    this.getClients();
   //  this.getAddress();
    // this.getResidentType();
    // this.getResidentCode();
@@ -107,6 +168,33 @@ export class EditClientComponent implements OnInit {
     })
   }*/
 
+    getClients()
+  {
+    console.log("Estoy aqui");
+    //if (isPlatformBrowser(this.platformId)) { 
+      //const user = localStorage.getItem('user');
+      
+      /*if (user) {
+        const parsedUser = JSON.parse(user);
+        console.log("User Data:", parsedUser);
+      }*/
+  
+      this.apiServices.getClientsAll().subscribe(
+       
+        (resp) => {
+          debugger;
+          console.log("Clients:", resp);
+          this.dataSource.data = resp;
+        },
+        (error) => {
+          console.error("Error fetching clients:", error);
+        }
+      );
+    //} else {
+     // console.warn("localStorage is not available in this environment.");
+    //}
+  }
+ 
   onSubmitOld() {
 
     console.log("Update Resident",this.myForm.value);

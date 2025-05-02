@@ -273,6 +273,23 @@ constructor(
  
   }
  
+  delete(client: any) {
+    console.log("Client para borrar",client);
+    if(confirm("Are you sure to delete the Client?")) {
+      this.apiServices.deleteClient(client).subscribe((resp:any)=>{
+        if (resp.success) {
+          //this.ngOnInit();
+
+         // alert(resp.response);
+          //this.ngOnInit();
+          this.refresh()
+        }
+        
+      });
+      
+    }
+  }
+
   add():void{
    
      this._route.navigate(['/add-resident']);
@@ -304,6 +321,10 @@ constructor(
  
   }
  
+  refresh(){
+    this._route.navigate(['/ListClient']);
+  }
+
   openDialog(): void {
     //const dialogRef = this.dialog.cr
   }

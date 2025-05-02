@@ -1,0 +1,286 @@
+<app-menu headerName="New Project"></app-menu>
+
+<div class="ht-ctc ht-ctc-chat ctc-analytics ctc_wp_desktop style-2 ht_ctc_animation no-animations" id="ht-ctc-chat"
+style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 99999999;">
+
+</div>
+
+  <div >
+  <!--<div  class="container example-card" with>
+ 
+       Pestaña 1 -->
+   
+        <mat-card class="mat-elevation-z0 outline" >
+  <mat-card-content>
+      <form class="example-form" [formGroup]="form" (ngSubmit)="onSubmit()" >
+         <label><h1>Client and Project Information</h1></label>
+          <div class="mat-form-field-container">
+
+              <mat-form-field [style.width.%]="50" appearance="fill" class="mat-form-field-width">
+                <mat-label>Select an client</mat-label>
+                <mat-select   formControlName="selectedClient">
+                  <mat-option value="0">
+                    --Select an client--
+                  </mat-option>
+                  <mat-option *ngFor="let option of ClientName" [value]="option.id">
+                    {{ option.Name }}
+                </mat-option>
+              </mat-select>
+                <mat-error *ngIf="form.get('selectedClient')?.hasError('required')">
+                    You must select an option.
+                </mat-error>
+                
+            </mat-form-field>
+              
+      
+
+      </div>
+         
+
+          <div class="mat-form-field-container">
+            
+            <table class="example-full-width" cellspacing="0"><tr>
+              <td><mat-form-field class="example-full-width">
+                <mat-label>Agreement No.</mat-label>
+                <input matInput formControlName="AgreementNo" placeholder="Agreement No.">
+                <mat-error *ngIf="form.get('AgreementNo')?.hasError('required')">This field is required</mat-error>
+              </mat-form-field></td>              
+              <td><mat-form-field class="example-full-width">
+                <mat-label>Client Project</mat-label>
+                <input matInput formControlName="ClientProject" placeholder="Client Project">
+                <mat-error *ngIf="form.get('ClientProject')?.hasError('required')">This field is required</mat-error>
+              </mat-form-field></td>
+           
+            </tr></table>
+
+          </div>
+          
+
+          <div class="mat-form-field-container">
+                       
+            <mat-form-field [style.width.%]="30" appearance="fill" >
+              <mat-label>General Description of Project</mat-label>
+                <input matInput type="text" formControlName="GeneralDescription" placeholder="General Description of Project">
+                <mat-error *ngIf="form.get('GeneralDescription')?.hasError('required')">This field is required</mat-error>
+            </mat-form-field>
+  
+
+
+          </div>
+
+          <div class="mat-form-field-container">
+            
+            <table class="example-full-width" cellspacing="0"><tr>
+              <td><mat-form-field class="example-full-width">
+                <mat-label>Client Project Cost</mat-label>
+                <input matInput formControlName="ClientProjectCost" placeholder="Client Project Cost">
+                <mat-error *ngIf="form.get('ClientProjectCost')?.hasError('required')">This field is required</mat-error>
+              </mat-form-field></td>              
+              <td><mat-form-field class="example-full-width">
+                <mat-label>Project CSJ/Project FPID/Contract No:</mat-label>
+                <input matInput formControlName="ProjectCSJ" placeholder="Project CSJ">
+                <mat-error *ngIf="form.get('ProjectCSJ')?.hasError('required')">This field is required</mat-error>
+              </mat-form-field></td>
+           
+            </tr></table>
+
+          </div>
+
+          <table class="example-full-width" cellspacing="0"><tr>
+            <td><mat-form-field class="example-full-width">
+              <mat-label>State</mat-label>
+              <input matInput formControlName="State" placeholder="State">
+              <mat-error *ngIf="form.get('State')?.hasError('required')">This field is required</mat-error>
+            </mat-form-field></td>
+            <td><mat-form-field class="example-full-width">
+              <mat-label>County</mat-label>
+              <input matInput formControlName="County" placeholder="County">
+              <mat-error *ngIf="form.get('County')?.hasError('required')">This field is required</mat-error>
+            </mat-form-field></td>
+            <td><mat-form-field class="example-full-width">
+              <mat-label>City</mat-label>
+              <input matInput #postalCode maxlength="5" formControlName="City" placeholder="City" value="94043">
+              <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+              <mat-error *ngIf="form.get('City')?.hasError('required')">This field is required</mat-error>
+            </mat-form-field></td>
+            <td><mat-form-field class="example-full-width">
+              <mat-label>Highway No.</mat-label>
+              <input matInput #postalCode maxlength="5" formControlName="HighwayNo" placeholder="Highway No.">
+              <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+              <mat-error *ngIf="form.get('HighwayNo')?.hasError('required')">This field is required</mat-error>
+            </mat-form-field></td>            
+          </tr></table>
+
+          <table class="example-full-width" cellspacing="0"><tr>
+            <td><mat-form-field class="example-full-width">
+              <mat-label>Owner</mat-label>
+              <input matInput formControlName="Owner" placeholder="Owner">
+              <mat-error *ngIf="form.get('Owner')?.hasError('required')">This field is required</mat-error>
+            </mat-form-field></td>
+            <td><mat-form-field class="example-full-width">
+              <mat-label>Segment/Bridge</mat-label>
+              <input matInput formControlName="Segment" placeholder="Segment/Bridge">
+              <mat-error *ngIf="form.get('Segment')?.hasError('required')">This field is required</mat-error>
+            </mat-form-field></td>
+            <td><mat-form-field class="example-full-width">
+              <mat-label>Bridge District</mat-label>
+              <input matInput #postalCode maxlength="5" formControlName="Bridge" placeholder="Bridge District" value="94043">
+              <mat-error *ngIf="form.get('Bridge')?.hasError('required')">This field is required</mat-error>
+            </mat-form-field></td>
+           
+          </tr></table>
+          <div class="mat-form-field-container">
+                       
+            <mat-form-field [style.width.%]="30" appearance="fill" >
+              <mat-label>Contact Information</mat-label>
+                <input matInput type="text" formControlName="Contact" placeholder="Contact Information">
+                <mat-error *ngIf="form.get('Contact')?.hasError('required')">This field is required</mat-error>
+            </mat-form-field>
+  
+
+
+          </div>
+          <!--
+            <div class="mat-form-field-container">
+              <mat-label><h5>Contact Information</h5></mat-label><br>
+              <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">             
+                    <mat-form-field [style.width.%]="30" appearance="fill">
+                        <input matInput type="text" formControlName="Contact" placeholder="Contact Information">
+                    </mat-form-field>
+                  </div>
+          </div>-->
+          <label><h1>DECON Information</h1></label>
+
+          <div class="mat-form-field-container">
+
+            <mat-form-field [style.width.%]="50" appearance="fill" class="mat-form-field-width">
+              <mat-label>Select an FP</mat-label>
+              <mat-select  (selectionChange)="SelectFP($event)"  formControlName="selectedFP">
+                <mat-option value="0">
+                  --Select an FP--
+                </mat-option>
+                <mat-option *ngFor="let option of FP" [value]="option.id">
+                  {{ option.NoProposal }}
+              </mat-option>
+            </mat-select>
+              <mat-error *ngIf="form.get('selectedClient')?.hasError('required')">
+                  You must select an option.
+              </mat-error>
+              
+          </mat-form-field>
+            
+    
+
+    </div>
+
+          <div class="mat-form-field-container">
+              
+              <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">             
+                    <mat-form-field [style.width.%]="30" appearance="fill">
+                      <mat-label>Project Name</mat-label><br>
+                        <input matInput type="text" formControlName="ProjectName" placeholder="Project Name">
+                        
+                    </mat-form-field>
+                  </div>
+          </div>
+
+          
+          <div class="mat-form-field-container">
+              
+              <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">             
+                    <mat-form-field [style.width.%]="30" appearance="fill">
+                      <mat-label>Project Scope</mat-label><br>
+                        <input matInput type="text" formControlName="ProjectScope" placeholder="Project Scope">
+                        
+                    </mat-form-field>
+                  </div>
+          </div>
+
+          <div class="mat-form-field-container">
+              
+              <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">             
+                    <mat-form-field [style.width.%]="30" appearance="fill">
+                      <mat-label>Task</mat-label><br>
+                        <input matInput type="text" formControlName="Task" placeholder="Task">
+                        
+                    </mat-form-field>
+                  </div>
+          </div>
+
+
+         <table class="example-full-width" cellspacing="0"><tr>
+          <td> <mat-form-field  appearance="fill" class="mat-form-field-half-width">
+            <mat-label>Choose a FPRequestedDate</mat-label>
+           <input formArrayName="FPRequestedDate" matInput [matDatepicker]="picker">
+           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    
+           <mat-datepicker #picker></mat-datepicker>
+         </mat-form-field></td>
+          <td>          <mat-form-field  appearance="fill" class="mat-form-field-half-width">
+            <mat-label>Choose a FPSenttoClien</mat-label>
+           <input formArrayName="FPSenttoClien" matInput [matDatepicker]="picker">
+           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    
+           <mat-datepicker #picker></mat-datepicker>
+         </mat-form-field></td>
+          <td>          <mat-form-field  appearance="fill" class="mat-form-field-half-width">
+            <mat-label>Choose a NTPDate</mat-label>
+           <input formArrayName="NTPDate" matInput [matDatepicker]="picker">
+           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    
+           <mat-datepicker #picker></mat-datepicker>
+         </mat-form-field></td>
+         <td><mat-form-field appearance="fill" class="mat-form-field-half-width">
+          <mat-label>Choose a Due Date</mat-label>
+         <input formArrayName="DueDate" matInput [matDatepicker]="picker">
+         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  
+         <mat-datepicker #picker></mat-datepicker>
+       </mat-form-field></td>
+        </tr></table>
+
+ 
+      <!-- <mat-radio-group formControlName="selectedOption2" color="primary" labelPosition="after">
+              <mat-radio-button value="Yes" class="my-radio-button">Yes</mat-radio-button>
+              <mat-radio-button value="No" class="my-radio-button">No</mat-radio-button>
+            </mat-radio-group>-->
+           
+            <br>                      
+
+          
+     
+        <!--  <div class="mat-form-field-container">
+              <input  type="file" formControlName="fileInput" (change)="onFileSelected($event)" accept=".pdf">
+          </div> -->
+          
+          <section>
+              <div class="example-button-row">
+                  <button mat-raised-button color="primary" type="submit" >Save</button><span></span>
+                  <button mat-raised-button color="" aria-label="back" (click)="back()"  style="padding-left: 1%;">
+                      Back
+                  </button>
+              </div>
+          </section>
+          <!-- Botón de enviar -->
+      
+        </form>
+  </mat-card-content>
+</mat-card>
+</div>
+<footer id="main-footer">
+ 
+ 
+ 
+  <div id="footer-bottom">
+    <div class="container clearfix">
+  <ul class="et-social-icons">
+ 
+  <li class="et-social-icon et-social-instagram">
+  <a href="#" class="icon">
+ 
+  </a>
+  </li>
+ 
+  </ul>         </div>
+  </div>
+  </footer>
