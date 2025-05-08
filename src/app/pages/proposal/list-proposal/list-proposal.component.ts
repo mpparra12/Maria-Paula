@@ -230,7 +230,7 @@ constructor(
 
   AddProposal():void{
    
-    this._route.navigate(['/addProposal']);
+    this._route.navigate(['/AddProposal']);
   
   }
 
