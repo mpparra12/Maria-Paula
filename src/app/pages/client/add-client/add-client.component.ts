@@ -12,11 +12,15 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 @Component({
   selector: 'app-add-client',
   standalone: true,
-  imports: [ MatCardModule,CommonModule,
-        MatIconModule, MatFormFieldModule,ReactiveFormsModule,
+  imports: [ MatSelectModule,MatCardModule,CommonModule,
+        MatIconModule, MatFormFieldModule,ReactiveFormsModule,MatDatepickerModule,
+        MatNativeDateModule,
        MenuComponent, MatTooltipModule, MatButtonModule,  MatInputModule,  MatCheckboxModule
   ],
   templateUrl: './add-client.component.html',

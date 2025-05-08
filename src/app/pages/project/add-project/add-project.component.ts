@@ -21,7 +21,7 @@ import {FormControl} from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-add-project',
@@ -38,14 +38,24 @@ export class AddProjectComponent implements OnInit {
   Form: FormGroup | any;
   form: FormGroup | any;
   ClientName!:any[];
+  Market!:any[];
+  ServiceLine!:any[];
+  ProjectType!:any[];
+  yearFP!:any[];
+  defaultDate!: Date;
+  fechaSend!:any;
+  fechaDividida: string[] = [];
   FP!:any[];
   Employee!:any[];
+  EmployeeManager!:any[];
+  EmployeePM!:any[];  
   address!:any;
   resident!:any;
   owneradd!:any;
   residenceId!:any;
   residentCode!:any[];
   selectedFile: File | null = null;
+  selectedValue!:any;
   /**
    *
    */
@@ -63,14 +73,20 @@ export class AddProjectComponent implements OnInit {
         this.residenceId=data.owner.residence_id;
  
         }*/
- 
-      this.buildForm();
+        this.getbyYear();
+        this.buildForm();
     }
  
   ngOnInit(): void {
     this.getClient();
-    this.getFP();
-    this.getEmployee();
+    
+    this.getManager();
+    this.getPM();
+
+    this.getAllTypeServiceLine();
+    this.getAllMarket();
+    this.getAllTypeProject();
+    //this.SelectFP(this.selectedValue);
   }
  
 
@@ -86,9 +102,24 @@ export class AddProjectComponent implements OnInit {
     })
   }
  
-  getFP()
+  getbyYear()
   {
-    this.apiServices.getProjectQAQC().subscribe((resp)=>{
+    this.apiServices.getbyYear().subscribe((resp)=>{
+      console.log("Client",resp);
+     
+      this.yearFP = resp;
+      this.selectedValue = this.yearFP[0];
+      console.log("yearFP",this.yearFP);
+      console.log("selectedValue",this.selectedValue);
+      this.form.controls.yearFP.setValue(this.selectedValue);
+      
+      console.log("selectedValue",this.form.controls.yearFP);
+    })
+  }
+
+ /* getFP()
+  {
+    this.apiServices.getAllNoProposal(this.selectedValue).subscribe((resp)=>{
       console.log("FP",resp);
      
       this.FP = resp;
@@ -96,7 +127,7 @@ export class AddProjectComponent implements OnInit {
      
     })
   }
- 
+ */
 
   onSubmit1() {
     debugger;
@@ -119,6 +150,64 @@ export class AddProjectComponent implements OnInit {
    
   }
  
+
+
+  SelectFP(event:any):void{
+    console.log('Selected value:', event.value);
+    // debugger;
+    // let idaddress=this.form.get('selectedOption')!.value;
+   //  console.log("event",event);
+     this.apiServices.getAllNoProposal(event.value).subscribe((resp:any)=>{
+       console.log('Residnec Addr:', resp);
+       this.FP = resp;
+     })
+  }
+
+  
+  getAllTypeStatusProject()
+  {
+   // console.log("getEmployee",this.residenceId);
+    this.apiServices.getAllTypeStatusProject().subscribe((resp)=>{
+      console.log("getAllTypgetAllTypeStatusProjecteProject",resp);
+     
+      this.Employee = resp;
+  
+    })
+  }
+
+
+  getAllTypeProject()
+  {
+   // console.log("getEmployee",this.residenceId);
+    this.apiServices.getAllTypeProject().subscribe((resp)=>{
+      console.log("getAllTypeProject",resp);
+     
+      this.ProjectType = resp;
+  
+    })
+  }
+  getAllTypeServiceLine()
+  {
+   // console.log("getEmployee",this.residenceId);
+    this.apiServices.getAllTypeServiceLine().subscribe((resp)=>{
+      console.log("getAllTypeServiceLine",resp);
+     
+      this.ServiceLine = resp;
+  
+    })
+  }
+
+  getAllMarket()
+  {
+   // console.log("getEmployee",this.residenceId);
+    this.apiServices.getAllMarket().subscribe((resp)=>{
+      console.log("getAllMarket",resp);
+     
+      this.Market = resp;
+  
+    })
+  }
+
   getEmployee()
   {
    // console.log("getEmployee",this.residenceId);
@@ -126,11 +215,33 @@ export class AddProjectComponent implements OnInit {
       console.log("getEmployee",resp);
      
       this.Employee = resp;
-    //  console.log("emplo",this.);
-     
+  
     })
   }
  
+  getManager()
+  {
+   // console.log("getEmployee",this.residenceId);
+    this.apiServices.getManager().subscribe((resp)=>{
+      console.log("getManager",resp);
+     
+      this.EmployeeManager = resp;
+  
+    })
+  }
+
+  getPM()
+  {
+   // console.log("getEmployee",this.residenceId);
+    this.apiServices.getPM().subscribe((resp)=>{
+      console.log("getManager",resp);
+     
+      this.EmployeePM = resp;
+  
+    })
+  }
+
+
   onSubmit() {
     //debugger;
     console.log('Estoy en Submit:');
@@ -181,15 +292,29 @@ export class AddProjectComponent implements OnInit {
     this._route.navigate(['/ListProjects']);
   }
  
-  SelectFP(data:any):void{
+  InfoFPSelect(event: MatSelectChange):void{
     // alert("estoy aqui");
-     console.log('Selected value:', data.value);
+     console.log('Selected value:', event.value);
     // debugger;
     // let idaddress=this.form.get('selectedOption')!.value;
      //console.log("add",idaddress);
-     this.apiServices.getTransaction(data.value).subscribe((resp:any)=>{
-       console.log('Residnec Addr:', resp);
-       
+     this.apiServices.getFPbyNum(event.value).subscribe((resp:any)=>{
+       console.log('fecha Addr:', resp.ProposalRequestDate);
+       this.fechaDividida = resp.ProposalRequestDate.split('-');
+       this.fechaSend= this.fechaDividida[1] +"/" + this.fechaDividida[2]+"/" + this.fechaDividida[0];
+       this.defaultDate= this.fechaSend;
+       console.log('defaultDate:', this.defaultDate);
+       //console.log(this.fechaDividida,this.fechaSend)
+        this.form = this.fb.group({
+          
+          ProjectName:[resp.ProjectDescription],
+          ProjectScope:[resp.ProjectDescription],
+         // defaultDate: this.fechaSend,
+         // FPRequestedDate :[this.defaultDate],
+          //[resp.ProposalRequestDate,Validators.required], 5/7/2025, 2025-01-13
+          //FPSenttoClien:[this.defaultDate],
+          ProjectFee:[resp.ContractValue]
+        })
       // if (resp.success) {
         // this.addresSel=resp.Address;
          
@@ -211,13 +336,14 @@ export class AddProjectComponent implements OnInit {
       Client: ['', Validators.required],
       selectedClient: [''], 
       selectedEmployee: [''],
+      
       AgreementNo: ['', Validators.required],
       ClientProject: ['', Validators.required],
       GeneralDescription: ['', Validators.required],
       ClientProjectCost: ['', Validators.required],
       selectedFP: [''], 
       ProjectCSJ: [''],
-      State:[1],
+      State:[''],
       County:['',Validators.required],
       City:[''],
       HighwayNo:[''],
@@ -225,6 +351,7 @@ export class AddProjectComponent implements OnInit {
       Segment: [''],
       Bridge :[''],
       Contact :['',Validators.required],
+      yearFP:[''],
       FP:[''],
       ProjectName:[''],
       ProjectScope:[''],

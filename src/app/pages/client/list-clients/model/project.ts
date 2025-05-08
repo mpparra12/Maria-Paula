@@ -6,5 +6,6 @@ export interface project {
     PM : string,    
     ProjectType:string,
     ContractValue:string,
-    NoProposal:string
+    NoProposal:string,
+    AwardDate:string
 }

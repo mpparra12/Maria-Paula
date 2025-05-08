@@ -12,6 +12,7 @@ import { QCNewComponent } from './pages/QAQC/qc-new/qc-new.component';
 import { ListProjectComponent } from './pages/project/list-project/list-project.component';
 import { AddProjectComponent } from './pages/project/add-project/add-project.component';
 import { EditProjectComponent } from './pages/project/edit-project/edit-project.component';
+import { ListbyDetailComponent } from './pages/project/listby-detail/listby-detail.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/ListClient', pathMatch: 'full' }, 
@@ -26,7 +27,8 @@ export const routes: Routes = [
     { path: 'QCNew', component: QCNewComponent }, 
     { path: 'ListProjects', component: ListProjectComponent },
     { path: 'EditProjects', component: EditProjectComponent },
-    { path: 'AddProjects', component: AddProjectComponent }
+    { path: 'AddProjects', component: AddProjectComponent },
+    { path: 'ListbyDetail', component: ListbyDetailComponent }
 ];
 
 @NgModule({

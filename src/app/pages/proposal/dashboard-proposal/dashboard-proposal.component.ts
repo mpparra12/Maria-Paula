@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-
+import { MenuComponent } from '../../../components/menu/menu/menu.component';
 @Component({
   selector: 'app-dashboard-proposal',
   standalone: true,
-  imports: [],
+  imports: [MenuComponent],
   templateUrl: './dashboard-proposal.component.html',
   styleUrl: './dashboard-proposal.component.css'
 })

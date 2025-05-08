@@ -30,6 +30,42 @@ export class ApiService {
     return this.http.get<any>(`${this.apiUrl}/getEmployee`)
    // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
   }
+
+  getManager()
+  {
+    return this.http.get<any>(`${this.apiUrl}/getManager`)
+   // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
+  }
+
+  getPM()
+  {
+    return this.http.get<any>(`${this.apiUrl}/getPM`)
+   // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
+  }
+  
+  getAllTypeStatusProject()
+  {
+    return this.http.get<any>(`${this.apiUrl}/getAllTypeStatusProject`)
+   // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
+  }
+  getAllTypeProject()
+  {
+    return this.http.get<any>(`${this.apiUrl}/getAllTypeProject`)
+   // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
+  }
+  getAllTypeServiceLine()
+  {
+    return this.http.get<any>(`${this.apiUrl}/getAllTypeServiceLine`)
+   // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
+  }
+
+  getAllMarket()
+  {
+    return this.http.get<any>(`${this.apiUrl}/getAllMarket`)
+   // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
+  }
+  
+
   getProjectQAQC()
   {
     return this.http.get<any>(`${this.apiUrl}/getProjectQAQC`)
@@ -37,10 +73,40 @@ export class ApiService {
     
    // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
   }
+  getbyYear()
+  {
+    return this.http.get<any>(`${this.apiUrl}/getbyYear`)
+   // return this.http.get<any>(`${this.apiUrl}/getAllProposals`)
+    
+   // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
+  }
+  
 
   getTransaction(client_id: any)
   {
     return this.http.post<any>(`${this.apiUrl}/getTransaction`,client_id)
+   // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
+  }
+  
+  getAllProjectDetails()
+  {
+    return this.http.get<any>(`${this.apiUrl}/getAllProjectDetails`)
+   // return this.http.get<any>(`${this.apiUrl}/getAllProposals`)
+    
+   // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
+  }
+  
+  
+  
+  getAllNoProposal(NoProposal: any)
+  {
+    return this.http.get<any>(`${this.apiUrl}/getAllNoProposal?Year=${NoProposal}`)
+   // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
+  }
+
+  getFPbyNum(NoProposal: any)
+  {
+    return this.http.get<any>(`${this.apiUrl}/getByProposalNum?NoProposal=${NoProposal}`)
    // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
   }
   
@@ -59,7 +125,7 @@ export class ApiService {
 
   getAllProjects()
   {
-    return this.http.get<any>(`${this.apiUrl}/getProjectQAQC`)
+    return this.http.get<any>(`${this.apiUrl}/getAllProjects`)
    // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
   }
   

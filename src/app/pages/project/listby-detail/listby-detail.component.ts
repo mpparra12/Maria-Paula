@@ -27,7 +27,7 @@ import { CommonModule } from '@angular/common';
 import { MenuComponent } from '../../../components/menu/menu/menu.component';
 
 @Component({
-  selector: 'app-list-project',
+  selector: 'app-listby-detail',
   standalone: true,
   imports: [MatTableModule, 
     MatPaginatorModule, 
@@ -36,10 +36,10 @@ import { MenuComponent } from '../../../components/menu/menu/menu.component';
     MatIconModule, MatFormFieldModule,ReactiveFormsModule,
     MatTableExporterModule, MenuComponent,
     MatTooltipModule, MatButtonModule,  MatInputModule,  MatCheckboxModule],
-  templateUrl: './list-project.component.html',
-  styleUrl: './list-project.component.css'
+  templateUrl: './listby-detail.component.html',
+  styleUrl: './listby-detail.component.css'
 })
-export class ListProjectComponent implements OnInit{
+export class ListbyDetailComponent  implements OnInit{
   positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
  
   myForm: FormGroup | any;
@@ -176,7 +176,7 @@ constructor(
         console.log("User Data:", parsedUser);
       }*/
   
-      this.apiServices.getAllProjects().subscribe(
+      this.apiServices.getAllProjectDetails().subscribe(
        
         (resp) => {
           debugger;

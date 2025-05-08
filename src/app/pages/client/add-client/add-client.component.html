@@ -14,101 +14,137 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
   <mat-card-content>
       <form class="example-form" [formGroup]="form" (ngSubmit)="onSubmit()" >
          
-          <div class="mat-form-field-container">
-             <mat-label><h5>Client Name *</h5></mat-label><br>            
-             <mat-form-field [style.width.%]="50" appearance="fill" class="mat-form-field-half-width">
-                      <input  matInput type="text" formControlName="Name" placeholder="Name">
-                      <mat-error *ngIf="form.get('Name')?.hasError('required')">This field is required</mat-error>
-              </mat-form-field>
+       
+        <div class="mat-form-field-container">
+                    
+          <mat-form-field [style.width.%]="50" appearance="fill" class="mat-form-field-half-width">
+           <mat-label>Client Name*</mat-label><br>   
+                   <input  matInput type="text" formControlName="Name" placeholder="Name">
+                  
+           </mat-form-field>
+           <mat-form-field [style.width.%]="30" appearance="fill" style="padding-left: 1%;">
+             <mat-label>Logo</mat-label><br>
+               <input matInput type="text" formControlName="Logo" placeholder="Logo">
+           </mat-form-field>
 
+           
+   </div>
+      
+       <div class="mat-form-field-container">
+         <mat-label><h5>Ubication*</h5></mat-label><br>
+           
+         <mat-form-field [style.width.%]="30" appearance="fill" >
+           <mat-label>Address</mat-label><br>
+             <input matInput type="text" formControlName="Address" placeholder="Address">
+         </mat-form-field>
+         <mat-form-field class="example-full-width" style="padding-left: 1%;">
+           <mat-label>City</mat-label>
+           <input matInput formControlName="City" placeholder="Ex. Houston">
+      
+         </mat-form-field>
+         <mat-form-field class="example-full-width" appearance="fill" style="padding-left: 1%;">
+        
+           <mat-label>Select State</mat-label>
+           <mat-select formControlName="State">
+             <mat-option value="Alabama">Alabama</mat-option>
+             <mat-option value="Alaska">Alaska</mat-option>
+             <mat-option value="Arizona">Arizona</mat-option>
+             <mat-option value="Arkansas">Arkansas</mat-option>
+             <mat-option value="California">California</mat-option>
+             <mat-option value="Colorado">Colorado</mat-option>
+             <mat-option value="Connecticut">Connecticut</mat-option>
+             <mat-option value="Delaware">Delaware</mat-option>
+             <mat-option value="Florida">Florida</mat-option>
+             <mat-option value="Georgia">Georgia</mat-option>
+             <mat-option value="Hawái">Hawaii</mat-option>
+             <mat-option value="Idaho">Idaho</mat-option>
+             <mat-option value="Illinois">Illinois</mat-option>
+             <mat-option value="Indiana">Indiana</mat-option>
+             <mat-option value="Iowa">Iowa</mat-option>
+             <mat-option value="Kansas">Kansas</mat-option>
+             <mat-option value="Kentucky">Kentucky</mat-option>
+             <mat-option value="Louisiana">Louisiana</mat-option>
+             <mat-option value="Maine">Maine</mat-option>
+             <mat-option value="Maryland">Maryland</mat-option>
+             <mat-option value="Massachusetts">Massachusetts</mat-option>
+             <mat-option value="Michigan">Michigan</mat-option>
+             <mat-option value="Minnesota">Minnesota</mat-option>
+             <mat-option value="Mississippi">Mississippi</mat-option>
+             <mat-option value="Missouri">Missouri</mat-option>
+             <mat-option value="Nebraska">Montana</mat-option>
+             <mat-option value="Nebraska">Nebraska</mat-option>
+             <mat-option value="Nevada">Nevada</mat-option>
+             <mat-option value="New Hampshire">New Hampshire</mat-option>
+             <mat-option value="New Jersey">New Jersey</mat-option>
+             <mat-option value="New México">New Mexico</mat-option>      
+             <mat-option value="New York">New York</mat-option>  
+             <mat-option value="North Carolina">North Carolina</mat-option>  
+             <mat-option value="North Dakota">North Dakota</mat-option>  
+             <mat-option value="Ohio">Ohio</mat-option>  
+             <mat-option value="Oklahoma">Oklahoma</mat-option>  
+             <mat-option value="Oregón">Oregon</mat-option>  
+             <mat-option value="Pennsylvania">Pennsylvania</mat-option>       
+             <mat-option value="Rhode Island">Rhode Island</mat-option>  
+             <mat-option value="South Carolina">South Carolina</mat-option>   
+             <mat-option value="South Dakota">South Dakota</mat-option>  
+             <mat-option value="Tennessee">Tennessee</mat-option>   
+             <mat-option value="Texas">Texas</mat-option>  
+             <mat-option value="Utah">Utah</mat-option>   
+             <mat-option value="Vermont">Vermont</mat-option>  
+             <mat-option value="Virginia">Virginia</mat-option>   
+             <mat-option value="Washington">Washington</mat-option>  
+             <mat-option value="West Virginia">West Virginia</mat-option>   
+             <mat-option value="Wisconsin">Wisconsin</mat-option>  
+             <mat-option value="Wyoming">Wyoming</mat-option>                                                                                                                                                                                                            
+           </mat-select>
+           </mat-form-field>
 
-              
-      </div>
+         <mat-form-field class="example-full-width" style="padding-left: 1%;">
+           <mat-label>Postal Code</mat-label>
+           <input matInput #postalCode maxlength="5" formControlName="ZipCode" placeholder="Ex. 94105" value="94043">
+           <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
          
-          <div class="mat-form-field-container">
-            <mat-label><h5>Ubication*</h5></mat-label><br>
-              
-            <mat-form-field [style.width.%]="30" appearance="fill" >
-                <input matInput type="text" formControlName="Address" placeholder="Address">
-                <mat-error *ngIf="form.get('Address')?.hasError('required')">This field is required</mat-error>
-            </mat-form-field>
-  
-
-
-          </div>
-
-          <div class="mat-form-field-container">
-    
-          </div>
-          <table class="example-full-width" cellspacing="0"><tr>
-            <td><mat-form-field class="example-full-width">
-              <mat-label>City</mat-label>
-              <input matInput formControlName="City" placeholder="Ex. Houston">
-              <mat-error *ngIf="form.get('City')?.hasError('required')">This field is required</mat-error>
-            </mat-form-field></td>
-            <td><mat-form-field class="example-full-width">
-              <mat-label>State</mat-label>
-              <input matInput formControlName="State" placeholder="Ex. Texas">
-              <mat-error *ngIf="form.get('State')?.hasError('required')">This field is required</mat-error>
-            </mat-form-field></td>
-            <td><mat-form-field class="example-full-width">
-              <mat-label>Postal Code</mat-label>
-              <input matInput #postalCode maxlength="5" formControlName="ZipCode" placeholder="Ex. 94105" value="94043">
-              <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
-              <mat-error *ngIf="form.get('ZipCode')?.hasError('required')">This field is required</mat-error>
-            </mat-form-field></td>
-            <td><mat-form-field class="example-full-width">
-              <mat-label>Country</mat-label>
-              <input matInput #postalCode maxlength="5" formControlName="Country" placeholder="Ex. 94105" value="94043">
-              <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
-              <mat-error *ngIf="form.get('Country')?.hasError('required')">This field is required</mat-error>
-            </mat-form-field></td>            
-          </tr></table>
-
-
-            <div class="mat-form-field-container">
-              <mat-label><h5>Logo </h5></mat-label><br>
-              <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">             
-                    <mat-form-field [style.width.%]="30" appearance="fill">
-                        <input matInput type="text" formControlName="Logo" placeholder="Logo">
-                    </mat-form-field>
-                  </div>
-          </div>
-
-          <div class="mat-form-field-container">
-              <mat-label><h5>Period of Invoice</h5></mat-label><br>
-              <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">             
-                    <mat-form-field [style.width.%]="30" appearance="fill">
-                        <input matInput type="text" formControlName="Period_of_Invoice" placeholder="Period of Invoice">
-                        
-                    </mat-form-field>
-                  </div>
-          </div>
-
+         </mat-form-field>
+         <mat-form-field class="example-full-width" style="padding-left: 1%;">
+           <mat-label>Country</mat-label>
+           <input matInput #postalCode maxlength="5" formControlName="Country" placeholder="Ex. 94105" value="94043">
+         
           
-          <div class="mat-form-field-container">
-              <mat-label><h5>Invoice Date</h5></mat-label><br>
-              <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">             
-                    <mat-form-field [style.width.%]="30" appearance="fill">
-                        <input matInput type="text" formControlName="Invoice_Date" placeholder="Invoice Date">
-                        
-                    </mat-form-field>
-                  </div>
-          </div>
+         </mat-form-field>           
+      
 
-          <div class="mat-form-field-container">
-              <mat-label><h5>Procedure</h5></mat-label><br>
-              <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">             
-                    <mat-form-field [style.width.%]="30" appearance="fill">
-                        <input matInput type="text" formControlName="Procedure" placeholder="Procedure">
-                        
-                    </mat-form-field>
-                  </div>
-          </div>
+       </div>
+         <div class="mat-form-field-container">
+           
+                     
 
+               
+       </div>
 
+       <div class="mat-form-field-container">
+           
+                    
+                 <mat-form-field [style.width.%]="15"  appearance="fill" class="mat-form-field-half-width" >
+                   <mat-label>Invoice Date</mat-label>
+                  <input formArrayName="Invoice_Date" matInput [matDatepicker]="picker4">
+                  <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+           
+                  <mat-datepicker #picker4></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field [style.width.%]="18" appearance="fill" style="padding-left: 1%;">
+                 <mat-label>Period of Invoice (Monthly, weekly)</mat-label><br>
+                   <input matInput type="text" formControlName="Period_of_Invoice" placeholder="Period of Invoice">
+                   
+               </mat-form-field>
+                 <mat-form-field [style.width.%]="60" appearance="fill" style="padding-left: 1%;">
+                   <mat-label>Procedure</mat-label><br>
+                     <input matInput type="text" formControlName="Procedure" placeholder="Procedure">
+                     
+                 </mat-form-field>
+               
+       </div>
 
-
+      
           
  
       <!-- <mat-radio-group formControlName="selectedOption2" color="primary" labelPosition="after">

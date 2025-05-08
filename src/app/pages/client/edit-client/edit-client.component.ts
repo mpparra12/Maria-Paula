@@ -12,13 +12,17 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-edit-client',
   standalone: true,
-  imports: [ MatCardModule,CommonModule,
-        MatIconModule, MatFormFieldModule,ReactiveFormsModule,
-       MatTooltipModule, MatButtonModule,  MatInputModule,  MatCheckboxModule
+  imports: [ MatSelectModule,MatCardModule,CommonModule,
+      MatIconModule, MatFormFieldModule,ReactiveFormsModule,MatDatepickerModule,
+      MatNativeDateModule,
+     MenuComponent, MatTooltipModule, MatButtonModule,  MatInputModule,  MatCheckboxModule
   ],  
   templateUrl: './edit-client.component.html',
   styleUrl: './edit-client.component.css'
