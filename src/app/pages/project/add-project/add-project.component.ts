@@ -50,6 +50,10 @@ export class AddProjectComponent implements OnInit {
   EmployeeManager!:any[];
   EmployeePM!:any[];  
   address!:any;
+  lastProject!:any;
+  NewProject!:any;
+  NewProjectName!:any;
+  NewTask!:any;
   resident!:any;
   owneradd!:any;
   residenceId!:any;
@@ -74,6 +78,7 @@ export class AddProjectComponent implements OnInit {
  
         }*/
         this.getbyYear();
+        this.getLastProposalNum();
         this.buildForm();
     }
  
@@ -101,6 +106,20 @@ export class AddProjectComponent implements OnInit {
      
     })
   }
+
+  getLastProposalNum()
+  {
+    this.apiServices.getLastProposalNum('U').subscribe((resp)=>{
+      console.log("lastProject",resp);
+     
+      this.NewProject = resp.NoProject;
+      this.NewProjectName=this.lastProject+'.00';
+      this.NewTask=0;
+      
+     
+    })
+  }
+  
  
   getbyYear()
   {
@@ -246,19 +265,46 @@ export class AddProjectComponent implements OnInit {
     //debugger;
     console.log('Estoy en Submit:');
       this.Form = this.fb.group({
-        Name:[this.form.get('Name')!.value],
-        Address:[ this.form.get('Address')!.value],
-        City:[this.form.get('City')!.value],
+        
+        ///
+        Client:[this.form.get('Client')!.value],
+        selectedClient:[ this.form.get('selectedClient')!.value],
+        selectedEmployee:[this.form.get('selectedEmployee')!.value],
+        AgreementNo:[this.form.get('AgreementNo')!.value],
+        ClientProject:[this.form.get('ClientProject')!.value],
+        ClientProjectCost:[this.form.get('ClientProjectCost')!.value],
+        selectedFP:[this.form.get('selectedFP')!.value],
+        ProjectCSJ:[this.form.get('ProjectCSJ')!.value],
         State:[this.form.get('State')!.value],
-        ZipCode:[this.form.get('ZipCode')!.value],
-        Logo:[this.form.get('Logo')!.value],
-        Active:[this.form.get('Active')!.value],
-        Country:[this.form.get('Country')!.value],
-        Period_of_Invoice:[this.form.get('Period_of_Invoice')!.value],
-        Invoice_Date:[this.form.get('Invoice_Date')!.value],
-        IdClient: null,
-        Documents_and_other_requirements:null,
-        Procedure:[this.form.get('Procedure')!.value]
+        County:[this.form.get('County')!.value],
+        City:[this.form.get('City')!.value],
+        HighwayNo:[this.form.get('HighwayNo')!.value],
+        Owner:[this.form.get('Owner')!.value],
+        Segment:[this.form.get('Segment')!.value],
+        Bridge:[this.form.get('Bridge')!.value],
+        Contact:[this.form.get('Contact')!.value],
+        yearFP:[this.form.get('yearFP')!.value],
+        FP:[this.form.get('FP')!.value],
+        ProjectName:[this.NewProjectName],
+        ProjectScope:[this.form.get('ProjectScope')!.value],
+        DepartmentManager:[this.form.get('DepartmentManager')!.value],
+        ProjectManager:[this.form.get('ProjectManager')!.value],
+        Task:[this.form.get('Task')!.value],
+        DECONProjectType:[this.form.get('DECONProjectType')!.value],
+        Market:[this.form.get('Market')!.value],
+        MainServiceLine:[this.form.get('MainServiceLine')!.value],
+        EngineeringService:[this.form.get('EngineeringService')!.value],
+        FPRequestedDate:[this.form.get('FPRequestedDate')!.value],
+        FPSenttoClien:[this.form.get('FPSenttoClien')!.value],
+        NTPDate:[this.form.get('NTPDate')!.value],        
+        ProjectFee:[this.form.get('ProjectFee')!.value],
+        ID:[this.form.get('ID')!.value],    
+        Category:['Contrated'],  
+        Project:[this.NewProject],  
+        SubProject:[this.NewTask],  
+        Status:['Under Production'],        
+        DueDate:[this.form.get('DueDate')!.value]
+   
      })
  
      console.log('Pase el formulario',this.Form);
@@ -336,7 +382,6 @@ export class AddProjectComponent implements OnInit {
       Client: ['', Validators.required],
       selectedClient: [''], 
       selectedEmployee: [''],
-      
       AgreementNo: ['', Validators.required],
       ClientProject: ['', Validators.required],
       GeneralDescription: ['', Validators.required],
@@ -353,7 +398,7 @@ export class AddProjectComponent implements OnInit {
       Contact :['',Validators.required],
       yearFP:[''],
       FP:[''],
-      ProjectName:[''],
+      ProjectName:[this.NewProjectName],
       ProjectScope:[''],
       DepartmentManager:[''],
       ProjectManager: [''],
@@ -366,6 +411,11 @@ export class AddProjectComponent implements OnInit {
       FPSenttoClien:[''],
       NTPDate:[''],
       ProjectFee:[''],
+      ID:[''],
+      Category:[''],
+      Project:[''],
+      SubProject:[''],
+      Status:[''],      
       DueDate:['']
     });
 

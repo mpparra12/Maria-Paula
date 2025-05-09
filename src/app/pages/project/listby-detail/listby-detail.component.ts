@@ -51,12 +51,15 @@ export class ListbyDetailComponent  implements OnInit{
   'ID', 
   'ProjectName', 
   'ClientName', 
-  'ProjectDescription', 
-  'PM',
-  'ProjectType',
-  'ContractValue',
-  'NoProposal',
-  'AwardDate',
+  'Agreement',
+  'BridgeDistrict',
+  'City',  
+  'ClientProject', 
+  'County',
+  'ProjectCSJContractNo',
+  'ProjectCost',
+  'SegmentBridge',
+  'State',
   'Actions'
 ];
 

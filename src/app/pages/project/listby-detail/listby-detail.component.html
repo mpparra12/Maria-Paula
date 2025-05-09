@@ -66,38 +66,53 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
                 </ng-container>
               
                 <!-- Ciudad -->
-                <ng-container matColumnDef="ProjectDescription">
-                  <th mat-header-cell *matHeaderCellDef> Project Description </th>
-                  <td mat-cell *matCellDef="let element"> {{ element.ProjectDescription || 'N/A' }} </td>
+                <ng-container matColumnDef="ClientProject">
+                  <th mat-header-cell *matHeaderCellDef> Client Project </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.ClientProject || 'N/A' }} </td>
                 </ng-container>
 
                 <!-- Ciudad -->
-                <ng-container matColumnDef="ContractValue">
-                  <th mat-header-cell *matHeaderCellDef> Contract Value </th>
-                  <td mat-cell *matCellDef="let element"> {{ element.ContractValue | currency:'USD':'symbol':'1.2-2' }} </td>
+                <ng-container matColumnDef="Agreement">
+                  <th mat-header-cell *matHeaderCellDef> Agreement </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.Agreement | currency:'USD':'symbol':'1.2-2' }} </td>
                 </ng-container>
               
                 <!-- Estado -->
-                <ng-container matColumnDef="PM">
-                  <th mat-header-cell *matHeaderCellDef> Project Manager </th>
-                  <td mat-cell *matCellDef="let element"> {{ element.PM || 'N/A' }} </td>
+                <ng-container matColumnDef="BridgeDistrict">
+                  <th mat-header-cell *matHeaderCellDef> Bridge District </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.BridgeDistrict || 'N/A' }} </td>
                 </ng-container>
               
                 <!-- Código Postal -->
-                <ng-container matColumnDef="ProjectType">
-                  <th mat-header-cell *matHeaderCellDef> Project Type </th>
-                  <td mat-cell *matCellDef="let element"> {{ element.ProjectType || 'N/A' }} </td>
+                <ng-container matColumnDef="ProjectCSJContractNo">
+                  <th mat-header-cell *matHeaderCellDef> Project CSJ Contract No </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.ProjectCSJContractNo || 'N/A' }} </td>
                 </ng-container>
               
-                <ng-container matColumnDef="NoProposal">
-                    <th mat-header-cell *matHeaderCellDef> No. Proposal </th>
-                    <td mat-cell *matCellDef="let element"> {{ element.NoProposal || 'N/A' }} </td>
+                <ng-container matColumnDef="ProjectCost">
+                    <th mat-header-cell *matHeaderCellDef> Project Cost </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.ProjectCost || 'N/A' }} </td>
                   </ng-container>     
 
-                  <ng-container matColumnDef="AwardDate">
-                    <th mat-header-cell *matHeaderCellDef> Award Date </th>
-                    <td mat-cell *matCellDef="let element"> {{ element.AwardDate || 'N/A' }} </td>
+                  <ng-container matColumnDef="SegmentBridge">
+                    <th mat-header-cell *matHeaderCellDef> Segment Bridge </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.SegmentBridge || 'N/A' }} </td>
                   </ng-container>    
+
+                  <ng-container matColumnDef="City">
+                    <th mat-header-cell *matHeaderCellDef> City </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.City || 'N/A' }} </td>
+                  </ng-container>
+                
+                  <ng-container matColumnDef="County">
+                      <th mat-header-cell *matHeaderCellDef> County </th>
+                      <td mat-cell *matCellDef="let element"> {{ element.County || 'N/A' }} </td>
+                    </ng-container>     
+  
+                    <ng-container matColumnDef="State">
+                      <th mat-header-cell *matHeaderCellDef> State </th>
+                      <td mat-cell *matCellDef="let element"> {{ element.State || 'N/A' }} </td>
+                    </ng-container>                     
 
                 <ng-container matColumnDef="Actions">
                   <th mat-header-cell *matHeaderCellDef> Actions </th>

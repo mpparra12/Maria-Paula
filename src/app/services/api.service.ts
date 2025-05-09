@@ -110,6 +110,12 @@ export class ApiService {
    // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
   }
   
+  getLastProposalNum(NoProposal: any)
+  {
+    return this.http.get<any>(`${this.apiUrl}/getLastProposalNum?Name=${NoProposal}`)
+   // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
+  }
+  
 
   addClient(form: any){
     return this.http.post(this.apiUrl+"/AddClient",form)
