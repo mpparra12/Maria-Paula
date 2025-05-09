@@ -15,34 +15,32 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
       <form class="example-form" [formGroup]="form" (ngSubmit)="onSubmit()" >
          
           <div class="mat-form-field-container">
-             <mat-label><h5>Client Name *</h5></mat-label><br>            
-             <mat-form-field [style.width.%]="50" appearance="fill" class="mat-form-field-half-width">
-                      <input  matInput type="text" formControlName="Name" placeholder="Name">
-                      <mat-error *ngIf="form.get('Name')?.hasError('required')">This field is required</mat-error>
-              </mat-form-field>
+            <label><h1>Please introduce Proposal Information</h1></label>         
 
 
-              
-      </div>
-
-      <div class="mat-form-field-container">
-              
-        <mat-form-field [style.width.%]="30" appearance="fill" >
+              <mat-form-field [style.width.%]="33" appearance="fill" class="mat-form-field-width">
+                <mat-label>Select a client</mat-label>
+                <mat-select   formControlName="Name">
+                  <mat-option value="0">
+                    --Select a client--
+                  </mat-option>
+                  <mat-option *ngFor="let option of ClientName" [value]="option.Name">
+                    {{ option.Name }}
+                </mat-option>
+              </mat-select>
+                <mat-error *ngIf="form.get('Name')?.hasError('required')">
+                    You must select an option.
+                </mat-error>
+                
+            </mat-form-field>
+    
+        <mat-form-field [style.width.%]="30" appearance="fill"  style="padding-left: 1%;">
             <input matInput type="text" formControlName="NoProposal" placeholder="No. Proposal">
             <mat-error *ngIf="form.get('NoProposal')?.hasError('required')">This field is required</mat-error>
         </mat-form-field>
         
 
-
-
-      </div>
-
-      <div class="mat-form-field-container">
-              
-        <mat-form-field [style.width.%]="30" appearance="fill" >
-            <input matInput type="text" formControlName="Proposal" placeholder="Proposal">
-            <mat-error *ngIf="form.get('Proposal')?.hasError('required')">This field is required</mat-error>
-        </mat-form-field>
+      
         
 
 
@@ -51,123 +49,67 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
 
 
 
-         
-          <div class="mat-form-field-container">
-              
-            <mat-form-field [style.width.%]="30" appearance="fill" >
-                <input matInput type="text" formControlName="Category" placeholder="Category">
-                <mat-error *ngIf="form.get('Category')?.hasError('required')">This field is required</mat-error>
-            </mat-form-field>
-  
-
-
-          </div>
-
-          <div class="mat-form-field-container">
-            <mat-label><h5>Location*</h5></mat-label><br>
-    
-          </div>
-           <table class="example-full-width" cellspacing="0"><tr>
-            <!--<td><mat-form-field class="example-full-width">
-              <mat-label>City</mat-label>
-              <input matInput formControlName="City" placeholder="Ex. Houston">
-              <mat-error *ngIf="form.get('City')?.hasError('required')">This field is required</mat-error>
-            </mat-form-field></td>-->
-            <!--<td><mat-form-field class="example-full-width">
-              <mat-label>State</mat-label>
-              <input matInput formControlName="State" placeholder="Ex. Texas">
-              <mat-error *ngIf="form.get('State')?.hasError('required')">This field is required</mat-error>
-            </mat-form-field></td>-->
-            <!--<td><mat-form-field class="example-full-width">
-              <mat-label>Postal Code</mat-label>
-              <input matInput #postalCode maxlength="5" formControlName="ZipCode" placeholder="Ex. 94105" value="94043">
-              <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
-              <mat-error *ngIf="form.get('ZipCode')?.hasError('required')">This field is required</mat-error>
-            </mat-form-field></td>-->
-            <td><mat-form-field class="example-full-width">
-                <mat-label>Year</mat-label>
-                <input matInput #postalCode maxlength="5" formControlName="Year" placeholder="Ex. 9410" value="9404">
-                <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
-                <mat-error *ngIf="form.get('Year')?.hasError('required')">This field is required</mat-error>
-              </mat-form-field></td>
-            <td><mat-form-field class="example-full-width">
-              <mat-label>Country</mat-label>
-              <input matInput #postalCode maxlength="5" formControlName="Country" placeholder="Ex. 94105" value="94043">
-              <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
-              <mat-error *ngIf="form.get('Country')?.hasError('required')">This field is required</mat-error>
-            </mat-form-field></td>            
-          </tr></table>
-
 
             <div class="mat-form-field-container">
-              <mat-label><h5>Project Description </h5></mat-label><br>
-              <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">             
-                    <mat-form-field [style.width.%]="30" appearance="fill">
-                        <input matInput type="text" formControlName= "ProjectDescription" placeholder="Project Description">
+              
+              
+                    <mat-form-field [style.width.%]="80" appearance="fill">
+                        <mat-label>Project Name</mat-label>
+                        <input matInput type="text" formControlName= "ProjectDescription" placeholder="Please introduce the Project Name">
                     </mat-form-field>
-                  </div>
+                 
           </div>
 
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">             
+            <mat-form-field [style.width.%]="100" appearance="fill">
+              <mat-label>Project Description</mat-label>
+                <input matInput type="text" formControlName="Scope" placeholder="Project Description">
+                
+            </mat-form-field>
+          </div>
+ 
           <div class="mat-form-field-container">
-              <mat-label><h5>Contract Value</h5></mat-label><br>
-              <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">             
-                    <mat-form-field [style.width.%]="30" appearance="fill">
+              
+                          
+                    <mat-form-field [style.width.%]="24" appearance="fill">
+                        <mat-label>Contract Value</mat-label>
                         <input matInput type="text" formControlName="ContractValue" placeholder="Contract Value">
                         
                     </mat-form-field>
-                  </div>
-          </div>
+                 
 
-          
-          <div class="mat-form-field-container">
-              <mat-label><h5>Estimated Hours</h5></mat-label><br>
-              <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">             
-                    <mat-form-field [style.width.%]="30" appearance="fill">
+              
+                          
+                    <mat-form-field [style.width.%]="24" appearance="fill" style="padding-left: 1%;" >
+                        <mat-label>Estimated Hours</mat-label>
                         <input matInput type="text" formControlName="EstimatedHours" placeholder="Estimated Hours">
                         
                     </mat-form-field>
-                  </div>
-          </div>
-
-          <div class="mat-form-field-container">
-              <mat-label><h5>Proposal Request Date</h5></mat-label><br>
-              <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">             
-                    <mat-form-field [style.width.%]="30" appearance="fill">
-                        <input matInput type="text" formControlName="ProposalRequestDate" placeholder="Proposal Request Date">
+                 
+      
+                    <mat-form-field  [style.width.%]="24"  appearance="fill" class="mat-form-field-half-width" style="padding-left: 1%;" >
+                        <mat-label>Proposal Request Date</mat-label>
+                       <input formArrayName="ProposalRequestDate" matInput [matDatepicker]="picker" >
+                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                       <mat-datepicker #picker></mat-datepicker>
+                     </mat-form-field>
                         
-                    </mat-form-field>
-                  </div>
-          </div>
-
-          <div class="mat-form-field-container">
-            <mat-label><h5>Proposal Submitted</h5></mat-label><br>
-            <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">             
-                  <mat-form-field [style.width.%]="30" appearance="fill">
-                      <input matInput type="text" formControlName="ProposalSubmitted" placeholder="Proposal Submitted">
-                      
-                  </mat-form-field>
-                </div>
+                    
+                     <mat-form-field  [style.width.%]="24"  appearance="fill" class="mat-form-field-half-width" style="padding-left: 1%;" >
+                        <mat-label>Proposal Submitted</mat-label>
+                       <input formArrayName="ProposalSubmitted" matInput [matDatepicker]="picker1" >
+                       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                       <mat-datepicker #picker1></mat-datepicker>
+                     </mat-form-field>
+         
+            
+                       
+                 
+                
         </div>
 
-        <div class="mat-form-field-container">
-            <mat-label><h5>Scope</h5></mat-label><br>
-            <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">             
-                  <mat-form-field [style.width.%]="30" appearance="fill">
-                      <input matInput type="text" formControlName="Scope" placeholder="Scope">
-                      
-                  </mat-form-field>
-                </div>
-        </div>
+       
 
-        <div class="mat-form-field-container">
-            <mat-label><h5>StatusProp</h5></mat-label><br>
-            <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">             
-                  <mat-form-field [style.width.%]="30" appearance="fill">
-                      <input matInput type="text" formControlName="StatusProp" placeholder="Status Proposal">
-                      
-                  </mat-form-field>
-                </div>
-        </div>
 
 
 

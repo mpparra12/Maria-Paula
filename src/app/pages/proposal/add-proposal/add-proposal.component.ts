@@ -12,12 +12,16 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-add-proposal',
   standalone: true,
   imports: [MatCardModule,CommonModule,
-    MatIconModule, MatFormFieldModule,ReactiveFormsModule,
+    MatIconModule, MatFormFieldModule,ReactiveFormsModule,MatSelectModule,MatDatepickerModule, MatNativeDateModule,
    MenuComponent, MatTooltipModule, MatButtonModule,  MatInputModule,  MatCheckboxModule],
   templateUrl: './add-proposal.component.html',
   styleUrl: './add-proposal.component.css'
@@ -28,11 +32,13 @@ export class AddProposalComponent {
   form: FormGroup | any;
   residentType!:any[];
   address!:any;
+  ClientName!:any[];
   resident!:any;
   owneradd!:any;
   residenceId!:any;
   residentCode!:any[];
   selectedFile: File | null = null;
+  yearNow!:any;
   /**
    *
    */
@@ -49,6 +55,9 @@ export class AddProposalComponent {
   ngOnInit(): void {
     //this.getResidentType();
     //this.getResidentCode();
+    this.yearNow= new Date().getFullYear();
+    console.log("year", this.yearNow)
+    this.getClient();
   }
  
 
@@ -64,6 +73,17 @@ export class AddProposalComponent {
     })
   }*/
  
+    getClient()
+    {
+      this.apiServices.getClientsAll().subscribe((resp)=>{
+        console.log("Client",resp);
+       
+        this.ClientName = resp;
+        console.log("Nameclient",this.ClientName);
+       
+      })
+    }
+
   onSubmit1() {
     debugger;
     if (this.form.valid) {
@@ -99,22 +119,23 @@ export class AddProposalComponent {
  
   onSubmit() {
     //debugger;
-    console.log('Estoy en Submit:');
+    console.log('Estoy en Submit form:',this.form);
+    console.log('Estoy datem:',this.yearNow);
       this.Form = this.fb.group({
         Name:[this.form.get('Name')!.value],
         Category:[ this.form.get('Category')!.value],
-        ProjectDescription:[this.form.get('Project Description')!.value],
-        ContractValue:[this.form.get('Contract Value')!.value],
-        EstimatedHours:[this.form.get('Estimated Hours')!.value],
-        Year:[this.form.get('Year')!.value],
+        ProjectDescription:[this.form.get('ProjectDescription')!.value],
+        ContractValue:[this.form.get('ContractValue')!.value],
+        EstimatedHours:[this.form.get('EstimatedHours')!.value],
+        Year:[this.yearNow],
         Proposal:[this.form.get('Proposal')!.value],
-        NoProposal:[this.form.get('No. Proposal')!.value],
+        NoProposal:[this.form.get('NoProposal')!.value],
         Country:[this.form.get('Country')!.value],
-        ProposalRequestDate:[this.form.get('Proposal Request Date')!.value],
+        ProposalRequestDate:[this.form.get('ProposalRequestDate')!.value],
         ClientID: null,
-        ProposalSubmitted:[this.form.get('Proposal Submitted')!.value],
+        ProposalSubmitted:[this.form.get('ProposalSubmitted')!.value],
         Scope:[this.form.get('Scope')!.value],
-        StatusProp:[this.form.get('Status Proposal')!.value]
+        StatusProp:['Submitted']
      })
  
      console.log('Pase el formulario',this.Form);
@@ -154,18 +175,18 @@ export class AddProposalComponent {
     this.form = this.fb.group({
      
       Name: ['', Validators.required],
-      Category: ['', Validators.required],
+      Category: ['Proposal', Validators.required],
       ProjectDescription: ['', Validators.required],
       ContractValue: ['', Validators.required],
       EstimatedHours: ['', Validators.required],
-      Year: ['',Validators.required],
-      Proposal:['',Validators.required],
+      Year: [this.yearNow],
+      Proposal:[''],
       NoProposal:['',Validators.required],
-      Country:['',Validators.required],
+      Country:['USA',Validators.required],
       ProposalRequestDate:[''],
       ProposalSubmitted:[''],
       Scope:['',Validators.required],
-      StatusProp:['',Validators.required]
+      StatusProp:['Submitted']
     
  
     });
