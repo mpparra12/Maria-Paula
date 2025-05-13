@@ -15,6 +15,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+//import {NgxMatFileInputModule} from '@angular-material-components/file-input';
+import { FileInput } from 'ngx-material-file-input';
+
 @Component({
   selector: 'app-add-client',
   standalone: true,
@@ -76,8 +79,18 @@ export class AddClientComponent implements OnInit {
     })
   }*/
  
+      onFileChange(event:any) {
+    const files = (event.target as HTMLInputElement).files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      this.form.patchValue({
+        document: file
+      });
+    }
+  }
   onSubmit1() {
     debugger;
+   
     if (this.form.valid) {
       // Lógica para manejar el envío del formulario aquí
       console.log(this.form);

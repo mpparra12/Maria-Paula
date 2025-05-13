@@ -122,17 +122,17 @@ export class AddProposalComponent {
     console.log('Estoy en Submit form:',this.form);
     console.log('Estoy datem:',this.yearNow);
       this.Form = this.fb.group({
-        Name:[this.form.get('Name')!.value],
+        ClientName:[this.form.get('Name')!.value],
         Category:[ this.form.get('Category')!.value],
         ProjectDescription:[this.form.get('ProjectDescription')!.value],
         ContractValue:[parseInt(this.form.get('ContractValue')!.value)],
-        EstimatedHours:[parseInt(this.form.get('EstimatedHours')!.value)],
+        Estimated_h:[parseInt(this.form.get('EstimatedHours')!.value)],
         Year:[this.yearNow],
-        Proposal:[this.form.get('Proposal')!.value],
+        Proposal:[null],
         NoProposal:[this.form.get('NoProposal')!.value],
         Country:[this.form.get('Country')!.value],
         ProposalRequestDate:[this.form.get('ProposalRequestDate')!.value],
-        ClientID: null,
+        IDClient: [1],
         ProposalSubmitted:[this.form.get('ProposalSubmitted')!.value],
         Scope:[this.form.get('Scope')!.value],
         StatusProp:['Submitted']
@@ -180,11 +180,11 @@ export class AddProposalComponent {
       ContractValue: [],
       EstimatedHours: [],
       Year: [this.yearNow],
-      Proposal:[''],
+      Proposal:[null],
       NoProposal:['',Validators.required],
       Country:['USA',Validators.required],
-      ProposalRequestDate:[''],
-      ProposalSubmitted:[''],
+      ProposalRequestDate:[null],
+      ProposalSubmitted:[null],
       Scope:['',Validators.required],
       StatusProp:['Submitted']
     

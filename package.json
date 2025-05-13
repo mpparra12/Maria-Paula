@@ -26,6 +26,7 @@
     "@ng-bootstrap/ng-bootstrap": "^17.0.1",
     "express": "^4.18.2",
     "mat-table-exporter": "^15.0.0",
+    "ngx-material-file-input": "^4.0.1",
     "ngx-spinner": "^17.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
