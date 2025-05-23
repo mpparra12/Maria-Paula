@@ -22,13 +22,15 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectChange } from '@angular/material/select';
+import {MatRadioModule} from '@angular/material/radio';
+import { MatRadioChange } from '@angular/material/radio';
 
 @Component({
   selector: 'app-add-project',
   standalone: true,
   imports: [MatSelectModule,MatCardModule,CommonModule,
     MatIconModule, MatFormFieldModule,ReactiveFormsModule,MatDatepickerModule,
-    MatNativeDateModule,
+    MatNativeDateModule,MatRadioModule,
    MenuComponent, MatTooltipModule, MatButtonModule,  MatInputModule,  MatCheckboxModule],
   templateUrl: './add-project.component.html',
   styleUrl: './add-project.component.css'
@@ -42,6 +44,7 @@ export class AddProjectComponent implements OnInit {
   ServiceLine!:any[];
   ProjectType!:any[];
   yearFP!:any[];
+  ListProject!:any[];
   defaultDate!: Date;
   fechaSend!:any;
   fechaDividida: string[] = [];
@@ -54,12 +57,18 @@ export class AddProjectComponent implements OnInit {
   NewProject!:any;
   NewProjectName!:any;
   NewTask!:any;
+  NewTask1!:any;
   resident!:any;
   owneradd!:any;
+  ProjectTask!:any;
+  hidden!:any;
+  hiddenCombo!:any;
   residenceId!:any;
   residentCode!:any[];
   selectedFile: File | null = null;
   selectedValue!:any;
+  IDselected!:any;
+  ProjectNameSele!:any;
   /**
    *
    */
@@ -91,6 +100,9 @@ export class AddProjectComponent implements OnInit {
     this.getAllTypeServiceLine();
     this.getAllMarket();
     this.getAllTypeProject();
+    this.getAllProjects();
+    this.hidden=false;
+  this.hiddenCombo=false;
     //this.SelectFP(this.selectedValue);
   }
  
@@ -107,16 +119,94 @@ export class AddProjectComponent implements OnInit {
     })
   }
 
+
+  getLastSubproject(event: MatSelectChange):void{
+    // alert("estoy aqui");
+     console.log('Selected value:', event.value);
+    // debugger;
+    // let idaddress=this.form.get('selectedOption')!.value;
+    console.log("event.value",event.value);
+      
+     this.apiServices.getLastSubproject(event.value).subscribe((resp:any)=>{
+      console.log('data:', resp[0].Mproj);
+      this.ProjectTask= this.form.get('ListProjects')!.value;
+      this.NewTask=parseInt(resp[0].Mproj) + 1;
+      this.NewTask1=String(this.NewTask)
+       //this.NewTask1= this.NewTask1 + 1;
+       console.log('this.NewTask1:', this.NewTask1);
+        console.log('this.lengt:', this.NewTask1.length);
+       if (this.NewTask1.length===1)
+      {
+        console.log('Estoy aqui');
+        this.NewProjectName=this.ProjectTask.toString()+'.0'+this.NewTask1.toString();
+         
+      }
+      if (this.NewTask1.length>1)
+      {
+        console.log('Estoy aqui1');
+         this.NewProjectName=this.ProjectTask.toString()+'.'+this.NewTask1.toString();
+      }      
+
+   
+      this.hidden=true;
+   
+    this.form.controls.ProjectName.setValue(this.NewProjectName); 
+       console.log('ID:', this.NewProjectName);
+      // this.fechaDividida = resp.ProposalRequestDate.split('-');
+      // this.fechaSend= this.fechaDividida[1] +"/" + this.fechaDividida[2]+"/" + this.fechaDividida[0];
+      // this.defaultDate= this.fechaSend.substring(0, 10);
+       //console.log('defaultDate:', this.defaultDate);
+      // this.ProjectNameSele=resp.ProjectDescription;
+       //console.log(this.fechaDividida,this.fechaSend)
+     /*  this.form.patchValue({
+         
+         ProjectName:[1900.00],
+          ProjectScope:[resp.ProjectDescription.value],
+
+          ProposalSubmitted:[new Date(parseInt(this.fechaDividida[0]),parseInt(this.fechaDividida[2]),parseInt(this.fechaDividida[1]))],
+          ProjectFee:[resp.ContractValue.value]
+        })*/
+      // if (resp.success) {
+        // this.addresSel=resp.Address;
+         
+         //this.FamilySel=resp.family_id;        
+   
+        // alert(resp.response);
+    
+      // }else{
+        // alert(resp.error);
+       //} 
+       
+     });
+   
+   }
+
+
+
   getLastProposalNum()
   {
     this.apiServices.getLastProposalNum('U').subscribe((resp)=>{
-      console.log("lastProject",resp);
-     
-      this.NewProject = resp.NoProject;
-      this.NewProjectName=this.lastProject+'.00';
-      this.NewTask=0;
       
      
+      this.NewProject = parseInt(resp.NoProject)+1;
+      //this.NewProjectName=this.NewProject.toFixed(2);
+      this.NewProjectName=this.NewProject.toString()+'.00';
+      console.log("NewProjectName",this.NewProjectName);
+      this.NewTask=0;
+ 
+    })
+  }
+  
+    getAllProjects()
+  {
+    this.apiServices.getProjectA().subscribe((resp)=>{
+      console.log("getProjectA",resp);
+     this.ListProject=resp;
+     console.log("ListProjects",this.ListProject);
+     // this.NewProject = parseInt(resp.NoProject)+1;
+      //this.NewProjectName=this.NewProject.toFixed(2);
+     // this.NewProjectName=parseInt(resp.NoProject)+1;
+     // this.NewTask=0;
     })
   }
   
@@ -275,6 +365,7 @@ export class AddProjectComponent implements OnInit {
         ClientProjectCost:[this.form.get('ClientProjectCost')!.value],
         selectedFP:[this.form.get('selectedFP')!.value],
         ProjectCSJ:[this.form.get('ProjectCSJ')!.value],
+        GeneralDescription:[this.form.get('GeneralDescription')!.value],
         State:[this.form.get('State')!.value],
         County:[this.form.get('County')!.value],
         City:[this.form.get('City')!.value],
@@ -290,7 +381,7 @@ export class AddProjectComponent implements OnInit {
         DepartmentManager:[this.form.get('DepartmentManager')!.value],
         ProjectManager:[this.form.get('ProjectManager')!.value],
         Task:[this.form.get('Task')!.value],
-        DECONProjectType:[this.form.get('DECONProjectType')!.value],
+        ProjectType:[this.form.get('ProjectType')!.value],
         Market:[this.form.get('Market')!.value],
         MainServiceLine:[this.form.get('MainServiceLine')!.value],
         EngineeringService:[this.form.get('EngineeringService')!.value],
@@ -298,7 +389,7 @@ export class AddProjectComponent implements OnInit {
         FPSenttoClien:[this.form.get('FPSenttoClien')!.value],
         NTPDate:[this.form.get('NTPDate')!.value],        
         ProjectFee:[this.form.get('ProjectFee')!.value],
-        ID:[this.form.get('ID')!.value],    
+        ID:[this.IDselected],    
         Category:['Contrated'],  
         Project:[this.NewProject],  
         SubProject:[this.NewTask],  
@@ -309,7 +400,7 @@ export class AddProjectComponent implements OnInit {
  
      console.log('Pase el formulario',this.Form);
    
-      this.apiServices.addClient(this.Form.value).subscribe((resp:any)=>{
+      this.apiServices.updateProposaltoProject(this.Form.value).subscribe((resp:any)=>{
         console.log('Formulario enviado a nuevo cliente:', resp);
         if (resp.success) {
             alert(resp.response);
@@ -325,8 +416,28 @@ export class AddProjectComponent implements OnInit {
         }
      
  
+radioButtonChange(data: MatRadioChange) {
+    console.log(data.value);
+    if (data.value==='1')
+    {
+      this.hidden=true;
+      
+      this.form.controls.ProjectName.setValue(this.NewProjectName);
+      
      
-   
+    }
+        if (data.value==='2')
+    {
+      
+      this.hidden=false;
+      this.hiddenCombo=true;
+      //this.form.controls.ProjectName.setValue(this.NewProjectName);
+      
+     
+    }
+
+     console.log("hiden",this.hidden) 
+}
    
    
     // Verificar si el formulario es válido
@@ -345,21 +456,25 @@ export class AddProjectComponent implements OnInit {
     // let idaddress=this.form.get('selectedOption')!.value;
      //console.log("add",idaddress);
      this.apiServices.getFPbyNum(event.value).subscribe((resp:any)=>{
-       console.log('fecha Addr:', resp.ProposalRequestDate);
+      console.log('data:', resp);
+      this.IDselected=parseInt(resp.ID);
+       console.log('ID:', this.IDselected);
        this.fechaDividida = resp.ProposalRequestDate.split('-');
        this.fechaSend= this.fechaDividida[1] +"/" + this.fechaDividida[2]+"/" + this.fechaDividida[0];
-       this.defaultDate= this.fechaSend;
+       this.defaultDate= this.fechaSend.substring(0, 10);
        console.log('defaultDate:', this.defaultDate);
+      // this.ProjectNameSele=resp.ProjectDescription;
        //console.log(this.fechaDividida,this.fechaSend)
-        this.form = this.fb.group({
+       this.form.patchValue({
+       // this.form = this.fb.group({
           
-          ProjectName:[resp.ProjectDescription],
-          ProjectScope:[resp.ProjectDescription],
+         ProjectName:[1900.00],
+          ProjectScope:[resp.ProjectDescription.value],
          // defaultDate: this.fechaSend,
-         // FPRequestedDate :[this.defaultDate],
+       //   ProposalRequestDate :[this.defaultDate],
           //[resp.ProposalRequestDate,Validators.required], 5/7/2025, 2025-01-13
-          //FPSenttoClien:[this.defaultDate],
-          ProjectFee:[resp.ContractValue]
+          ProposalSubmitted:[new Date(parseInt(this.fechaDividida[0]),parseInt(this.fechaDividida[2]),parseInt(this.fechaDividida[1]))],
+          ProjectFee:[resp.ContractValue.value]
         })
       // if (resp.success) {
         // this.addresSel=resp.Address;
@@ -389,6 +504,7 @@ export class AddProjectComponent implements OnInit {
       selectedFP: [''], 
       ProjectCSJ: [''],
       State:[''],
+      selectedOption2:['',Validators.required],
       County:['',Validators.required],
       City:[''],
       HighwayNo:[''],
@@ -397,26 +513,27 @@ export class AddProjectComponent implements OnInit {
       Bridge :[''],
       Contact :['',Validators.required],
       yearFP:[''],
+      ListProjects:[''],
       FP:[''],
       ProjectName:[this.NewProjectName],
       ProjectScope:[''],
       DepartmentManager:[''],
       ProjectManager: [''],
       Task :[''],
-      DECONProjectType :['',Validators.required],
+      ProjectType :['',Validators.required],
       Market:[''],
       MainServiceLine:[''],
       EngineeringService:[''],
-      FPRequestedDate :['',Validators.required],
-      FPSenttoClien:[''],
-      NTPDate:[''],
-      ProjectFee:[''],
-      ID:[''],
+      FPRequestedDate :[new Date(),Validators.required],
+      FPSenttoClien:[new Date()],
+      NTPDate:[new Date()],
+      ProjectFee:[],
+      ID:[],
       Category:[''],
       Project:[''],
       SubProject:[''],
       Status:[''],      
-      DueDate:['']
+      DueDate:[new Date()]
     });
 
   

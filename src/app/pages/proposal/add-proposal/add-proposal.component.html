@@ -20,11 +20,11 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
 
               <mat-form-field [style.width.%]="33" appearance="fill" class="mat-form-field-width">
                 <mat-label>Select a client</mat-label>
-                <mat-select   formControlName="Name">
+                <mat-select  (selectionChange)="SelectClient($event)"  formControlName="Name">
                   <mat-option value="0">
                     --Select a client--
                   </mat-option>
-                  <mat-option *ngFor="let option of ClientName" [value]="option.Name">
+                  <mat-option *ngFor="let option of ClientName" [value]="option.ID">
                     {{ option.Name }}
                 </mat-option>
               </mat-select>
@@ -34,9 +34,12 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
                 
             </mat-form-field>
     
-        <mat-form-field [style.width.%]="30" appearance="fill"  style="padding-left: 1%;">
-            <input matInput type="text" formControlName="NoProposal" placeholder="No. Proposal">
+        <mat-form-field [style.width.%]="30" appearance="fill" color="warn"  style="padding-left: 1%;">
+          <mat-label>Proposal No.</mat-label>
+          <b><h1 style="background-color:rgb(150, 196, 218);">
+            <input  [readonly]="true" matInput type="text" formControlName="NoProposal" placeholder="No. Proposal">
             <mat-error *ngIf="form.get('NoProposal')?.hasError('required')">This field is required</mat-error>
+           </h1> </b>
         </mat-form-field>
         
 
@@ -61,11 +64,11 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
           </div>
 
         <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">             
-            <mat-form-field [style.width.%]="100" appearance="fill">
-              <mat-label>Project Description</mat-label>
-                <input matInput type="text" formControlName="Scope" placeholder="Project Description">
-                
-            </mat-form-field>
+
+            <mat-form-field [style.width.%]="100" appearance="fill" >
+              <mat-label>Description of Project</mat-label>
+              <textarea  matInput type="text" formControlName="Scope" placeholder="General Description of Project"></textarea>
+             </mat-form-field>            
           </div>
  
           <div class="mat-form-field-container">
@@ -81,8 +84,8 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
               
                           
                     <mat-form-field [style.width.%]="24" appearance="fill" style="padding-left: 1%;" >
-                        <mat-label>Estimated Hours</mat-label>
-                        <input matInput type="text" formControlName="EstimatedHours" placeholder="Estimated Hours">
+                        <mat-label>Estimated Bussiness Days</mat-label>
+                        <input matInput type="text" formControlName="EstimatedHours" placeholder="Estimated Bussiness Days">
                         
                     </mat-form-field>
                  

@@ -215,14 +215,36 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
               </mat-error>
               
           </mat-form-field>
-          <mat-form-field [style.width.%]="78" appearance="fill" style="padding-left: 1%;">
-            <mat-label>Project Name</mat-label><br>
-              <input matInput type="text" formControlName="ProjectName" placeholder="Project Name">
+          
+          <mat-radio-group (change)="radioButtonChange($event)"  formControlName="selectedOption2" color="primary" labelPosition="after"  style="padding-left: 1%;">
+              <mat-radio-button  value="1"  class="my-radio-button">New Project</mat-radio-button>
+              <mat-radio-button value="2"  style="padding-right: 1%;" class="my-radio-button">New Task  </mat-radio-button>
+            </mat-radio-group>          
+
+
+            <mat-form-field *ngIf="hiddenCombo"  [style.width.%]="10" appearance="fill" class="mat-form-field-width"  style="padding-right: 1%;">
+              <mat-label>Select Project Name</mat-label>
+              <mat-select  (selectionChange)="getLastSubproject($event)"  formControlName="ListProjects">
+                <mat-option value="0">
+                  --Select an Project--
+                </mat-option>
+                <mat-option *ngFor="let option of ListProject" [value]="option.Project">
+                  {{ option.Project }}
+              </mat-option>
+            </mat-select>
+              <mat-error *ngIf="form.get('ListProjects')?.hasError('required')">
+                  You must select an option.
+              </mat-error>
               
           </mat-form-field>
-    
-
+    <mat-form-field *ngIf="hidden" [style.width.%]="30" color="warn"  appearance="fill" style="padding-left: 1%;">
+            <mat-label>Project Name</mat-label>
+            <b><h1 style="background-color:rgb(150, 196, 218);">
+              <input matInput type="text" formControlName="ProjectName" placeholder="Project Name">
+              </h1> </b>
+          </mat-form-field>
     </div>
+
 
           
           <div class="mat-form-field-container">
@@ -230,9 +252,10 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
               <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">             
                     <mat-form-field [style.width.%]="100" appearance="fill">
                       <mat-label>Project Description</mat-label><br>
-                        <input matInput type="text" formControlName="ProjectScope" placeholder="Project Description">
-                        
+
+                        <textarea  matInput type="text" formControlName="ProjectScope" placeholder="Project Description"></textarea>
                     </mat-form-field>
+                    
                   </div>
           </div>
 
@@ -248,7 +271,7 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
 
             <mat-form-field [style.width.%]="38" appearance="fill" class="mat-form-field-width" style="padding-left: 1%;">
               <mat-label>Select Department Manager</mat-label>
-              <mat-select  (selectionChange)="SelectFP($event)"  formControlName="DepartmentManager">
+              <mat-select  formControlName="DepartmentManager">
                 <mat-option value="0">
                   --Select Department Manager--
                 </mat-option>
@@ -264,7 +287,7 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
 
             <mat-form-field [style.width.%]="38" appearance="fill" class="mat-form-field-width" style="padding-left: 1%;">
               <mat-label>Select Project Manager</mat-label>
-              <mat-select  (selectionChange)="SelectFP($event)"  formControlName="ProjectManager">
+              <mat-select  formControlName="ProjectManager">
                 <mat-option value="0">
                   --Select Project Manager--
                 </mat-option>
@@ -282,7 +305,7 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
           <div class="mat-form-field-container">
             <mat-form-field [style.width.%]="24" appearance="fill" class="mat-form-field-width">
               <mat-label>Select DECON Project Type</mat-label>
-              <mat-select  (selectionChange)="SelectFP($event)"  formControlName="DECONProjectType">
+              <mat-select  formControlName="ProjectType">
                 <mat-option value="0">
                   --Select DECON Project Type--
                 </mat-option>
@@ -290,7 +313,7 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
                   {{ option.DESCRIPTION }}
               </mat-option>
             </mat-select>
-              <mat-error *ngIf="form.get('DECONProjectType')?.hasError('required')">
+              <mat-error *ngIf="form.get('ProjectType')?.hasError('required')">
                   You must select an option.
               </mat-error>
               
@@ -298,7 +321,7 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
 
             <mat-form-field [style.width.%]="24" appearance="fill" class="mat-form-field-width" style="padding-left: 1%;">
               <mat-label>Select Market</mat-label>
-              <mat-select  (selectionChange)="SelectFP($event)"  formControlName="Market">
+              <mat-select  formControlName="Market">
                 <mat-option value="0">
                   --Select Market--
                 </mat-option>
@@ -314,7 +337,7 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
 
             <mat-form-field [style.width.%]="24" appearance="fill" class="mat-form-field-width" style="padding-left: 1%;">
               <mat-label>Select Main Service Line</mat-label>
-              <mat-select  (selectionChange)="SelectFP($event)"  formControlName="MainServiceLine">
+              <mat-select  formControlName="MainServiceLine">
                 <mat-option value="0">
                   --Select Main Service Line--
                 </mat-option>
@@ -344,6 +367,7 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
            <mat-datepicker #picker></mat-datepicker>
          </mat-form-field>
+
          <mat-form-field   [style.width.%]="24" appearance="fill" class="mat-form-field-half-width" style="padding-left: 1%;">
             <mat-label>FP Sent to Client</mat-label>
            <input formArrayName="FPSenttoClien" matInput [matDatepicker]="picker2">

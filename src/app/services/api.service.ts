@@ -88,6 +88,14 @@ export class ApiService {
    // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
   }
   
+  getLastSubproject(client_id: any)
+  {
+    return this.http.get<any>(`${this.apiUrl}/getLastSubproject?Project=${client_id}`)
+   
+   // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
+  }
+
+  
   getAllProjectDetails()
   {
     return this.http.get<any>(`${this.apiUrl}/getAllProjectDetails`)
@@ -115,6 +123,11 @@ export class ApiService {
     return this.http.get<any>(`${this.apiUrl}/getLastProposalNum?Name=${NoProposal}`)
    // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
   }
+    getTransactionById(NoProposal: any)
+  {
+    return this.http.get<any>(`${this.apiUrl}/getTransaction?id=${NoProposal}`)
+   // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
+  }
   
 
   addClient(form: any){
@@ -124,6 +137,16 @@ export class ApiService {
     return this.http.post<any>(`${this.apiUrl}/updateClient`,client_id)
    // return this.http.put(this.apiUrl+"/updateClient",form)
   }
+  updatelastProposal(form:any){
+    return this.http.post<any>(`${this.apiUrl}/updatelastProposal`,form)
+   // return this.http.put(this.apiUrl+"/updateClient",form)
+  }
+  
+    updateProposaltoProject(form:any){
+    return this.http.post<any>(`${this.apiUrl}/updateProposaltoProject`,form)
+   // return this.http.put(this.apiUrl+"/updateClient",form)
+  }
+  
   
   deleteClient(client_id: any) {
     return this.http.post<any>(`${this.apiUrl}/deleteClient`,client_id)
@@ -134,6 +157,13 @@ export class ApiService {
     return this.http.get<any>(`${this.apiUrl}/getAllProjects`)
    // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
   }
+
+  getProjectA()
+  {
+    return this.http.get<any>(`${this.apiUrl}/getProjectA`)
+   // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
+  }
+  
   
   getAllProposals()
   {

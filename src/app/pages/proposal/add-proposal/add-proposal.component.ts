@@ -30,15 +30,25 @@ export class AddProposalComponent {
  
   Form: FormGroup | any;
   form: FormGroup | any;
+  formLast: FormGroup | any;
   residentType!:any[];
   address!:any;
   ClientName!:any[];
+  ClientSelect!:any;
+  IDCliSelect!:any;
+  ClientID!:any[];
   resident!:any;
   owneradd!:any;
   residenceId!:any;
   residentCode!:any[];
   selectedFile: File | null = null;
   yearNow!:any;
+  Last2year!:any;
+  NewProposal!:any;
+  COuntNewProposalName!:any;
+  NewProposalName!:any;
+  LastProject!:any;
+  LastName!:any;
   /**
    *
    */
@@ -48,19 +58,50 @@ export class AddProposalComponent {
     private _route: Router
     ) {
 
- 
+     this.yearNow= new Date().getFullYear();
+      this.getLastProposalNum();
+    console.log("year", this.yearNow)
+    this.getClient();
       this.buildForm();
     }
  
   ngOnInit(): void {
     //this.getResidentType();
     //this.getResidentCode();
-    this.yearNow= new Date().getFullYear();
-    console.log("year", this.yearNow)
-    this.getClient();
-  }
+    console.log('NewProposalName',this.NewProposalName);
  
 
+
+  }
+ 
+  getLastProposalNum()
+  {
+    this.apiServices.getLastProposalNum('U').subscribe((resp)=>{
+      console.log("lastProposal",resp);
+      this.LastProject = parseInt(resp.NoProject);
+      this.LastName =resp.Name;
+      console.log("LastName",this.LastName);     
+      console.log("LastProject",this.LastProject);         
+     this.Last2year = String(this.yearNow);
+      this.NewProposal = parseInt(resp.NoProposal)+1;
+      this.COuntNewProposalName=String(this.NewProposal);
+      console.log("NewProposal",this.NewProposal);
+      if (this.COuntNewProposalName.length===1)
+      {
+          this.NewProposalName = this.Last2year.slice(-2) +'-00'+String(this.NewProposal)
+      }
+      if (this.COuntNewProposalName.length===2)
+      {
+          this.NewProposalName = this.Last2year.slice(-2) +'-0'+String(this.NewProposal)
+      }      
+            if (this.COuntNewProposalName.length===3)
+      {
+          this.NewProposalName = this.Last2year.slice(-2) +'-'+String(this.NewProposal)
+      }
+      console.log("COuntNewProposalName",this.NewProposalName);
+     this.buildForm();
+    })
+  }
  
  /* getResidentType()
   {
@@ -79,10 +120,27 @@ export class AddProposalComponent {
         console.log("Client",resp);
        
         this.ClientName = resp;
-        console.log("Nameclient",this.ClientName);
+        this.ClientID =resp;
+        console.log("ClientID",this.ClientID);
        
       })
     }
+
+        SelectClient(event:any):void{
+    
+      this.apiServices.getTransactionById(event.value).subscribe((resp)=>{
+        console.log("Client",resp);
+       
+        this.ClientSelect = resp.Name;
+
+        this.IDCliSelect = parseInt(resp.ID);
+        console.log("ClientID",this.ClientID);
+       
+      })
+    }
+    
+
+    
 
   onSubmit1() {
     debugger;
@@ -105,34 +163,43 @@ export class AddProposalComponent {
    
   }
  
- /* getResidentCode()
-  {
-    console.log("GetGateDirectory",this.residenceId);
-    this.apiServices.GetGateDirectory(this.residenceId).subscribe((resp)=>{
-      console.log("GetGateDirectory",resp);
-     
-      this.residentCode = resp.residentCode;
-      console.log("Address",this.residentCode);
-     
-    })
-  }*/
- 
+ udpdateLastProposal()
+
+  {    this.formLast = this.fb.group({
+            ID: [1], 
+            NoProposal: [this.NewProposal],
+            NoProject: [this.LastProject]
+             });
+
+      console.log('Pase el formulario',this.formLast);
+       this.apiServices.updatelastProposal(this.formLast.value).subscribe((resp1:any)=>{
+              console.log('resultado de Update',resp1);
+               if (resp1) {
+                  alert("Proposal ADD");
+            }
+          });
+
+    
+    }
+   
+
+
   onSubmit() {
     //debugger;
     console.log('Estoy en Submit form:',this.form);
     console.log('Estoy datem:',this.yearNow);
       this.Form = this.fb.group({
-        ClientName:[this.form.get('Name')!.value],
+        ClientName:[this.ClientSelect],
         Category:[ this.form.get('Category')!.value],
         ProjectDescription:[this.form.get('ProjectDescription')!.value],
         ContractValue:[parseInt(this.form.get('ContractValue')!.value)],
         Estimated_h:[parseInt(this.form.get('EstimatedHours')!.value)],
         Year:[this.yearNow],
-        Proposal:[null],
+        Proposal:[this.NewProposal],
         NoProposal:[this.form.get('NoProposal')!.value],
         Country:[this.form.get('Country')!.value],
         ProposalRequestDate:[this.form.get('ProposalRequestDate')!.value],
-        IDClient: [1],
+        IDClient: [this.IDCliSelect],
         ProposalSubmitted:[this.form.get('ProposalSubmitted')!.value],
         Scope:[this.form.get('Scope')!.value],
         StatusProp:['Submitted']
@@ -142,8 +209,9 @@ export class AddProposalComponent {
    
       this.apiServices.addProposal(this.Form.value).subscribe((resp:any)=>{
         console.log('Formulario enviado a nuevo proposal:', resp);
-        if (resp.success) {
-            alert(resp.response);
+         if (resp) {
+          this.udpdateLastProposal();
+                     
             }
         else{
               alert(resp.error);
@@ -172,6 +240,7 @@ export class AddProposalComponent {
  
  
   buildForm(){
+console.log('NewProposalName',this.NewProposalName);
     this.form = this.fb.group({
      
       Name: ['', Validators.required],
@@ -180,12 +249,13 @@ export class AddProposalComponent {
       ContractValue: [],
       EstimatedHours: [],
       Year: [this.yearNow],
-      Proposal:[null],
-      NoProposal:['',Validators.required],
+      Proposal:[this.NewProposal],
+      NoProposal:[this.NewProposalName],
       Country:['USA',Validators.required],
-      ProposalRequestDate:[null],
-      ProposalSubmitted:[null],
+      ProposalRequestDate:[new Date()],
+      ProposalSubmitted:[new Date()],
       Scope:['',Validators.required],
+      IDClient:[],
       StatusProp:['Submitted']
     
  

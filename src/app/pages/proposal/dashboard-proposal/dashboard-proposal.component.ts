@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MenuComponent } from '../../../components/menu/menu/menu.component';
+//import { ChartsModule as Ng2Charts} from 'ng2-charts';
 @Component({
   selector: 'app-dashboard-proposal',
   standalone: true,
