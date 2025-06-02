@@ -112,6 +112,12 @@ export class ApiService {
    // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
   }
 
+  getAllProjectsStatus(status: any)
+  {
+    return this.http.get<any>(`${this.apiUrl}/getAllProjectsStatus?Status=${status}`)
+   // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
+  }
+
   getFPbyNum(NoProposal: any)
   {
     return this.http.get<any>(`${this.apiUrl}/getByProposalNum?NoProposal=${NoProposal}`)

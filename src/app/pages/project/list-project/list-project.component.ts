@@ -24,14 +24,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { PLATFORM_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common'
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { MenuComponent } from '../../../components/menu/menu/menu.component';
+import { MatSelectModule } from '@angular/material/select';
+
 
 @Component({
   selector: 'app-list-project',
   standalone: true,
-  imports: [MatTableModule, 
+  imports: [MatTableModule,
     MatPaginatorModule, 
-    MatSortModule, 
+    MatSortModule, FormsModule, 
     MatCardModule,CommonModule,
     MatIconModule, MatFormFieldModule,ReactiveFormsModule,
     MatTableExporterModule, MenuComponent,
@@ -84,8 +87,11 @@ EmpData : project[]=[
   dataSource = new MatTableDataSource<project>(this.EmpData);
   //dataSource: any;
   dataSourceV: any;
+  filterValues = {};
   dataSourceG: any;
   columnas: any[] = [];
+   filterSelectObj = [];
+   
   background = 'primary';
   links: CustomLink[] = [
     {
@@ -120,6 +126,8 @@ constructor(
   private renderer: Renderer2,
   @Inject(PLATFORM_ID) private platformId: any
 ) {
+  
+
   if (isPlatformBrowser(this.platformId)) { 
     this.renderer.setStyle(document.body, 'background', '');
   }
@@ -129,8 +137,12 @@ constructor(
     address: ['', Validators.required],
     mailingAddress: ['', [Validators.required, Validators.email]]
   });
+  
 }
  
+     // Object to create Filter for
+
+
   // https://www.angularjswiki.com/material/mat-table-sort
   //https://stackoverflow.com/questions/58094372/mat-table-datasource-doesnt-work-when-using-rest-api///
   ngAfterViewInit() {
@@ -145,8 +157,8 @@ constructor(
    // this.dataSource1 = new MatTableDataSource();
     this.dataSource = new MatTableDataSource();
  
-    this.getClients();
- 
+    this.getProjects();
+  
    
   }
  
@@ -155,17 +167,45 @@ constructor(
      }
  
   openmap(data:any):void{
-  //  window.open(data);
-  var frg = data.split("(");
-  var result = frg[0];
-  console.log(result)
-  let datasin=  result.replaceAll(" ","+");
-   window.open("https://www.google.com/maps/place/"+ datasin + ",+Katy,+TX+77494/");
-   
-    //location.href = "{data}";
+   console.log('dato',data)
+   window.open(data.File);
  }
  
- getClients()
+
+  getAllProjectsStatus(data:any):void
+  {
+    console.log("Estoy aqui");
+    //if (isPlatformBrowser(this.platformId)) { 
+      //const user = localStorage.getItem('user');
+      
+      /*if (user) {
+        const parsedUser = JSON.parse(user);
+        console.log("User Data:", parsedUser);
+      }*/
+    console.log("User Data:", data);
+
+      this.apiServices.getAllProjectsStatus(data).subscribe(
+       
+        (resp) => {
+          debugger;
+          console.log("getProjectQAQC:", resp);
+           resp.forEach((element:any) => {
+        if (element.File==null)
+        element.Design=true;
+      else
+        element.Design=false;
+      });
+      this.dataSource.data = resp;
+        },
+        (error) => {
+          console.error("Error fetching clients:", error);
+        }
+      );
+    //} else {
+     // console.warn("localStorage is not available in this environment.");
+    //}
+  }
+ getProjects()
   {
     console.log("Estoy aqui");
     //if (isPlatformBrowser(this.platformId)) { 
@@ -181,7 +221,14 @@ constructor(
         (resp) => {
           debugger;
           console.log("getProjectQAQC:", resp);
-          this.dataSource.data = resp;
+           resp.forEach((element:any) => {
+        if (element.File==null)
+        element.Design=true;
+      else
+        element.Design=false;
+      });
+      this.dataSource.data = resp;
+  
         },
         (error) => {
           console.error("Error fetching clients:", error);
@@ -191,7 +238,10 @@ constructor(
      // console.warn("localStorage is not available in this environment.");
     //}
   }
- 
+
+
+
+  
   onSubmit() {
     // Verificar si el formulario es válido
     if (this.myForm.valid) {

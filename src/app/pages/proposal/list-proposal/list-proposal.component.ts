@@ -48,7 +48,7 @@ export class ListProposalComponent {
   formData: any = {}; 
  // displayedColumnsS: string[] = [ 'ClientID','Name', 'Address','City','State','ZipCode','Logo','Active','Country' ,'Period_of_Invoice','Invoice_Date','ProcedureDetails','Actions'];
  displayedColumns: string[] = [
-  'ClientID', 
+
   'Name', 
   'Category', 
   'ProjectDescription', 
@@ -61,7 +61,7 @@ export class ListProposalComponent {
   'ProposalRequestDate', 
   'ProposalSubmitted',
   'Scope',
-  'StatusProp'
+  'StatusProp','Actions'
 ];
 
 EmpData : [proposals]=[ 
@@ -79,7 +79,8 @@ EmpData : [proposals]=[
     ProposalRequestDate: "xx",
     ProposalSubmitted: "xx",
     Scope: "xx",
-    StatusProp: "xx"
+    StatusProp: "xx",
+
   }
 ];
 
@@ -164,12 +165,14 @@ constructor(
      }
  
   openmap(data:any):void{
-  //  window.open(data);
-  var frg = data.split("(");
+   // 
+   console.log('dato',data)
+   window.open(data.File);
+ /*  var frg = data.split("(");
   var result = frg[0];
   console.log(result)
-  let datasin=  result.replaceAll(" ","+");
-   window.open("https://www.google.com/maps/place/"+ datasin + ",+Katy,+TX+77494/");
+ let datasin=  result.replaceAll(" ","+");
+   window.open("https://www.google.com/maps/place/"+ datasin + ",+Katy,+TX+77494/");*/
    
     //location.href = "{data}";
  }
@@ -190,7 +193,15 @@ constructor(
         (resp) => {
           debugger;
           console.log("Proposal:", resp);
-          this.dataSource.data = resp;
+          
+           resp.forEach((element:any) => {
+        if (element.File==null)
+        element.Design=true;
+      else
+        element.Design=false;
+      });
+      this.dataSource.data = resp;
+          
         },
         (error) => {
           console.error("Error fetching proposals:", error);
