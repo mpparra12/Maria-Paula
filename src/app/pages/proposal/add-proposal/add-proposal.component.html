@@ -18,7 +18,7 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
             <label><h1>Please introduce Proposal Information</h1></label>         
 
 
-              <mat-form-field [style.width.%]="33" appearance="fill" class="mat-form-field-width">
+              <mat-form-field [style.width.%]="33" appearance="fill" class="mat-form-field-width" >
                 <mat-label>Select a client</mat-label>
                 <mat-select  (selectionChange)="SelectClient($event)"  formControlName="Name">
                   <mat-option value="0">
@@ -32,14 +32,28 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
                     You must select an option.
                 </mat-error>
                 
-            </mat-form-field>
-    
-        <mat-form-field [style.width.%]="30" appearance="fill" color="warn"  style="padding-left: 1%;">
+            </mat-form-field>&nbsp;
+             <button style="padding-left: 1%;" (click)="AddClient()" mat-raised-button color="primary">New Client</button>  &nbsp; 
+        <mat-form-field [style.width.%]="20" appearance="fill" color="warn"  style="padding-left: 1%;">
           <mat-label>Proposal No.</mat-label>
           <b><h1 style="background-color:rgb(150, 196, 218);">
             <input  [readonly]="true" matInput type="text" formControlName="NoProposal" placeholder="No. Proposal">
             <mat-error *ngIf="form.get('NoProposal')?.hasError('required')">This field is required</mat-error>
            </h1> </b>
+        </mat-form-field>
+        <mat-form-field  [style.width.%]="20"  appearance="fill" class="mat-form-field-half-width" style="padding-left: 1%;" >
+                        <mat-label>Proposal Request Date</mat-label>
+                       <input [formControl]="dateControl" matInput [matDatepicker]="picker" >
+                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                       <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+                        
+                    
+        <mat-form-field  [style.width.%]="20"  appearance="fill" class="mat-form-field-half-width" style="padding-left: 1%;" >
+                        <mat-label>Proposal Submitted</mat-label>
+                       <input formArrayName="ProposalSubmitted" matInput [matDatepicker]="picker1" >
+                       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                       <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
         
 
@@ -57,7 +71,7 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
               
               
                     <mat-form-field [style.width.%]="80" appearance="fill">
-                        <mat-label>Project Name</mat-label>
+                        <mat-label>Reference Title</mat-label>
                         <input matInput type="text" formControlName= "ProjectDescription" placeholder="Please introduce the Project Name">
                     </mat-form-field>
                  
@@ -66,8 +80,8 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
         <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">             
 
             <mat-form-field [style.width.%]="100" appearance="fill" >
-              <mat-label>Description of Project</mat-label>
-              <textarea  matInput type="text" formControlName="Scope" placeholder="General Description of Project"></textarea>
+              <mat-label>Scope of Service</mat-label>
+              <textarea  matInput type="text" maxlength="800" formControlName="Scope" placeholder="General Description of Project"></textarea>
              </mat-form-field>            
           </div>
  
@@ -90,20 +104,7 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
                     </mat-form-field>
                  
       
-                    <mat-form-field  [style.width.%]="24"  appearance="fill" class="mat-form-field-half-width" style="padding-left: 1%;" >
-                        <mat-label>Proposal Request Date</mat-label>
-                       <input formArrayName="ProposalRequestDate" matInput [matDatepicker]="picker" >
-                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                       <mat-datepicker #picker></mat-datepicker>
-                     </mat-form-field>
-                        
-                    
-                     <mat-form-field  [style.width.%]="24"  appearance="fill" class="mat-form-field-half-width" style="padding-left: 1%;" >
-                        <mat-label>Proposal Submitted</mat-label>
-                       <input formArrayName="ProposalSubmitted" matInput [matDatepicker]="picker1" >
-                       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                       <mat-datepicker #picker1></mat-datepicker>
-                     </mat-form-field>
+
          
             
                        

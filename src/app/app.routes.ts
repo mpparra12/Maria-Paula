@@ -13,6 +13,7 @@ import { ListProjectComponent } from './pages/project/list-project/list-project.
 import { AddProjectComponent } from './pages/project/add-project/add-project.component';
 import { EditProjectComponent } from './pages/project/edit-project/edit-project.component';
 import { AddProposalComponent } from './pages/proposal/add-proposal/add-proposal.component';
+import { EditProposalComponent } from './pages/proposal/edit-proposal/edit-proposal.component';
 import { ListbyDetailComponent } from './pages/project/listby-detail/listby-detail.component';
 
 export const routes: Routes = [
@@ -30,6 +31,7 @@ export const routes: Routes = [
     { path: 'EditProjects', component: EditProjectComponent },
     { path: 'AddProjects', component: AddProjectComponent },
     { path: 'AddProposal', component: AddProposalComponent },
+    { path: 'EditProposal', component: EditProposalComponent },    
     { path: 'ListbyDetail', component: ListbyDetailComponent }
 ];
 

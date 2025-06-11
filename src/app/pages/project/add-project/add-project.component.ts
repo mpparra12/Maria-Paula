@@ -25,6 +25,8 @@ import { MatSelectChange } from '@angular/material/select';
 import {MatRadioModule} from '@angular/material/radio';
 import { MatRadioChange } from '@angular/material/radio';
 
+import moment from 'moment';
+
 @Component({
   selector: 'app-add-project',
   standalone: true,
@@ -69,6 +71,7 @@ export class AddProjectComponent implements OnInit {
   selectedValue!:any;
   IDselected!:any;
   ProjectNameSele!:any;
+  dateControl = new FormControl();
   /**
    *
    */
@@ -106,7 +109,15 @@ export class AddProjectComponent implements OnInit {
     //this.SelectFP(this.selectedValue);
   }
  
-
+  
+ getFormattedDateForSQL(): string | null {
+    const selectedDate = this.dateControl.value;
+    if (selectedDate) {
+      // Format date to 'YYYY-MM-DD' for SQL Server
+      return moment(selectedDate).format('YYYY-MM-DD');
+    }
+    return null;
+  }
  
   getClient()
   {
@@ -343,7 +354,7 @@ export class AddProjectComponent implements OnInit {
   {
    // console.log("getEmployee",this.residenceId);
     this.apiServices.getPM().subscribe((resp)=>{
-      console.log("getManager",resp);
+      console.log("getPM",resp);
      
       this.EmployeePM = resp;
   
@@ -387,14 +398,14 @@ export class AddProjectComponent implements OnInit {
         EngineeringService:[this.form.get('EngineeringService')!.value],
         FPRequestedDate:[this.form.get('FPRequestedDate')!.value],
         FPSenttoClien:[this.form.get('FPSenttoClien')!.value],
-        NTPDate:[this.form.get('NTPDate')!.value],        
+        NTPDate:[this.getFormattedDateForSQL()],        
         ProjectFee:[this.form.get('ProjectFee')!.value],
         ID:[this.IDselected],    
         Category:['Contrated'],  
         Project:[this.NewProject],  
         SubProject:[this.NewTask],  
         Status:['Under Production'],        
-        DueDate:[this.form.get('DueDate')!.value]
+        DueDate:[this.getFormattedDateForSQL()]
    
      })
  
@@ -520,7 +531,7 @@ radioButtonChange(data: MatRadioChange) {
       DepartmentManager:[''],
       ProjectManager: [''],
       Task :[''],
-      ProjectType :['',Validators.required],
+      ProjectType :[,Validators.required],
       Market:[''],
       MainServiceLine:[''],
       EngineeringService:[''],

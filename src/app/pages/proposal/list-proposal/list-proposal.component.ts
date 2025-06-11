@@ -52,15 +52,14 @@ export class ListProposalComponent {
   'Name', 
   'Category', 
   'ProjectDescription', 
+    'Scope',
   'ContractValue', 
   'EstimatedHours', 
   'Year', 
-  'Proposal', 
   'NoProposal', 
   'Country', 
-  'ProposalRequestDate', 
   'ProposalSubmitted',
-  'Scope',
+
   'StatusProp','Actions'
 ];
 
@@ -177,16 +176,35 @@ constructor(
     //location.href = "{data}";
  }
  
+  getAllProposalsByYear(data:any):void
+  {
+    console.log("Estoy aqui");
+  
+      this.apiServices.getAllNoProposal(data).subscribe(
+       
+        (resp) => {
+          debugger;
+          console.log("Proposal:", resp);
+          
+           resp.forEach((element:any) => {
+        if (element.File==null)
+        element.Design=true;
+      else
+        element.Design=false;
+      });
+      this.dataSource.data = resp;
+          
+        },
+        (error) => {
+          console.error("Error fetching proposals:", error);
+        }
+      );
+
+  }
+
  getAllProposals()
   {
     console.log("Estoy aqui");
-    //if (isPlatformBrowser(this.platformId)) { 
-      //const user = localStorage.getItem('user');
-      
-      /*if (user) {
-        const parsedUser = JSON.parse(user);
-        console.log("User Data:", parsedUser);
-      }*/
   
       this.apiServices.getAllProposals().subscribe(
        
@@ -207,9 +225,7 @@ constructor(
           console.error("Error fetching proposals:", error);
         }
       );
-    //} else {
-     // console.warn("localStorage is not available in this environment.");
-    //}
+
   }
  
   onSubmit() {
@@ -256,7 +272,7 @@ constructor(
 
   edit(data:any):void{
    
-    this._route.navigate(['/EditClient'],{state:{ client:{data}}});
+    this._route.navigate(['/EditProposal'],{state:{ client:{data}}});
  
   }
  

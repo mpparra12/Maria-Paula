@@ -55,7 +55,7 @@ export class ListClientsComponent implements OnInit{
   formData: any = {}; // Objeto para almacenar los datos del formulario , 'residence_id',
  // displayedColumnsS: string[] = [ 'ClientID','Name', 'Address','City','State','ZipCode','Logo','Active','Country' ,'Period_of_Invoice','Invoice_Date','ProcedureDetails','Actions'];
  displayedColumns: string[] = [
-  'ClientID', 
+
   'Name', 
   'Address', 
   'City', 

@@ -1,5 +1,8 @@
 .mat-form-field{ width: 100%; }
 .mat-card-content{ width: 100%; }
+.column-name {
+    flex: 0 0 1000px;
+}
 .mat-column-ProcedureDetails{
     word-wrap: break-word !important;
     white-space: unset !important;

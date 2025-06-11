@@ -15,6 +15,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { HttpClient } from '@angular/common/http';
 //import {NgxMatFileInputModule} from '@angular-material-components/file-input';
 import { FileInput } from 'ngx-material-file-input';
 
@@ -30,7 +31,7 @@ import { FileInput } from 'ngx-material-file-input';
   styleUrl: './add-client.component.css'
 })
 export class AddClientComponent implements OnInit {
- 
+ selectedFile: File | null = null;
   Form: FormGroup | any;
   form: FormGroup | any;
   residentType!:any[];
@@ -39,13 +40,14 @@ export class AddClientComponent implements OnInit {
   owneradd!:any;
   residenceId!:any;
   residentCode!:any[];
-  selectedFile: File | null = null;
+
   /**
    *
    */
   constructor(
     private fb: FormBuilder,
     private apiServices: ApiService,
+    private http: HttpClient,
     private _route: Router
     ) {
  
@@ -61,6 +63,14 @@ export class AddClientComponent implements OnInit {
       this.buildForm();
     }
  
+      onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+    }
+  }
+
+
   ngOnInit(): void {
     //this.getResidentType();
     //this.getResidentCode();
@@ -122,10 +132,56 @@ export class AddClientComponent implements OnInit {
     })
   }*/
  
+
+    onSubmit2(): void {
+    if (!this.selectedFile) {
+        return;
+    }
+    const formData = new FormData();
+    formData.append('file', this.selectedFile);
+    formData.append('Name',this.form.get('Name')!.value);
+    formData.append('Address', this.form.get('Address')!.value);
+    formData.append('City',this.form.get('City')!.value);
+    formData.append('State',this.form.get('State')!.value);
+    formData.append('ZipCode',this.form.get('ZipCode')!.value);
+    formData.append('Logo',this.form.get('Logo')!.value);
+    formData.append('Active',this.form.get('Active')!.value);
+    formData.append('Country',this.form.get('Country')!.value);
+    formData.append('Period_of_Invoice',this.form.get('Period_of_Invoice')!.value);
+    formData.append('Invoice_Date',this.form.get('Invoice_Date')!.value);
+    formData.append('IdClient', '');
+    formData.append('Documents_and_other_requirements','');
+    formData.append('Procedure',this.form.get('Procedure')!.value);
+
+         console.log('Pase el formulario',formData);
+   
+      this.apiServices.addClient(formData).subscribe((resp:any)=>{
+        console.log('Formulario enviado a nuevo cliente:', resp);
+        if (resp.success) {
+            alert(resp.response);
+            }
+        else{
+              alert(resp.error);
+            }
+           
+          });
+          //this.myForm.reset();
+         // alert(resp.response);
+         this.back();
+
+
+   /* this.http.post('<API_ENDPOINT_URL>', formData).subscribe(
+        response => console.log('File uploaded successfully:', response),
+        error => console.error('File upload failed:', error)
+    );    */
+  }
+
+
   onSubmit() {
     //debugger;
     console.log('Estoy en Submit:');
       this.Form = this.fb.group({
+        file:[this.selectedFile],
         Name:[this.form.get('Name')!.value],
         Address:[ this.form.get('Address')!.value],
         City:[this.form.get('City')!.value],
@@ -195,12 +251,7 @@ export class AddClientComponent implements OnInit {
   
   }
  
-  onFileSelected(event: Event): void {
-    const inputElement = event.target as HTMLInputElement;
-    if (inputElement.files) {
-      this.selectedFile = inputElement.files[0];
-    }
-  }
+
  
 }
 

@@ -21,7 +21,7 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
                  <mat-icon>add</mat-icon>
                </button>
             <button matTooltip=
-            "Export data to csv" mat-icon-button color="warm" (click)="exporter.exportTable('csv',{fileName:'address'+'_'+'Date'})">
+            "Export data to .csv" mat-icon-button color="warm" (click)="exporter.exportTable('csv',{fileName:'address'+'_'+'Date'})">
        
               <!--  <button mat-icon-button color="primary" (click)="emailSupport(element.map_url)"> -->                    
                  <mat-icon>file_copy</mat-icon>
@@ -126,9 +126,9 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
                     <button mat-icon-button color="Accent" (click)="edit(element)">
                         <mat-icon>edit</mat-icon>
                       </button>
-                      <button mat-icon-button color="Accent" (click)="delete(element)">
+                  <!--    <button mat-icon-button color="Accent" (click)="delete(element)">
                         <mat-icon>delete</mat-icon>
-                      </button> 
+                      </button> -->
                          <button mat-icon-button [disabled]="element.Design" color="primary" (click)="openmap(element)">
                       <mat-icon> insert_drive_file</mat-icon>
                           </button>

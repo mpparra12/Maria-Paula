@@ -24,6 +24,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectChange } from '@angular/material/select';
 import {MatRadioModule} from '@angular/material/radio';
 import { MatRadioChange } from '@angular/material/radio';
+import moment from 'moment';
 
 @Component({
   selector: 'app-edit-project',
@@ -39,7 +40,7 @@ export class EditProjectComponent implements OnInit {
  
   Form: FormGroup | any;
   form: FormGroup | any;
-  ClientName!:any[];
+  ClientNames!:any[];
   Market!:any[];
   ServiceLine!:any[];
   ProjectType!:any[];
@@ -49,6 +50,7 @@ export class EditProjectComponent implements OnInit {
   fechaSend!:any;
   fechaDividida: string[] = [];
   FP!:any[];
+  Status!:any[];
   Employee!:any[];
   EmployeeManager!:any[];
   EmployeePM!:any[];  
@@ -69,7 +71,9 @@ export class EditProjectComponent implements OnInit {
   selectedValue!:any;
   IDselected!:any;
   ProjectEdit:any;
+  ExistDetails:any;
   ProjectNameSele!:any;
+    dateControl = new FormControl();
   /**
    *
    */
@@ -84,7 +88,10 @@ export class EditProjectComponent implements OnInit {
         let data = this._route.getCurrentNavigation()?.extras.state!['project'];
         console.log("project edit",data);
         //this.IdProjectEd=data.data.Market;
-        this.ProjectEdit=data;
+        this.ProjectEdit=data.data;
+         console.log("ClientName",this.ProjectEdit.ClientName);
+        if (data.ProjectNameDe)
+          {this.ExistDetails=true}
        // this.residenceId=data.owner.residence_id;
  
         }
@@ -102,21 +109,29 @@ export class EditProjectComponent implements OnInit {
     this.getAllTypeServiceLine();
     this.getAllMarket();
     this.getAllTypeProject();
+    this.getAllTypeStatusProject();
     this.getAllProjects();
     this.hidden=false;
   this.hiddenCombo=false;
     //this.SelectFP(this.selectedValue);
   }
  
-
+ getFormattedDateForSQL(): string | null {
+    const selectedDate = this.dateControl.value;
+    if (selectedDate) {
+      // Format date to 'YYYY-MM-DD' for SQL Server
+      return moment(selectedDate).format('YYYY-MM-DD');
+    }
+    return null;
+  }
  
   getClient()
   {
     this.apiServices.getClientsAll().subscribe((resp)=>{
       console.log("Client",resp);
      
-      this.ClientName = resp;
-      console.log("Nameclient",this.ClientName);
+      this.ClientNames = resp;
+      console.log("Nameclient",this.ClientNames);
      
     })
   }
@@ -281,7 +296,7 @@ export class EditProjectComponent implements OnInit {
     this.apiServices.getAllTypeStatusProject().subscribe((resp)=>{
       console.log("getAllTypgetAllTypeStatusProjecteProject",resp);
      
-      this.Employee = resp;
+      this.Status = resp;
   
     })
   }
@@ -334,7 +349,7 @@ export class EditProjectComponent implements OnInit {
   {
    // console.log("getEmployee",this.residenceId);
     this.apiServices.getManager().subscribe((resp)=>{
-      console.log("getManager",resp);
+      console.log("EmployeeManager",resp);
      
       this.EmployeeManager = resp;
   
@@ -345,15 +360,96 @@ export class EditProjectComponent implements OnInit {
   {
    // console.log("getEmployee",this.residenceId);
     this.apiServices.getPM().subscribe((resp)=>{
-      console.log("getManager",resp);
+      console.log("EmployeePM",resp);
      
       this.EmployeePM = resp;
   
     })
   }
 
+  UpdateDetails() {
+    //debugger;
+    console.log('Estoy en Submit:');
+      this.Form = this.fb.group({
+        
+        ///
+       Client:[this.form.get('Client')!.value],
+        selectedClient:[ this.form.get('selectedClient')!.value],
+        selectedEmployee:[this.form.get('selectedEmployee')!.value],
+        AgreementNo:[this.form.get('AgreementNo')!.value],
+        ClientProject:[this.form.get('ClientProject')!.value],
+        ClientProjectCost:[this.form.get('ClientProjectCost')!.value],
+        selectedFP:[this.form.get('selectedFP')!.value],
+        ProjectCSJ:[this.form.get('ProjectCSJ')!.value],
+        GeneralDescription:[this.form.get('GeneralDescription')!.value],
+        State:[this.form.get('State')!.value],
+        County:[this.form.get('County')!.value],
+        City:[this.form.get('City')!.value],
+        HighwayNo:[this.form.get('HighwayNo')!.value],
+        Owner:[this.form.get('Owner')!.value],
+        Segment:[this.form.get('Segment')!.value],
+        Bridge:[this.form.get('Bridge')!.value],
+        Contact:[this.form.get('Contact')!.value],
+        yearFP:[this.form.get('yearFP')!.value],
+        FP:[this.form.get('FP')!.value],
+        ProjectName:[this.form.get('ProjectName')!.value],
+        ProjectDescription:[this.form.get('ProjectDescription')!.value],
+        ProjectScope:[this.form.get('ProjectScope')!.value],
+        DepartmentManager:[this.form.get('DepartmentManager')!.value],
+        ProjectManager:[this.form.get('ProjectManager')!.value],
+        Task:[this.form.get('Task')!.value],
+        ProjectType:[this.form.get('ProjectType')!.value],
+        Market:[this.form.get('Market')!.value],
+        MainServiceLine:[this.form.get('MainServiceLine')!.value],
+        EngineeringService:[this.form.get('EngineeringService')!.value],
+        FPRequestedDate:[this.form.get('FPRequestedDate')!.value],
+        FPSenttoClien:[this.form.get('FPSenttoClien')!.value],
+        NTPDate:[this.form.get('NTPDate')!.value],        
+        ProjectFee:[this.form.get('ProjectFee')!.value],
+        ID:[this.IDselected],    
+        Category:['Contrated'],  
+        Project:[this.NewProject],  
+        SubProject:[this.NewTask],  
+        Status:['Under Production'],        
+        DueDate:[this.form.get('DueDate')!.value]
+   
+     })
+ 
+     console.log('Pase el formulario',this.Form);
+   if (this.ExistDetails)
+   {
+    this.apiServices.updateProjectdetails(this.Form.value).subscribe((resp:any)=>{
+        console.log('Formulario enviado a update cliente:', resp);
+        if (resp.success) {
+            alert(resp.response);
+            }
+        else{
+              alert(resp.error);
+            }
+           
+          });
 
-  onSubmit() {
+   }
+   else
+   {
+      this.apiServices.addProjectdetails(this.Form.value).subscribe((resp:any)=>{
+        console.log('Formulario enviado a nuevo cliente:', resp);
+        if (resp.success) {
+            alert(resp.response);
+            }
+        else{
+              alert(resp.error);
+            }
+           
+          });}
+          //this.myForm.reset();
+         // alert(resp.response);
+         this.back();
+        }
+     
+ 
+
+ UpdateProject() {
     //debugger;
     console.log('Estoy en Submit:');
       this.Form = this.fb.group({
@@ -378,7 +474,8 @@ export class EditProjectComponent implements OnInit {
         Contact:[this.form.get('Contact')!.value],
         yearFP:[this.form.get('yearFP')!.value],
         FP:[this.form.get('FP')!.value],
-        ProjectName:[this.NewProjectName],
+        ProjectName:[this.form.get('ProjectName')!.value],
+        ProjectDescription:[this.form.get('ProjectDescription')!.value],        
         ProjectScope:[this.form.get('ProjectScope')!.value],
         DepartmentManager:[this.form.get('DepartmentManager')!.value],
         ProjectManager:[this.form.get('ProjectManager')!.value],
@@ -386,6 +483,80 @@ export class EditProjectComponent implements OnInit {
         ProjectType:[this.form.get('ProjectType')!.value],
         Market:[this.form.get('Market')!.value],
         MainServiceLine:[this.form.get('MainServiceLine')!.value],
+        EngineeringService:[this.form.get('EngineeringService')!.value],
+        FPRequestedDate:[this.form.get('FPRequestedDate')!.value],
+        FPSenttoClien:[this.form.get('FPSenttoClien')!.value],
+        NTPDate:[this.getFormattedDateForSQL()],        
+        ProjectFee:[this.form.get('ProjectFee')!.value],
+        ID:[this.form.get('ID')!.value],    
+        Category:['Contrated'],  
+        Project:[this.NewProject],  
+        SubProject:[this.NewTask],  
+        Status:['Under Production'],        
+        DueDate:[this.getFormattedDateForSQL()]
+        
+   
+     })
+ 
+     console.log('Pase el formulario',this.Form);
+
+    this.apiServices.updateProject(this.Form.value).subscribe((resp:any)=>{
+        console.log('Formulario enviado a nuevo cliente:', resp);
+        if (resp.success) {
+            alert(resp.response);
+            }
+        else{
+              alert(resp.error);
+            }
+           
+          });
+
+   
+
+          //this.myForm.reset();
+         // alert(resp.response);
+         this.back();
+        }
+
+         onSubmit() {
+          this.UpdateDetails();
+          this.UpdateProject();
+         }
+
+  onSubmit_Old() {
+    //debugger;
+    console.log('Estoy en Submit:');
+      this.Form = this.fb.group({
+        
+        ///
+        Client:[this.form.get('Client')!.value],
+        selectedClient:[ this.form.get('selectedClient')!.value],
+        selectedEmployee:[this.form.get('selectedEmployee')!.value],
+        AgreementNo:[this.form.get('AgreementNo')!.value],
+        ClientProject:[this.form.get('ClientProject')!.value],
+        ClientProjectCost:[this.form.get('ClientProjectCost')!.value],
+        selectedFP:[this.form.get('selectedFP')!.value],
+        ProjectCSJ:[this.form.get('ProjectCSJ')!.value],
+        GeneralDescription:[this.form.get('GeneralDescription')!.value],
+        State:[this.form.get('State')!.value],
+        County:[this.form.get('County')!.value],
+        City:[this.form.get('City')!.value],
+        HighwayNo:[this.form.get('HighwayNo')!.value],
+        Owner:[this.form.get('Owner')!.value],
+        Segment:[this.form.get('Segment')!.value],
+        Bridge:[this.form.get('Bridge')!.value],
+        Contact:[this.form.get('Contact')!.value],
+        yearFP:[this.form.get('yearFP')!.value],
+        FP:[this.form.get('FP')!.value],
+        ProjectName:[this.form.get('ProjectName')!.value],
+        ProjectDescription:[this.form.get('ProjectDescription')!.value],
+        ProjectScope:[this.form.get('ProjectScope')!.value],
+        DepartmentManager:[this.form.get('DepartmentManager')!.value],
+        ProjectManager:[this.form.get('ProjectManager')!.value],
+        Task:[this.form.get('Task')!.value],
+        ProjectType:[this.form.get('ProjectType')!.value],
+        Market:[this.form.get('Market')!.value],
+        MainServiceLine:[this.form.get('Discipline')!.value],
         EngineeringService:[this.form.get('EngineeringService')!.value],
         FPRequestedDate:[this.form.get('FPRequestedDate')!.value],
         FPSenttoClien:[this.form.get('FPSenttoClien')!.value],
@@ -401,8 +572,9 @@ export class EditProjectComponent implements OnInit {
      })
  
      console.log('Pase el formulario',this.Form);
-   
-      this.apiServices.updateProposaltoProject(this.Form.value).subscribe((resp:any)=>{
+   if (this.ExistDetails)
+   {
+    this.apiServices.updateProjectdetails(this.Form.value).subscribe((resp:any)=>{
         console.log('Formulario enviado a nuevo cliente:', resp);
         if (resp.success) {
             alert(resp.response);
@@ -412,6 +584,20 @@ export class EditProjectComponent implements OnInit {
             }
            
           });
+
+   }
+   else
+   {
+      this.apiServices.updateProposaltoProject(this.Form.value).subscribe((resp:any)=>{
+        console.log('Formulario enviado a nuevo cliente:', resp);
+        if (resp.success) {
+            alert(resp.response);
+            }
+        else{
+              alert(resp.error);
+            }
+           
+          });}
           //this.myForm.reset();
          // alert(resp.response);
          this.back();
@@ -471,7 +657,7 @@ radioButtonChange(data: MatRadioChange) {
        // this.form = this.fb.group({
           
          ProjectName:[1900.00],
-          ProjectScope:[resp.ProjectDescription.value],
+          ProjectScope:[resp.ProjectScope.value],
          // defaultDate: this.fechaSend,
        //   ProposalRequestDate :[this.defaultDate],
           //[resp.ProposalRequestDate,Validators.required], 5/7/2025, 2025-01-13
@@ -496,45 +682,47 @@ radioButtonChange(data: MatRadioChange) {
   buildForm(){
     this.form = this.fb.group({
      
-      Client: [this.ProjectEdit.data.ClientName, Validators.required],
-      selectedClient: [''], 
+      Client: [this.ProjectEdit.ClientName],
+      selectedClient: [this.ProjectEdit.ClientName], 
       selectedEmployee: [''],
-      AgreementNo: [this.ProjectEdit.data.Agreement],
-      ClientProject: [this.ProjectEdit.data.ClientProject],
-      GeneralDescription: [this.ProjectEdit.data.GeneralDescriptionProject],
-      ClientProjectCost: [this.ProjectEdit.data.ProjectCSJContractNo],
-      selectedFP: [this.ProjectEdit.data.NoProposal], 
-      ProjectCSJ: [this.ProjectEdit.data.ProjectCSJContractNo],
-      State:[this.ProjectEdit.data.State],
+      AgreementNo: [this.ProjectEdit.Agreement],
+      ClientProject: [this.ProjectEdit.ClientProject],
+      GeneralDescription: [this.ProjectEdit.GeneralDescriptionProject],
+      ClientProjectCost: [this.ProjectEdit.ProjectCost],
+      selectedFP: [this.ProjectEdit.NoProposal], 
+      ProjectCSJ: [this.ProjectEdit.ProjectCSJContractNo],
+      State:[this.ProjectEdit.State],
       selectedOption2:['',Validators.required],
-      County:[this.ProjectEdit.data.County],
-      City:[this.ProjectEdit.data.City],
-      HighwayNo:[this.ProjectEdit.data.HighwayNo],
-      Owner:[this.ProjectEdit.data.Owner],
-      Segment: [this.ProjectEdit.data.SegmentBridge],
-      Bridge :[this.ProjectEdit.data.BridgeDistrict],
-      Contact :[this.ProjectEdit.data.ContactInformation],
-      yearFP:[this.ProjectEdit.data.Year],
+      County:[this.ProjectEdit.County],
+      City:[this.ProjectEdit.City],
+      HighwayNo:[this.ProjectEdit.HighwayNo],
+      Owner:[this.ProjectEdit.Owner],
+      Segment: [this.ProjectEdit.SegmentBridge],
+      Bridge :[this.ProjectEdit.BridgeDistrict],
+      Contact :[this.ProjectEdit.ContactInformation],
+      yearFP:[this.ProjectEdit.Year],
       ListProjects:[''],
-      FP:[this.ProjectEdit.data.NoProposal],
-      ProjectName:[this.ProjectEdit.data.ProjectName],
-      ProjectScope:[this.ProjectEdit.data.Scope],
-      DepartmentManager:[this.ProjectEdit.data.DepartmentManager],
-      ProjectManager: [this.ProjectEdit.data.PM],
-      Task :[this.ProjectEdit.data.Task],
-      ProjectType :[this.ProjectEdit.data.ProjectType],
-      Market:[this.ProjectEdit.data.Market],
-      MainServiceLine:[''],
-      EngineeringService:[this.ProjectEdit.data.ServiceEng],
+      FP:[this.ProjectEdit.NoProposal],
+      ProjectName:[this.ProjectEdit.ProjectName],
+      ProjectScope:[this.ProjectEdit.Scope],
+      DepartmentManager:[this.ProjectEdit.DepartmentManager],
+      ProjectManager: [this.ProjectEdit.PM],
+      Task :[this.ProjectEdit.Task],
+      ProjectType :[this.ProjectEdit.ProjectType],
+      Market:[this.ProjectEdit.Market],
+      MainServiceLine:[this.ProjectEdit.Discipline],
+      ProjectDescription:[this.ProjectEdit.ProjectDescription],
+      EngineeringService:[this.ProjectEdit.ServiceEng],
       FPRequestedDate :[new Date(),Validators.required],
       FPSenttoClien:[new Date()],
-      NTPDate:[this.ProjectEdit.data.AwardDate],
-      ProjectFee:[this.ProjectEdit.data.ContractValue],
-      ID:[],
+      NTPDate:[this.ProjectEdit.AwardDate],
+      ProjectFee:[this.ProjectEdit.ContractValue],
+      ID:[this.ProjectEdit.ID],
+      IDD:[this.ProjectEdit.IDD],
       Category:[''],
       Project:[''],
       SubProject:[''],
-      Status:[this.ProjectEdit.data.Status],      
+      Status:[this.ProjectEdit.Status],      
       DueDate:[new Date()]
     });
 

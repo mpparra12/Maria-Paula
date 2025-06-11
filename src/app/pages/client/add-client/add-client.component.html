@@ -22,6 +22,8 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
                    <input  matInput type="text" formControlName="Name" placeholder="Name">
                   
            </mat-form-field>
+           <input type="file" (change)="onFileSelected($event)" />
+
        <!--  <mat-form-field [style.width.%]="30" appearance="fill" style="padding-left: 1%;">
              <mat-label>Logo</mat-label><br>
                <input matInput type="text" formControlName="Logo" placeholder="Logo">
@@ -118,7 +120,7 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
          </mat-form-field>
          <mat-form-field class="example-full-width" style="padding-left: 1%;">
            <mat-label>Country</mat-label>
-           <input matInput #postalCode maxlength="5" formControlName="Country" placeholder="Ex. 94105" value="94043">
+           <input matInput #postalCode  formControlName="Country" placeholder="Ex. 94105" value="94043">
          
           
          </mat-form-field>           

@@ -118,6 +118,12 @@ export class ApiService {
    // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
   }
 
+  /*  getAllProposalsByYear(status: any)
+  {
+    return this.http.get<any>(`${this.apiUrl}/getAllProposalsByYear?Year=${status}`)
+   // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
+  }*/
+
   getFPbyNum(NoProposal: any)
   {
     return this.http.get<any>(`${this.apiUrl}/getByProposalNum?NoProposal=${NoProposal}`)
@@ -135,6 +141,9 @@ export class ApiService {
    // return this.http.get<any>(`${this.apiUrl}/parametros?idwp=${idwp}`)
   }
   
+addProjectdetails(form: any){
+    return this.http.post(this.apiUrl+"/addProjectdetails",form)
+  }
 
   addClient(form: any){
     return this.http.post(this.apiUrl+"/AddClient",form)
@@ -150,6 +159,17 @@ export class ApiService {
   
     updateProposaltoProject(form:any){
     return this.http.post<any>(`${this.apiUrl}/updateProposaltoProject`,form)
+   // return this.http.put(this.apiUrl+"/updateClient",form)
+  }
+
+      updateProject(form:any){
+    return this.http.post<any>(`${this.apiUrl}/updateProject`,form)
+   // return this.http.put(this.apiUrl+"/updateClient",form)
+  }
+
+  
+      updateProjectdetails(form:any){
+    return this.http.post<any>(`${this.apiUrl}/updateProjectdetails`,form)
    // return this.http.put(this.apiUrl+"/updateClient",form)
   }
   

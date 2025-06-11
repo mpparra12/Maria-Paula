@@ -16,6 +16,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectChange } from '@angular/material/select';
+import { FormControl } from '@angular/forms';
+import moment from 'moment';
 
 @Component({
   selector: 'app-add-proposal',
@@ -49,6 +51,7 @@ export class AddProposalComponent {
   NewProposalName!:any;
   LastProject!:any;
   LastName!:any;
+   dateControl = new FormControl();
   /**
    *
    */
@@ -73,7 +76,14 @@ export class AddProposalComponent {
 
 
   }
- 
+ getFormattedDateForSQL(): string | null {
+    const selectedDate = this.dateControl.value;
+    if (selectedDate) {
+      // Format date to 'YYYY-MM-DD' for SQL Server
+      return moment(selectedDate).format('YYYY-MM-DD');
+    }
+    return null;
+  }
   getLastProposalNum()
   {
     this.apiServices.getLastProposalNum('U').subscribe((resp)=>{
@@ -182,7 +192,11 @@ export class AddProposalComponent {
     
     }
    
-
+  AddClient():void{
+   
+    this._route.navigate(['/AddClient']);
+ 
+  }
 
   onSubmit() {
     //debugger;
@@ -192,15 +206,15 @@ export class AddProposalComponent {
         ClientName:[this.ClientSelect],
         Category:[ this.form.get('Category')!.value],
         ProjectDescription:[this.form.get('ProjectDescription')!.value],
-        ContractValue:[parseInt(this.form.get('ContractValue')!.value)],
+        ContractValue:[(this.form.get('ContractValue')!.value)],
         Estimated_h:[parseInt(this.form.get('EstimatedHours')!.value)],
         Year:[this.yearNow],
         Proposal:[this.NewProposal],
         NoProposal:[this.form.get('NoProposal')!.value],
         Country:[this.form.get('Country')!.value],
-        ProposalRequestDate:[this.form.get('ProposalRequestDate')!.value],
+        ProposalRequestDate:[this.getFormattedDateForSQL()],
         IDClient: [this.IDCliSelect],
-        ProposalSubmitted:[this.form.get('ProposalSubmitted')!.value],
+        ProposalSubmitted:[this.getFormattedDateForSQL()],
         Scope:[this.form.get('Scope')!.value],
         StatusProp:['Submitted']
      })
