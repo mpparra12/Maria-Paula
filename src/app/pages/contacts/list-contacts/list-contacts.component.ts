@@ -3,14 +3,14 @@ import { FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { ApiService } from '../../../services/api.service';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
 import { Router, Route } from '@angular/router';
-import { CustomLink } from './model/custom-link';
+import { CustomLink } from '../../client/list-clients/model/custom-link';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatSort,Sort} from '@angular/material/sort';
-import { client } from './model/clients';
+import { proposals } from '../../client/list-clients/model/proposals';
 import {TooltipPosition} from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -25,65 +25,51 @@ import { PLATFORM_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common'
 import { CommonModule } from '@angular/common';
 import { MenuComponent } from '../../../components/menu/menu/menu.component';
-
-
+import { contacts } from '../../client/list-clients/model/contacts'
 
 
 @Component({
-  selector: 'app-list-clients',
+  selector: 'app-list-contacts',
   standalone: true,
-
-  imports: [
-     MatTableModule, 
-    MatPaginatorModule, 
-    MatSortModule, 
-    MatCardModule,CommonModule,
-    MatIconModule, MatFormFieldModule,ReactiveFormsModule,
-    MatTableExporterModule, MenuComponent,
-    MatTooltipModule, MatButtonModule,  MatInputModule,  MatCheckboxModule
-  ],
-  providers: [ApiService],
-  templateUrl: './list-clients.component.html',
-  styleUrl: './list-clients.component.css'
+  imports: [ MatTableModule, 
+      MatPaginatorModule, 
+      MatSortModule, 
+      MatCardModule,CommonModule,
+      MatIconModule, MatFormFieldModule,ReactiveFormsModule,
+      MatTableExporterModule, MenuComponent,
+      MatTooltipModule, MatButtonModule,  MatInputModule,  MatCheckboxModule],
+  templateUrl: './list-contacts.component.html',
+  styleUrl: './list-contacts.component.css'
 })
-export class ListClientsComponent implements OnInit{
-  positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
+export class ListContactsComponent {positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
  
   myForm: FormGroup | any;
   position = new FormControl(this.positionOptions[0]);
  
-  formData: any = {}; // Objeto para almacenar los datos del formulario , 'residence_id',
+  formData: any = {}; 
  // displayedColumnsS: string[] = [ 'ClientID','Name', 'Address','City','State','ZipCode','Logo','Active','Country' ,'Period_of_Invoice','Invoice_Date','ProcedureDetails','Actions'];
- displayedColumns: string[] = [
-
-  'Name', 
-  'Address', 
-  'City', 
-  'State', 
-  'ZipCode', 
-  'Logo', 
-  'Active', 
-  'Country', 
-  'Period_of_Invoice', 
-  'Invoice_Date', 
-  'ProcedureDetails',
-  'Actions'
+displayedColumns: string[] = [
+  'ContactID',
+  'ClientID',
+  'Name',
+  'Email',
+  'Phone',
+  'Position',
+  'Invoice',
+  'Proposal'
 ];
 
-EmpData : client[]=[ 
+EmpData : contacts[]=[ 
   {
+    ContactID: 24,
     ClientID: 24,
     Name: "TENSAR",
-    Address: "xx",
-    City: "xx",
-    State: "xx",
-    ZipCode: "xx",
-    Logo: "tensar.png",
-    Active: 0,
-    Country: "xx",
-    Period_of_Invoice: "xx",
-    Invoice_Date: "xx",
-    ProcedureDetails: "xx"
+    Email: "xx",
+    Phone: "xx",
+    Position: "xx",
+    Invoice: "tensar.png",
+    Proposal: "xx",
+    
   }
 ];
 
@@ -94,7 +80,7 @@ EmpData : client[]=[
    
 
   owner: any;
-  dataSource = new MatTableDataSource<client>(this.EmpData);
+  dataSource = new MatTableDataSource<contacts>(this.EmpData);
   //dataSource: any;
   dataSourceV: any;
   dataSourceG: any;
@@ -158,7 +144,7 @@ constructor(
    // this.dataSource1 = new MatTableDataSource();
     this.dataSource = new MatTableDataSource();
  
-    this.getClients();
+    this.getAllContacts();
  
    
   }
@@ -168,41 +154,68 @@ constructor(
      }
  
   openmap(data:any):void{
-  //  window.open(data);
-  var frg = data.split("(");
+   // 
+   console.log('dato',data)
+   window.open(data.File);
+ /*  var frg = data.split("(");
   var result = frg[0];
   console.log(result)
-  let datasin=  result.replaceAll(" ","+");
-   window.open("https://www.google.com/maps/place/"+ datasin + ",+Katy,+TX+77494/");
+ let datasin=  result.replaceAll(" ","+");
+   window.open("https://www.google.com/maps/place/"+ datasin + ",+Katy,+TX+77494/");*/
    
     //location.href = "{data}";
  }
  
- getClients()
+  getAllProposalsByYear(data:any):void
   {
     console.log("Estoy aqui");
-    //if (isPlatformBrowser(this.platformId)) { 
-      //const user = localStorage.getItem('user');
-      
-      /*if (user) {
-        const parsedUser = JSON.parse(user);
-        console.log("User Data:", parsedUser);
-      }*/
   
-      this.apiServices.getClientsAll().subscribe(
+      this.apiServices.getAllNoProposal(data).subscribe(
        
         (resp) => {
           debugger;
-          console.log("Clients:", resp);
-          this.dataSource.data = resp;
+          console.log("Proposal:", resp);
+          
+           resp.forEach((element:any) => {
+        if (element.File==null)
+        element.Design=true;
+      else
+        element.Design=false;
+      });
+      this.dataSource.data = resp;
+          
         },
         (error) => {
-          console.error("Error fetching clients:", error);
+          console.error("Error fetching proposals:", error);
         }
       );
-    //} else {
-     // console.warn("localStorage is not available in this environment.");
-    //}
+
+  }
+
+ getAllProposals()
+  {
+    console.log("Estoy aqui");
+  
+      this.apiServices.getAllProposals().subscribe(
+       
+        (resp) => {
+          debugger;
+          console.log("Proposal:", resp);
+          
+           resp.forEach((element:any) => {
+        if (element.File==null)
+        element.Design=true;
+      else
+        element.Design=false;
+      });
+      this.dataSource.data = resp;
+          
+        },
+        (error) => {
+          console.error("Error fetching proposals:", error);
+        }
+      );
+
   }
  
   onSubmit() {
@@ -232,6 +245,12 @@ constructor(
  
   }
 
+  AddProposal():void{
+   
+    this._route.navigate(['/AddProposal']);
+  
+  }
+
   ListProposal():void{
    
     this._route.navigate(['/ListProposal']);
@@ -243,7 +262,7 @@ constructor(
 
   edit(data:any):void{
    
-    this._route.navigate(['/EditClient'],{state:{ client:{data}}});
+    this._route.navigate(['/EditProposal'],{state:{ client:{data}}});
  
   }
  
@@ -273,23 +292,6 @@ constructor(
  
   }
  
-  delete(client: any) {
-    console.log("Client para borrar",client);
-    if(confirm("Are you sure to delete the Client?")) {
-      this.apiServices.deleteClient(client).subscribe((resp:any)=>{
-        if (resp.success) {
-          //this.ngOnInit();
-
-         // alert(resp.response);
-          //this.ngOnInit();
-          this.refresh()
-        }
-        
-      });
-      
-    }
-  }
-
   add():void{
    
      this._route.navigate(['/add-resident']);
@@ -321,16 +323,34 @@ constructor(
  
   }
  
-  refresh(){
-    this._route.navigate(['/ListClient']);
-  }
-
   openDialog(): void {
     //const dialogRef = this.dialog.cr
   }
 
-  goToContacts() {
-  this._route.navigate(['/ListContacts']);
+  getAllContacts()
+  {
+    console.log("Estoy aqui");
+  
+      this.apiServices.getAllContacts().subscribe(
+       
+        (resp) => {
+          debugger;
+          console.log("Contacts:", resp);
+          
+           resp.forEach((element:any) => {
+        if (element.File==null)
+        element.Design=true;
+      else
+        element.Design=false;
+      });
+      this.dataSource.data = resp;
+          
+        },
+        (error) => {
+          console.error("Error fetching contacts:", error);
+        }
+      );
+
   }
  
 }

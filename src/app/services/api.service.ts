@@ -201,6 +201,10 @@ addProjectdetails(form: any){
     return this.http.post(this.apiUrl+"/addProposal",form)
   }
 
+  getAllContacts() {
+  return this.http.get<any>(`${this.apiUrl}/getAllContacts`);
+}
+
  /* login(form: LoginI){
     return this.http.post(this.apiUrl+"/login",form)
   }*/
