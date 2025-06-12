@@ -56,7 +56,8 @@ displayedColumns: string[] = [
   'Phone',
   'Position',
   'Invoice',
-  'Proposal'
+  'Proposal',
+  'Actions'
 ];
 
 EmpData : contacts[]=[ 
@@ -352,5 +353,39 @@ constructor(
       );
 
   }
+
+   AddContact():void{
+   
+    this._route.navigate(['/AddContact']);
+ 
+  }
+
+   edit_contact(data:any):void{
+   
+    this._route.navigate(['/EditContacts'],{state:{ client:{data}}});
+ 
+  }
+
+  delete(contacts: any) {
+    console.log("Contacto para borrar",contacts);
+    if(confirm("Are you sure to delete this contact?")) {
+      this.apiServices.deleteContact(contacts).subscribe((resp:any)=>{
+        if (resp.success) {
+          //this.ngOnInit();
+
+         // alert(resp.response);
+          //this.ngOnInit();
+          this.refresh()
+        }
+        
+      });
+      
+    }
+  }
+
+  refresh(){
+    this._route.navigate(['/ListContact']);
+  }
+
  
 }

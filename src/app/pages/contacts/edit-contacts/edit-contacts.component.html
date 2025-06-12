@@ -1,1 +1,89 @@
-<p>edit-contacts works!</p>
+<app-menu headerName="Edit Contact"></app-menu>
+<div class="ht-ctc ht-ctc-chat ctc-analytics ctc_wp_desktop style-2 ht_ctc_animation no-animations" id="ht-ctc-chat"
+style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 99999999;">
+
+</div>
+
+  <div >
+<mat-card class="mat-elevation-z0 outline" >
+  <mat-card-content>
+    <form class="example-form" [formGroup]="myForm" (ngSubmit)="onSubmit()" >
+       
+        <div class="mat-form-field-container">
+                    
+           <mat-form-field [style.width.%]="50" appearance="fill" class="mat-form-field-half-width">
+            <mat-label>Client Name*</mat-label><br>   
+                    <input  matInput type="text" formControlName="Name" placeholder="Name">
+                   
+            </mat-form-field>
+
+            <mat-form-field [style.width.%]="30" appearance="fill" style="padding-left: 1%;">
+              <mat-label>Contact Name</mat-label><br>
+                <input matInput type="text" formControlName="Logo" placeholder="Logo">
+            </mat-form-field>
+
+            
+    </div>
+       
+        <div class="mat-form-field-container">
+          
+            
+          <mat-form-field [style.width.%]="30" appearance="fill" >
+            <mat-label>Email</mat-label><br>
+              <input matInput type="text" formControlName="Address" placeholder="Address">
+          </mat-form-field>
+          <mat-form-field class="example-full-width" style="padding-left: 1%;">
+            <mat-label>Phone</mat-label>
+            <input matInput formControlName="City" placeholder="Ex. Houston">
+       
+          </mat-form-field>
+          
+
+          <mat-form-field class="example-full-width" style="padding-left: 1%;">
+            <mat-label>Position</mat-label>
+            <input matInput #postalCode maxlength="5" formControlName="ZipCode" placeholder="Ex. 94105" value="94043">
+            <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+          
+          </mat-form-field>
+          <mat-form-field class="example-full-width" style="padding-left: 1%;">
+            <mat-label>Invoice</mat-label>
+            <input matInput #postalCode  formControlName="Country" placeholder="Ex. 94105" value="94043">
+          
+           
+          </mat-form-field>           
+       
+
+        </div>
+          <div class="mat-form-field-container">
+            
+                      
+
+                
+        </div>
+
+   
+
+       
+
+    <!-- <mat-radio-group formControlName="selectedOption2" color="primary" labelPosition="after">
+            <mat-radio-button value="Yes" class="my-radio-button">Yes</mat-radio-button>
+            <mat-radio-button value="No" class="my-radio-button">No</mat-radio-button>
+          </mat-radio-group>-->
+         
+          <br>                      
+
+          
+          <section>
+              <div class="example-button-row">
+                  <button mat-raised-button color="primary" type="submit" >Save</button><span></span>
+                  <button mat-raised-button color="" aria-label="back" (click)="back()"  style="padding-left: 2%;">
+                      Back
+                  </button>
+              </div>
+          </section>
+          <!-- Botón de enviar -->
+          
+        </form>
+  </mat-card-content>
+</mat-card>
+</div>
