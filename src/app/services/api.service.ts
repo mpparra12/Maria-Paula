@@ -201,6 +201,24 @@ addProjectdetails(form: any){
     return this.http.post(this.apiUrl+"/addProposal",form)
   }
 
+  getAllContacts() {
+  return this.http.get<any>(`${this.apiUrl}/getAllContacts`);
+}
+
+deleteContact(client_id: any) {
+    return this.http.post<any>(`${this.apiUrl}/deleteContact`,client_id)
+  }
+
+   addContact(form: any){
+    return this.http.post(this.apiUrl+"/addContact",form)
+  }
+
+      updateContact(form:any){
+    return this.http.post<any>(`${this.apiUrl}/updateContact`,form)
+   // return this.http.put(this.apiUrl+"/updateClient",form)
+  }
+
+
  /* login(form: LoginI){
     return this.http.post(this.apiUrl+"/login",form)
   }*/

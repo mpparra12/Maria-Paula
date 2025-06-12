@@ -15,6 +15,9 @@ import { EditProjectComponent } from './pages/project/edit-project/edit-project.
 import { AddProposalComponent } from './pages/proposal/add-proposal/add-proposal.component';
 import { EditProposalComponent } from './pages/proposal/edit-proposal/edit-proposal.component';
 import { ListbyDetailComponent } from './pages/project/listby-detail/listby-detail.component';
+import { ListContactsComponent } from './pages/contacts/list-contacts/list-contacts.component';
+import { AddContactsComponent } from './pages/contacts/add-contacts/add-contacts.component';
+import { EditContactsComponent } from './pages/contacts/edit-contacts/edit-contacts.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/ListClient', pathMatch: 'full' }, 
@@ -32,7 +35,12 @@ export const routes: Routes = [
     { path: 'AddProjects', component: AddProjectComponent },
     { path: 'AddProposal', component: AddProposalComponent },
     { path: 'EditProposal', component: EditProposalComponent },    
-    { path: 'ListbyDetail', component: ListbyDetailComponent }
+    { path: 'ListbyDetail', component: ListbyDetailComponent }, 
+    { path: 'ListContacts', component: ListContactsComponent},
+    { path: 'AddContacts', component: AddContactsComponent},
+    { path: 'EditContacts', component: EditContactsComponent}
+
+
 ];
 
 @NgModule({
