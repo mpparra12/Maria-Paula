@@ -34,14 +34,14 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
                 
             </mat-form-field>&nbsp;
              <button style="padding-left: 1%;" (click)="AddClient()" mat-raised-button color="primary">New Client</button>  &nbsp; 
-        <mat-form-field [style.width.%]="20" appearance="fill" color="warn"  style="padding-left: 1%;">
+        <mat-form-field [style.width.%]="15" appearance="fill" color="warn"  style="padding-left: 1%;">
           <mat-label>Proposal No.</mat-label>
           <b><h1 style="background-color:rgb(150, 196, 218);">
             <input  [readonly]="true" matInput type="text" formControlName="NoProposal" placeholder="No. Proposal">
             <mat-error *ngIf="form.get('NoProposal')?.hasError('required')">This field is required</mat-error>
            </h1> </b>
         </mat-form-field>
-        <mat-form-field  [style.width.%]="20"  appearance="fill" class="mat-form-field-half-width" style="padding-left: 1%;" >
+        <mat-form-field  [style.width.%]="15"  appearance="fill" class="mat-form-field-half-width" style="padding-left: 1%;" >
                         <mat-label>Proposal Request Date</mat-label>
                        <input [formControl]="dateControl" matInput [matDatepicker]="picker" >
                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -49,7 +49,7 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
         </mat-form-field>
                         
                     
-        <mat-form-field  [style.width.%]="20"  appearance="fill" class="mat-form-field-half-width" style="padding-left: 1%;" >
+        <mat-form-field  [style.width.%]="15"  appearance="fill" class="mat-form-field-half-width" style="padding-left: 1%;" >
                         <mat-label>Proposal Submitted</mat-label>
                        <input formArrayName="ProposalSubmitted" matInput [matDatepicker]="picker1" >
                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
@@ -72,7 +72,7 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
               
                     <mat-form-field [style.width.%]="80" appearance="fill">
                         <mat-label>Reference Title</mat-label>
-                        <input matInput type="text" formControlName= "ProjectDescription" placeholder="Please introduce the Project Name">
+                        <input matInput type="text" formControlName= "ProjectDescription" placeholder="Please introduce the Reference Title">
                     </mat-form-field>
                  
           </div>
@@ -81,7 +81,7 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
 
             <mat-form-field [style.width.%]="100" appearance="fill" >
               <mat-label>Scope of Service</mat-label>
-              <textarea  matInput type="text" maxlength="800" formControlName="Scope" placeholder="General Description of Project"></textarea>
+              <textarea  matInput type="text" maxlength="800" formControlName="Scope" placeholder="Scope of Service"></textarea>
              </mat-form-field>            
           </div>
  
@@ -89,8 +89,8 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
               
                           
                     <mat-form-field [style.width.%]="24" appearance="fill">
-                        <mat-label>Contract Value</mat-label>
-                        <input matInput type="text" formControlName="ContractValue" placeholder="Contract Value">
+                        <mat-label>Service Compensation</mat-label>
+                        <input matInput type="text" formControlName="ContractValue" placeholder="Service Compensation">
                         
                     </mat-form-field>
                  
