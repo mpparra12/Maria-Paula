@@ -9,7 +9,7 @@ export class ApiService {
  
   private apiUrlWP = 'https://avalonsevenmeadows.org/wp-json/wp/v2/pages';
    apiUrl="http://gonzalad2016-001-site8.ntempurl.com/index.php/api/decon";
-   //apiUrl="http://decon_api.test";
+   //apiUrl="http://decon.test/api/decon";
 
   constructor(private http: HttpClient) { }
  
@@ -145,9 +145,9 @@ addProjectdetails(form: any){
     return this.http.post(this.apiUrl+"/addProjectdetails",form)
   }
 
-  addClient(form: any){
-    return this.http.post(this.apiUrl+"/AddClient",form)
-  }
+  addClient(formData: FormData) {
+  return this.http.post(this.apiUrl + "/AddClient", formData);
+}
   updateClient(client_id:any){
     return this.http.post<any>(`${this.apiUrl}/updateClient`,client_id)
    // return this.http.put(this.apiUrl+"/updateClient",form)
