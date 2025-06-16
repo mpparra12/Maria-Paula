@@ -89,18 +89,20 @@ export class EditProjectComponent implements OnInit {
         console.log("project edit",data);
         //this.IdProjectEd=data.data.Market;
         this.ProjectEdit=data.data;
+        this.buildForm();
          console.log("ClientName",this.ProjectEdit.ClientName);
-        if (data.ProjectNameDe)
+        if (data.IDD!=null)
           {this.ExistDetails=true}
        // this.residenceId=data.owner.residence_id;
  
         }
        // this.getbyYear();
        // this.getLastProposalNum();
-        this.buildForm();
+        
     }
  
   ngOnInit(): void {
+    
     this.getClient();
     
     this.getManager();
@@ -486,14 +488,15 @@ export class EditProjectComponent implements OnInit {
         EngineeringService:[this.form.get('EngineeringService')!.value],
         FPRequestedDate:[this.form.get('FPRequestedDate')!.value],
         FPSenttoClien:[this.form.get('FPSenttoClien')!.value],
-        NTPDate:[this.getFormattedDateForSQL()],        
+             
         ProjectFee:[this.form.get('ProjectFee')!.value],
         ID:[this.form.get('ID')!.value],    
         Category:['Contrated'],  
         Project:[this.NewProject],  
         SubProject:[this.NewTask],  
-        Status:['Under Production'],        
-        DueDate:[this.getFormattedDateForSQL()]
+        Status:['Under Production'], 
+        NTPDate:[this.form.get('NTPDate')!.value],          
+        DueDate:[this.form.get('DueDate')!.value]
         
    
      })
@@ -682,10 +685,11 @@ radioButtonChange(data: MatRadioChange) {
   buildForm(){
     this.form = this.fb.group({
      
-      Client: [this.ProjectEdit.ClientName],
-      selectedClient: [this.ProjectEdit.ClientName], 
+      
+      selectedClient: [], 
       selectedEmployee: [''],
       AgreementNo: [this.ProjectEdit.Agreement],
+      Client: [this.ProjectEdit.ClientName],
       ClientProject: [this.ProjectEdit.ClientProject],
       GeneralDescription: [this.ProjectEdit.GeneralDescriptionProject],
       ClientProjectCost: [this.ProjectEdit.ProjectCost],
@@ -713,8 +717,8 @@ radioButtonChange(data: MatRadioChange) {
       MainServiceLine:[this.ProjectEdit.Discipline],
       ProjectDescription:[this.ProjectEdit.ProjectDescription],
       EngineeringService:[this.ProjectEdit.ServiceEng],
-      FPRequestedDate :[new Date(),Validators.required],
-      FPSenttoClien:[new Date()],
+      FPRequestedDate :[this.ProjectEdit.ProposalRequestDate],
+      FPSenttoClien:[this.ProjectEdit.ProposalSubmitted],
       NTPDate:[this.ProjectEdit.AwardDate],
       ProjectFee:[this.ProjectEdit.ContractValue],
       ID:[this.ProjectEdit.ID],
@@ -723,7 +727,7 @@ radioButtonChange(data: MatRadioChange) {
       Project:[''],
       SubProject:[''],
       Status:[this.ProjectEdit.Status],      
-      DueDate:[new Date()]
+      DueDate:[this.ProjectEdit.EstimatedDueDate],
     });
 
   
