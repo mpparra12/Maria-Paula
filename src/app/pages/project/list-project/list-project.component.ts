@@ -27,7 +27,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MenuComponent } from '../../../components/menu/menu/menu.component';
 import { MatSelectModule } from '@angular/material/select';
-
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-list-project',
@@ -40,6 +40,13 @@ import { MatSelectModule } from '@angular/material/select';
     MatTableExporterModule, MenuComponent,
     MatTooltipModule, MatButtonModule,  MatInputModule,  MatCheckboxModule],
   templateUrl: './list-project.component.html',
+    animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
   styleUrl: './list-project.component.css'
 })
 export class ListProjectComponent implements OnInit{
@@ -47,7 +54,19 @@ export class ListProjectComponent implements OnInit{
  
   myForm: FormGroup | any;
   position = new FormControl(this.positionOptions[0]);
- 
+  columnsToDisplay: string[] = [
+  'Status', 
+  'ProjectName', 
+  'ClientName', 
+  'ProjectDescription', 
+  'PM',
+  'ProjectType',
+  'ContractValue',
+  'NoProposal',
+  'AwardDate',
+  'Actions'
+];
+expandedElement!: project | null;
   formData: any = {}; // Objeto para almacenar los datos del formulario , 'residence_id',
  // displayedColumnsS: string[] = [ 'ClientID','Name', 'Address','City','State','ZipCode','Logo','Active','Country' ,'Period_of_Invoice','Invoice_Date','ProcedureDetails','Actions'];
  displayedColumns: string[] = [
