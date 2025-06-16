@@ -177,42 +177,45 @@ export class AddClientComponent implements OnInit {
   }
 
 
-  onSubmit() {
-    //debugger;
-    console.log('Estoy en Submit:');
-      this.Form = this.fb.group({
-        file:[this.selectedFile],
-        Name:[this.form.get('Name')!.value],
-        Address:[ this.form.get('Address')!.value],
-        City:[this.form.get('City')!.value],
-        State:[this.form.get('State')!.value],
-        ZipCode:[this.form.get('ZipCode')!.value],
-        Logo:[this.form.get('Logo')!.value],
-        Active:[this.form.get('Active')!.value],
-        Country:[this.form.get('Country')!.value],
-        Period_of_Invoice:[this.form.get('Period_of_Invoice')!.value],
-        Invoice_Date:[this.form.get('Invoice_Date')!.value],
-        IdClient: null,
-        Documents_and_other_requirements:null,
-        Procedure:[this.form.get('Procedure')!.value]
-     })
- 
-     console.log('Pase el formulario',this.Form);
-   
-      this.apiServices.addClient(this.Form.value).subscribe((resp:any)=>{
-        console.log('Formulario enviado a nuevo cliente:', resp);
-        if (resp.success) {
-            alert(resp.response);
-            }
-        else{
-              alert(resp.error);
-            }
-           
-          });
-          //this.myForm.reset();
-         // alert(resp.response);
-         this.back();
-        }
+ onSubmit() {
+  const formData = new FormData();
+
+  if (this.selectedFile) {
+    formData.append('file', this.selectedFile);
+  } else {
+    alert('Por favor selecciona un archivo antes de enviar.');
+    return;
+  }
+
+  formData.append('Name', this.form.get('Name')!.value);
+  formData.append('Address', this.form.get('Address')!.value);
+  formData.append('City', this.form.get('City')!.value);
+  formData.append('State', this.form.get('State')!.value);
+  formData.append('ZipCode', this.form.get('ZipCode')!.value);
+  formData.append('Logo', this.form.get('Logo')!.value);
+  formData.append('Active', this.form.get('Active')!.value);
+  formData.append('Country', this.form.get('Country')!.value);
+  formData.append('Period_of_Invoice', this.form.get('Period_of_Invoice')!.value);
+  formData.append('Invoice_Date', this.form.get('Invoice_Date')!.value);
+  formData.append('Documents_and_other_requirements', '');
+  formData.append('Procedure', this.form.get('Procedure')!.value);
+
+  this.apiServices.addClient(formData).subscribe(
+    (resp: any) => {
+      console.log('Respuesta del servidor:', resp);
+      if (resp.success) {
+        alert(resp.response);
+      } else {
+        alert(resp.error);
+      }
+    },
+    (error) => {
+      console.error('Error al enviar formulario:', error);
+    }
+  );
+}
+
+
      
  
      
