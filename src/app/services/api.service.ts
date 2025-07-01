@@ -209,8 +209,8 @@ deleteContact(client_id: any) {
     return this.http.get<any>(`${this.apiUrl}/deleteContact,client_id`)
   }
 
-   addContact(form: any){
-    return this.http.post(this.apiUrl+"/addContact",form)
+   AddContacts(form: any){
+    return this.http.post(this.apiUrl+"/AddContacts",form)
   }
 
       updateContact(form:any){

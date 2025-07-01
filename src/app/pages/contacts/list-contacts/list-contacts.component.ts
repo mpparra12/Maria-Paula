@@ -354,9 +354,9 @@ constructor(
 
   }
 
-   AddContact():void{
+   AddContacts():void{
    
-    this._route.navigate(['/AddContact']);
+    this._route.navigate(['/AddContacts']);
  
   }
 
