@@ -51,6 +51,9 @@ export class AddProposalComponent {
   NewProposalName!:any;
   LastProject!:any;
   LastName!:any;
+  rdate!:any;
+  Ehour!:any;
+  
    dateControl = new FormControl();
   /**
    *
@@ -191,14 +194,63 @@ export class AddProposalComponent {
 
     
     }
-   
+
+
   AddClient():void{
    
     this._route.navigate(['/AddClient']);
  
   }
 
-  onSubmit() {
+
+
+ onSubmit() {
+  this.Ehour= parseInt(this.form.get('EstimatedHours')!.value);
+  const formData = new FormData();
+  this.rdate=this.getFormattedDateForSQL();
+ 
+ 
+  if (this.selectedFile) {
+    formData.append('file', this.selectedFile);
+  } else {
+    alert('Por favor selecciona un archivo antes de enviar.');
+    return;
+  }
+
+  formData.append('ClientName', this.ClientSelect);
+  formData.append('Category', this.form.get('Category')!.value);
+  formData.append('ProjectDescription', this.form.get('ProjectDescription')!.value);
+  formData.append('ContractValue', this.form.get('ContractValue')!.value);
+  formData.append('Estimated_h', this.Ehour);
+  formData.append('Year', this.yearNow);
+  formData.append('Proposal', this.NewProposal);
+  formData.append('NoProposal', this.form.get('NoProposal')!.value);
+  formData.append('Country', this.form.get('Country')!.value);
+  formData.append('ProposalRequestDate', this.rdate);
+  formData.append('IDClient', this.IDCliSelect);
+  formData.append('Scope', this.form.get('Scope')!.value);  
+  formData.append('StatusProp', 'Submitted');
+  formData.append('ProposalSubmitted', this.rdate);
+
+  this.apiServices.addProposal(formData).subscribe(
+    (resp: any) => {
+      console.log('Respuesta del servidor:', resp);
+      if (resp) {
+        alert(resp.response);
+         this.udpdateLastProposal();
+      } else {
+        alert(resp.error);
+      }
+    },
+    (error) => {
+      console.error('Error al enviar formulario:', error);
+    }
+  );
+  this.back();
+}
+
+
+  onSubmitviejo() {
     //debugger;
     console.log('Estoy en Submit form:',this.form);
     console.log('Estoy datem:',this.yearNow);

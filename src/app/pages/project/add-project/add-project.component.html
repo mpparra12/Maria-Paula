@@ -253,10 +253,18 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
                     <mat-form-field [style.width.%]="100" appearance="fill">
                       <mat-label>Project Description</mat-label><br>
 
-                        <textarea  matInput type="text" formControlName="ProjectScope" placeholder="Project Description"></textarea>
+                        <input  matInput type="text" formControlName="ProjectScope" placeholder="Project Description">
                     </mat-form-field>
                     
                   </div>
+              <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">             
+                    <mat-form-field [style.width.%]="100" appearance="fill">
+                      <mat-label>Project Scope</mat-label><br>
+
+                        <textarea  matInput type="text" formControlName="ProjectScope" placeholder="Project Description"></textarea>
+                    </mat-form-field>
+                    
+                  </div>                  
           </div>
 
           <div class="mat-form-field-container">
@@ -361,29 +369,26 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
                
         </div>
      
-           <mat-form-field  [style.width.%]="24"  appearance="fill" class="mat-form-field-half-width">
+                <mat-form-field  [style.width.%]="24"  appearance="fill" class="mat-form-field-half-width">
             <mat-label>FP Requested Date</mat-label>
-           <input formArrayName="FPRequestedDate" matInput [matDatepicker]="picker">
-           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-           <mat-datepicker #picker></mat-datepicker>
+           <input matInput formControlName="FPRequestedDate" type="text">
+           
          </mat-form-field>
 
          <mat-form-field   [style.width.%]="24" appearance="fill" class="mat-form-field-half-width" style="padding-left: 1%;">
             <mat-label>FP Sent to Client</mat-label>
-           <input formArrayName="FPSenttoClien" matInput [matDatepicker]="picker2">
-           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-   
-           <mat-datepicker #picker2></mat-datepicker>
-         </mat-form-field>
+           <input matInput formControlName="FPSenttoClien" type="text">
+        
+   </mat-form-field>
 
-///
+
                    <mat-form-field  [style.width.%]="24"  appearance="fill" class="mat-form-field-half-width" style="padding-left: 1%;" >
                         <mat-label>Proposal Request Date</mat-label>
                        <input [formControl]="dateControl" matInput [matDatepicker]="picker" >
                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                        <mat-datepicker #picker></mat-datepicker>
                      </mat-form-field>
-                     /////
+                     
 
            <mat-form-field [style.width.%]="24"  appearance="fill" class="mat-form-field-half-width" style="padding-left: 1%;">
             <mat-label>NTP Date</mat-label>

@@ -102,8 +102,10 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
                         <input matInput type="text" formControlName="EstimatedHours" placeholder="Estimated Bussiness Days">
                         
                     </mat-form-field>
-                 
-      
+                    <div>
+                    <label>Please upload FP File</label><br>
+                  <input type="file" (change)="onFileSelected($event)" />
+      </div>
 
          
             

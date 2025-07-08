@@ -155,7 +155,8 @@ style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 999
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
               
               </table>
- 
+ <mat-paginator #paginator [pageSizeOptions]="[10, 20, 30]" 
+showFirstLastButtons></mat-paginator>
             <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
               <!-- Campo de selección (input select) -->
               <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">

@@ -91,8 +91,14 @@ export class EditProjectComponent implements OnInit {
         this.ProjectEdit=data.data;
         this.buildForm();
          console.log("ClientName",this.ProjectEdit.ClientName);
-        if (data.IDD!=null)
-          {this.ExistDetails=true}
+        if (data.IDD===null)
+          {this.ExistDetails=false;
+            console.log("existe",data.IDD);
+          }
+        else
+        {this.ExistDetails=true;
+          console.log("No existe",data.IDD);
+        }
        // this.residenceId=data.owner.residence_id;
  
         }
@@ -418,7 +424,7 @@ export class EditProjectComponent implements OnInit {
      })
  
      console.log('Pase el formulario',this.Form);
-   if (this.ExistDetails)
+   if (this.ExistDetails===true)
    {
     this.apiServices.updateProjectdetails(this.Form.value).subscribe((resp:any)=>{
         console.log('Formulario enviado a update cliente:', resp);

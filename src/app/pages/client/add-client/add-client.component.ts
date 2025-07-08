@@ -144,7 +144,7 @@ export class AddClientComponent implements OnInit {
     formData.append('City',this.form.get('City')!.value);
     formData.append('State',this.form.get('State')!.value);
     formData.append('ZipCode',this.form.get('ZipCode')!.value);
-    formData.append('Logo',this.form.get('Logo')!.value);
+    formData.append('LogoPath',this.form.get('LogoPath')!.value);
     formData.append('Active',this.form.get('Active')!.value);
     formData.append('Country',this.form.get('Country')!.value);
     formData.append('Period_of_Invoice',this.form.get('Period_of_Invoice')!.value);
@@ -192,7 +192,7 @@ export class AddClientComponent implements OnInit {
   formData.append('City', this.form.get('City')!.value);
   formData.append('State', this.form.get('State')!.value);
   formData.append('ZipCode', this.form.get('ZipCode')!.value);
-  formData.append('Logo', this.form.get('Logo')!.value);
+  formData.append('LogoPath', this.form.get('LogoPath')!.value);
   formData.append('Active', this.form.get('Active')!.value);
   formData.append('Country', this.form.get('Country')!.value);
   formData.append('Period_of_Invoice', this.form.get('Period_of_Invoice')!.value);
@@ -213,6 +213,7 @@ export class AddClientComponent implements OnInit {
       console.error('Error al enviar formulario:', error);
     }
   );
+  this.back();
 }
 
 
@@ -241,7 +242,7 @@ export class AddClientComponent implements OnInit {
       City: ['', Validators.required],
       State: ['', Validators.required],
       ZipCode: ['', Validators.required],
-      Logo: [''],
+      LogoPath: [''],
       Active:[1],
       Country:['',Validators.required],
       Period_of_Invoice:[''],

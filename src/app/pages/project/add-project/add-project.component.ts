@@ -400,6 +400,7 @@ export class AddProjectComponent implements OnInit {
         FPSenttoClien:[this.form.get('FPSenttoClien')!.value],
         NTPDate:[this.getFormattedDateForSQL()],        
         ProjectFee:[this.form.get('ProjectFee')!.value],
+        ProjectDescription:[this.form.get('ProjectDescription')!.value],
         ID:[this.IDselected],    
         Category:['Contrated'],  
         Project:[this.NewProject],  
@@ -479,13 +480,15 @@ radioButtonChange(data: MatRadioChange) {
        this.form.patchValue({
        // this.form = this.fb.group({
           
-         ProjectName:[1900.00],
-          ProjectScope:[resp.ProjectDescription.value],
+        // ProjectName:[1900.00],
+          ProjectScope:[resp.Scope],
+          ProjectDescription:[resp.ProjectDescription],
          // defaultDate: this.fechaSend,
        //   ProposalRequestDate :[this.defaultDate],
           //[resp.ProposalRequestDate,Validators.required], 5/7/2025, 2025-01-13
+          
           ProposalSubmitted:[new Date(parseInt(this.fechaDividida[0]),parseInt(this.fechaDividida[2]),parseInt(this.fechaDividida[1]))],
-          ProjectFee:[resp.ContractValue.value]
+          ProjectFee:[resp.ContractValue]
         })
       // if (resp.success) {
         // this.addresSel=resp.Address;
@@ -527,6 +530,8 @@ radioButtonChange(data: MatRadioChange) {
       ListProjects:[''],
       FP:[''],
       ProjectName:[this.NewProjectName],
+      ProjectDescription:[''],
+
       ProjectScope:[''],
       DepartmentManager:[''],
       ProjectManager: [''],
@@ -535,8 +540,8 @@ radioButtonChange(data: MatRadioChange) {
       Market:[''],
       MainServiceLine:[''],
       EngineeringService:[''],
-      FPRequestedDate :[new Date(),Validators.required],
-      FPSenttoClien:[new Date()],
+   FPRequestedDate :[],
+      FPSenttoClien:[],   
       NTPDate:[new Date()],
       ProjectFee:[],
       ID:[],

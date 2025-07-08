@@ -25,6 +25,7 @@ import { PLATFORM_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common'
 import { CommonModule } from '@angular/common';
 import { MenuComponent } from '../../../components/menu/menu/menu.component';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-list-proposal',
@@ -32,13 +33,14 @@ import { MenuComponent } from '../../../components/menu/menu/menu.component';
   imports: [MatTableModule, 
     MatPaginatorModule, 
     MatSortModule, 
-    MatCardModule,CommonModule,
+    MatCardModule,CommonModule, MatPaginator,
     MatIconModule, MatFormFieldModule,ReactiveFormsModule,
     MatTableExporterModule, MenuComponent,
     MatTooltipModule, MatButtonModule,  MatInputModule,  MatCheckboxModule],
   templateUrl: './list-proposal.component.html',
   styleUrl: './list-proposal.component.css'
 })
+
 export class ListProposalComponent { 
   positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
  
@@ -120,7 +122,8 @@ EmpData : [proposals]=[
 ];
  
 @ViewChild('empTbSort') empTbSort = new MatSort();
- 
+@ViewChild(MatPaginator) paginator = {} as MatPaginator;
+
 constructor(
   private fb: FormBuilder,
   private apiServices: ApiService,
@@ -146,6 +149,7 @@ constructor(
    
    this.empTbSort.disableClear = true;
    this.dataSource.sort = this.empTbSort;
+   this.dataSource.paginator = this.paginator;
   // this.dataSource2.sort = this.empTbSort;
  
    }
@@ -175,6 +179,7 @@ constructor(
    
     //location.href = "{data}";
  }
+ 
  
   getAllProposalsByYear(data:any):void
   {
