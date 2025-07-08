@@ -1,1 +1,133 @@
-<p>add-contacts works!</p>
+<app-menu headerName="New Contact"></app-menu>
+
+<div class="ht-ctc ht-ctc-chat ctc-analytics ctc_wp_desktop style-2 ht_ctc_animation no-animations" id="ht-ctc-chat"
+style="position: fixed; bottom: 15px; right: 15px; cursor: pointer; z-index: 99999999;">
+
+</div>
+
+  <div >
+  <!--<div  class="container example-card" with>
+ 
+       Pestaña 1 -->
+   
+        <mat-card class="mat-elevation-z0 outline" >
+  <mat-card-content>
+      <form class="example-form" [formGroup]="form" (ngSubmit)="onSubmit()" >
+         
+       
+        <div class="mat-form-field-container">
+                    
+          <mat-form-field [style.width.%]="25" appearance="fill" class="mat-form-field-half-width">
+           <mat-label>Client Name</mat-label><br>   
+                   <input  matInput type="text" formControlName="Name" placeholder="Name">
+           
+           </mat-form-field>
+                   <mat-form-field class="example-full-width" style="padding-left: 1%;">
+           <mat-label>Name</mat-label>
+           <input matInput type="text" formControlName="Name" placeholder="Name">
+           <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+         
+         </mat-form-field>
+                  
+           
+           
+
+       <!--  <mat-form-field [style.width.%]="30" appearance="fill" style="padding-left: 1%;">
+             <mat-label>Logo</mat-label><br>
+               <input matInput type="text" formControlName="Logo" placeholder="Logo">
+           </mat-form-field>
+-->  
+
+<!--<mat-card class="zone zone-picker">
+	<mat-form-field>
+		<ngx-mat-file-input [formControl]="fileControl" [multiple]="multiple" [accept]="accept" [color]="color">
+			 <mat-icon ngxMatFileInputIcon>folder</mat-icon> 
+		</ngx-mat-file-input>
+	</mat-form-field>
+</mat-card>
+              
+--> 
+            
+           
+   </div>
+      
+       <div class="mat-form-field-container">
+         
+           
+         <mat-form-field [style.width.%]="25" appearance="fill" >
+           <mat-label>Email</mat-label><br>
+             <input matInput type="text" formControlName="Address" placeholder="Address">
+         </mat-form-field>
+         <mat-form-field class="example-full-width" style="padding-left: 1%;">
+           <mat-label>Phone</mat-label>
+           <input matInput formControlName="City" placeholder="Ex. Houston">
+      
+         </mat-form-field>
+         
+
+         
+         <mat-form-field class="example-full-width" style="padding-left: 1%;">
+           <mat-label>Position</mat-label>
+           <input matInput #postalCode  formControlName="Country" placeholder="Ex. 94105" value="94043">
+         
+          
+         </mat-form-field>           
+      
+
+       </div>
+         <div class="mat-form-field-container">
+           
+                     
+
+               
+       </div>
+
+       <div class="mat-form-field-container">
+           
+                    
+                 <mat-form-field [style.width.%]="15"  appearance="fill" class="mat-form-field-half-width" >
+                   <mat-label>Invoice</mat-label>
+                  <input formArrayName="Invoice_Date" matInput [matDatepicker]="picker4">
+                  <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+           
+                  <mat-datepicker #picker4></mat-datepicker>
+                </mat-form-field>
+                
+                
+               
+       </div>
+
+      
+    
+          
+          <section>
+              <div class="example-button-row">
+                  <button mat-raised-button color="primary" type="submit" >Save</button><span></span>
+                  <button mat-raised-button color="" aria-label="back" (click)="back()"  style="padding-left: 1%;">
+                      Back
+                  </button>
+              </div>
+          </section>
+          <!-- Botón de enviar -->
+      
+        </form>
+  </mat-card-content>
+</mat-card>
+</div>
+<footer id="main-footer">
+ 
+ 
+ 
+  <div id="footer-bottom">
+    <div class="container clearfix">
+  <ul class="et-social-icons">
+ 
+  <li class="et-social-icon et-social-instagram">
+  <a href="#" class="icon">
+ 
+  </a>
+  </li>
+ 
+  </ul>         </div>
+  </div>
+  </footer>
