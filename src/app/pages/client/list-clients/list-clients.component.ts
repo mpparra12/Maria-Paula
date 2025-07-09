@@ -329,8 +329,11 @@ constructor(
     //const dialogRef = this.dialog.cr
   }
 
-  goToContacts() {
-  this._route.navigate(['/ListContacts']);
+  goToContacts(data:any):void{
+  this._route.navigate(['/ListContacts'],{state:{ ID:{data}}});
+   
+ 
+    
   }
  
 }

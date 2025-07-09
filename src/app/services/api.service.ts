@@ -201,8 +201,11 @@ addProjectdetails(form: any){
     return this.http.post(this.apiUrl+"/addProposal",form)
   }
 
-  getAllContacts() {
-  return this.http.get<any>(`${this.apiUrl}/getAllContacts`);
+
+
+  getAllContacts(ID: any) {
+  return this.http.get<any>(`${this.apiUrl}/getAllContacts?ID=${ID}`);
+
 }
 
 deleteContact(client_id: any) {

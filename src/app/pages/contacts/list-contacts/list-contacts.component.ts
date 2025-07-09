@@ -81,6 +81,7 @@ EmpData : contacts[]=[
    
 
   owner: any;
+  IDClient: any;
   dataSource = new MatTableDataSource<contacts>(this.EmpData);
   //dataSource: any;
   dataSourceV: any;
@@ -123,6 +124,9 @@ constructor(
   if (isPlatformBrowser(this.platformId)) { 
     this.renderer.setStyle(document.body, 'background', '');
   }
+        let data = this._route.getCurrentNavigation()?.extras.state!['ID'];
+            console.log("Data Client",data);
+            this.IDClient=data.ID;
 
   // ✅ Initialize the form properly inside the constructor
   this.myForm = this.fb.group({
@@ -331,10 +335,8 @@ constructor(
   getAllContacts()
   {
     console.log("Estoy aqui");
-  
-      this.apiServices.getAllContacts().subscribe(
-       
-        (resp) => {
+   
+      this.apiServices.getAllContacts(this.IDClient).subscribe((resp:any)=>{
           debugger;
           console.log("Contacts:", resp);
           
